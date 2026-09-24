@@ -1,0 +1,322 @@
+import React, { useState, useEffect } from 'react';
+import { Navbar } from './components/Navbar';
+import { Sidebar } from './components/Sidebar';
+import { DatabaseSchemaModal } from './components/DatabaseSchemaModal';
+import { AIAssistantModal } from './components/AIAssistantModal';
+
+// Community Views
+import { CommunityHomeView } from './components/views/CommunityHomeView';
+import { CommunityVillageView } from './components/views/CommunityVillageView';
+import { CommunityRiskView } from './components/views/CommunityRiskView';
+import { CommunityRelocationView } from './components/views/CommunityRelocationView';
+import { CommunityMapView } from './components/views/CommunityMapView';
+import { CommunityHelpView } from './components/views/CommunityHelpView';
+import { SafeSiteWorkspaceView } from './components/views/SafeSiteWorkspaceView';
+
+// Authority Views
+import { OverviewView } from './components/views/OverviewView';
+import { LiveGisMapView } from './components/views/LiveGisMapView';
+import { VulnerableHabitationsView } from './components/views/VulnerableHabitationsView';
+import { MultiHazardRiskView } from './components/views/MultiHazardRiskView';
+import { RedZoneView } from './components/views/RedZoneView';
+import { RelocationPrioritizationView } from './components/views/RelocationPrioritizationView';
+import { SafeSiteFinderView } from './components/views/SafeSiteFinderView';
+import { SiteSuitabilityView } from './components/views/SiteSuitabilityView';
+import { CarryingCapacityView } from './components/views/CarryingCapacityView';
+import { RehabilitationSimulatorView } from './components/views/RehabilitationSimulatorView';
+import { ScenarioSimulationView } from './components/views/ScenarioSimulationView';
+import { AuthorityReportView } from './components/views/AuthorityReportView';
+import { DataSourcesView } from './components/views/DataSourcesView';
+import { SettingsView } from './components/views/SettingsView';
+
+import { MOCK_DATA_SOURCES, SYSTEM_METRICS, MAHARASHTRA_DISTRICTS, PILOT_DISTRICTS } from './data/mockData';
+import { Habitation, RelocationSite } from './types';
+import { fetchDistrictData } from './lib/supabase';
+import { Language, t } from './lib/i18n';
+import { Home, UserCheck, AlertTriangle, ArrowUpRight, HelpCircle } from 'lucide-react';
+
+export default function App() {
+  const [isAuthorityView, setIsAuthorityView] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<string>('community-home');
+  const [selectedDistrict, setSelectedDistrict] = useState<string>('Raigad');
+  const [currentLang, setCurrentLang] = useState<string>('en');
+
+  const [currentDistrictData, setCurrentDistrictData] = useState(PILOT_DISTRICTS['raigad']);
+
+  const [selectedVillage, setSelectedVillage] = useState<Habitation>(currentDistrictData.targetVillages[0]);
+  const [selectedSite, setSelectedSite] = useState<RelocationSite>(currentDistrictData.relocationSites[0]);
+
+  const [dbModalOpen, setDbModalOpen] = useState<boolean>(false);
+  const [aiModalOpen, setAiModalOpen] = useState<boolean>(false);
+
+  // When district changes, fetch from Supabase (or fallback) and update villages and sites
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      const dData = await fetchDistrictData(selectedDistrict);
+      if (isMounted && dData) {
+        setCurrentDistrictData(dData);
+        if (dData.targetVillages && dData.targetVillages.length > 0) {
+          setSelectedVillage(dData.targetVillages[0]);
+        }
+        if (dData.relocationSites && dData.relocationSites.length > 0) {
+          setSelectedSite(dData.relocationSites[0]);
+        }
+      }
+    }
+    load();
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedDistrict]);
+
+  return (
+    <div className="flex min-h-screen bg-[#F6F9F7] text-[#17221D] font-sans">
+      {/* Left Sidebar */}
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isAuthorityView={isAuthorityView}
+        setIsAuthorityView={setIsAuthorityView}
+        currentLang={currentLang as Language}
+      />
+
+      {/* Main Container */}
+      <div className="flex-1 flex flex-col min-w-0 pb-16 md:pb-0">
+        <Navbar
+          currentLang={currentLang}
+          setLang={setCurrentLang}
+          selectedDistrict={selectedDistrict}
+          setSelectedDistrict={setSelectedDistrict}
+          districts={MAHARASHTRA_DISTRICTS}
+          onOpenDbModal={() => setDbModalOpen(true)}
+          onOpenAiAssistant={() => setAiModalOpen(true)}
+        />
+
+        <main className="flex-1 p-6 overflow-y-auto">
+          {/* Community Experience Level */}
+          {!isAuthorityView && (
+            <>
+              {activeTab === 'community-home' && (
+                <CommunityHomeView
+                  selectedDistrict={selectedDistrict}
+                  setSelectedDistrict={setSelectedDistrict}
+                  selectedVillage={selectedVillage}
+                  setSelectedVillage={setSelectedVillage}
+                  onNavigate={setActiveTab}
+                  currentLang={currentLang}
+                  setLang={setCurrentLang}
+                  onSwitchToAuthority={() => {
+                    setIsAuthorityView(true);
+                    setActiveTab('overview');
+                  }}
+                />
+              )}
+
+              {activeTab === 'my-village' && (
+                <CommunityVillageView
+                  selectedVillage={selectedVillage}
+                  onNavigate={setActiveTab}
+                  currentLang={currentLang}
+                />
+              )}
+
+              {activeTab === 'community-risk' && (
+                <CommunityRiskView
+                  selectedVillage={selectedVillage}
+                  onNavigate={setActiveTab}
+                />
+              )}
+
+              {activeTab === 'community-relocation' && (
+                <CommunityRelocationView
+                  selectedVillage={selectedVillage}
+                  relocationSites={currentDistrictData.relocationSites}
+                  onNavigate={setActiveTab}
+                  onSelectSite={(s) => setSelectedSite(s)}
+                />
+              )}
+
+              {activeTab === 'safe-site-workspace' && (
+                <SafeSiteWorkspaceView
+                  habitation={selectedVillage}
+                  site={selectedSite}
+                  onNavigate={setActiveTab}
+                  allSites={currentDistrictData.relocationSites}
+                />
+              )}
+
+              {activeTab === 'community-map' && (
+                <CommunityMapView
+                  selectedVillage={selectedVillage}
+                  onNavigate={setActiveTab}
+                />
+              )}
+
+              {activeTab === 'community-help' && (
+                <CommunityHelpView
+                  selectedVillage={selectedVillage}
+                  onNavigate={setActiveTab}
+                  currentLang={currentLang as Language}
+                />
+              )}
+            </>
+          )}
+
+          {/* Authority / Advanced Experience Level */}
+          {isAuthorityView && (
+            <>
+              {activeTab === 'overview' && (
+                <OverviewView
+                  metrics={SYSTEM_METRICS}
+                  habitations={currentDistrictData.targetVillages}
+                  onNavigate={setActiveTab}
+                  selectedDistrict={selectedDistrict}
+                />
+              )}
+
+              {activeTab === 'gis-map' && (
+                <LiveGisMapView
+                  habitations={currentDistrictData.targetVillages}
+                  selectedDistrict={selectedDistrict}
+                  setSelectedDistrict={setSelectedDistrict}
+                  onSelectVillageForMultiHazard={(v) => {
+                    setSelectedVillage(v);
+                    setActiveTab('multihazard');
+                  }}
+                />
+              )}
+
+              {activeTab === 'habitations' && (
+                <VulnerableHabitationsView
+                  habitations={currentDistrictData.targetVillages}
+                  selectedDistrict={selectedDistrict}
+                  onSelectVillage={(v) => {
+                    setSelectedVillage(v);
+                    setActiveTab('multihazard');
+                  }}
+                  onNavigateToMap={() => setActiveTab('gis-map')}
+                />
+              )}
+
+              {activeTab === 'multihazard' && (
+                <MultiHazardRiskView
+                  selectedVillage={selectedVillage}
+                  onNavigateToRedZone={() => setActiveTab('redzones')}
+                  onNavigateToPlanner={() => setActiveTab('prioritization')}
+                />
+              )}
+
+              {activeTab === 'redzones' && (
+                <RedZoneView
+                  selectedVillage={selectedVillage}
+                  onNavigateToPlanner={() => setActiveTab('prioritization')}
+                />
+              )}
+
+              {activeTab === 'prioritization' && (
+                <RelocationPrioritizationView
+                  habitations={currentDistrictData.targetVillages}
+                  onSelectForSafeSite={(v) => {
+                    setSelectedVillage(v);
+                    setActiveTab('safesites');
+                  }}
+                />
+              )}
+
+              {activeTab === 'safesites' && (
+                <SafeSiteFinderView
+                  habitations={currentDistrictData.targetVillages}
+                  relocationSites={currentDistrictData.relocationSites}
+                  selectedHabitation={selectedVillage}
+                  onSelectSite={(s) => {
+                    setSelectedSite(s);
+                    setActiveTab('suitability');
+                  }}
+                />
+              )}
+
+              {activeTab === 'suitability' && (
+                <SiteSuitabilityView
+                  site={selectedSite}
+                  onNavigateToCapacity={() => setActiveTab('capacity')}
+                />
+              )}
+
+              {activeTab === 'capacity' && (
+                <CarryingCapacityView
+                  site={selectedSite}
+                  habitations={currentDistrictData.targetVillages}
+                  onNavigateToSimulator={() => setActiveTab('simulator')}
+                />
+              )}
+
+              {activeTab === 'simulator' && (
+                <RehabilitationSimulatorView
+                  habitation={selectedVillage}
+                  site={selectedSite}
+                />
+              )}
+
+              {activeTab === 'scenario' && (
+                <ScenarioSimulationView
+                  habitation={selectedVillage}
+                  onNavigateToReport={() => setActiveTab('reports')}
+                />
+              )}
+
+              {activeTab === 'reports' && (
+                <AuthorityReportView
+                  habitation={selectedVillage}
+                  site={selectedSite}
+                />
+              )}
+
+              {activeTab === 'sources' && (
+                <DataSourcesView
+                  sources={MOCK_DATA_SOURCES}
+                />
+              )}
+
+              {activeTab === 'settings' && (
+                <SettingsView />
+              )}
+            </>
+          )}
+        </main>
+      </div>
+
+      {/* Mobile Bottom Navigation for Community View */}
+      {!isAuthorityView && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#DCE7E1] flex md:hidden items-center justify-around py-2 shadow-lg">
+          {[
+            { id: 'community-home', labelKey: 'commHome', icon: Home },
+            { id: 'my-village', labelKey: 'commVillage', icon: UserCheck },
+            { id: 'community-risk', labelKey: 'commRisk', icon: AlertTriangle },
+            { id: 'community-relocation', labelKey: 'commRelocation', icon: ArrowUpRight },
+            { id: 'community-help', labelKey: 'commHelp', icon: HelpCircle },
+          ].map((item) => {
+            const Icon = item.icon;
+            const isActive = activeTab === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`flex flex-col items-center justify-center py-1 px-3 text-[10px] font-bold transition-colors ${
+                  isActive ? 'text-[#087F5B]' : 'text-slate-500 hover:text-[#17221D]'
+                }`}
+              >
+                <Icon className="w-5 h-5 mb-0.5" />
+                <span className="truncate max-w-[64px]">{t(item.labelKey, currentLang as Language)}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Modals */}
+      <DatabaseSchemaModal isOpen={dbModalOpen} onClose={() => setDbModalOpen(false)} />
+      <AIAssistantModal isOpen={aiModalOpen} onClose={() => setAiModalOpen(false)} habitations={currentDistrictData.targetVillages} />
+    </div>
+  );
+}
