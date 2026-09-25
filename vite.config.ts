@@ -12,9 +12,12 @@ export default defineConfig(() => {
       },
     },
     server: {
-      // The preview proxy does not forward Vite's WebSocket endpoint. Disable
-      // the client connection so it cannot repeatedly report closed sockets.
-      hmr: false,
+      // Route HMR through the HTTPS preview proxy instead of the internal
+      // Express port. This keeps Vite's client WebSocket on the public origin.
+      hmr: {
+        protocol: 'wss',
+        clientPort: 443,
+      },
       watch: {},
     },
   };
