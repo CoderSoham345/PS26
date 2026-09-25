@@ -12,12 +12,6 @@ export default defineConfig(() => {
       },
     },
     server: {
-      // Route HMR through the HTTPS preview proxy instead of the internal
-      // Express port. This keeps Vite's client WebSocket on the public origin.
-      hmr: {
-        protocol: 'wss',
-        clientPort: 443,
-      },
       watch: {},
     },
   };

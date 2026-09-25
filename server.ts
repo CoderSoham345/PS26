@@ -1,4 +1,5 @@
 import express from 'express';
+import { createServer as createHttpServer } from 'http';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { GoogleGenAI } from '@google/genai';
@@ -123,10 +124,15 @@ app.post('/api/ai/report', async (req, res) => {
 });
 
 async function startServer() {
+  const httpServer = createHttpServer(app);
+
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: { server: httpServer },
+      },
       appType: 'spa',
     });
     app.use(vite.middlewares);
@@ -138,7 +144,7 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, '0.0.0.0', () => {
+  httpServer.listen(PORT, '0.0.0.0', () => {
     console.log(`DisasterGuard server running on http://localhost:${PORT}`);
   });
 }
