@@ -138,6 +138,18 @@ async function startServer() {
       },
       appType: 'spa',
     });
+
+    // Vite can still inject its client script while running in middleware mode.
+    // In the preview, that script attempts a WebSocket connection even though
+    // HMR is disabled. Return a harmless module for the client endpoint so the
+    // browser never creates the connection in the first place.
+    app.get('/@vite/client', (_req, res) => {
+      res.type('application/javascript').send('export {};');
+    });
+    app.get('/@react-refresh', (_req, res) => {
+      res.type('application/javascript').send('export {};');
+    });
+
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(__dirname, 'dist');
