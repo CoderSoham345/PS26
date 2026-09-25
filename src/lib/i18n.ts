@@ -2,88 +2,160 @@ export type Language = 'en' | 'mr' | 'hi';
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
-    appName: 'DisasterGuard',
-    subtitle: 'AI-Powered GIS Decision Support Platform',
+    appName: 'DISASTERGUARD',
+    subtitle: 'MAHARASHTRA DISASTER MANAGEMENT PLATFORM',
     disclaimer: 'Prototype decision-support analysis — not an official statutory designation.',
     communityView: 'Community View',
     authorityView: 'Authority View',
+    authorityMode: 'Authority Mode',
+    adminMode: 'Admin Mode',
+    communityMode: 'Community Mode',
     district: 'District',
     village: 'Village',
+    candidateSite: 'Candidate Site',
     searchPlaceholder: 'Search villages, hazards, or sites...',
-    aiAssistant: 'DisasterGuard AI',
+    aiAssistant: '✦ Gemini AI',
     databaseSchema: 'Database Schema',
     language: 'Language',
     
-    // Navigation - Community
-    commHome: 'Home',
-    commVillage: 'My Village',
-    commRisk: 'Risk Information',
-    commMap: 'Simple Map',
-    commRelocation: 'Relocation Options',
-    commHelp: 'Help & Helpline',
-    
-    // Navigation - Authority
-    authOverview: 'Overview Dashboard',
+    // Navigation
+    authOverview: 'Overview',
     authGisMap: 'Live GIS Map',
     authHabitations: 'Vulnerable Habitations',
     authMultiHazard: 'Multi-Hazard Risk',
     authRedZones: 'Red Zone Analysis',
     authPlanner: 'Relocation Planner',
     authSafeSites: 'Safe Site Finder',
-    authSuitability: 'Site Suitability',
     authCapacity: 'Carrying Capacity',
     authSimulator: 'Rehabilitation Simulator',
-    authScenario: 'Scenario Simulation',
-    authReports: 'Decision Reports',
+    authReports: 'Reports',
     authSources: 'Data & Sources',
+    authHelp: 'Help & Helpline',
     authSettings: 'Settings',
 
-    // Help & Helpline page
-    helpTitle: 'Help & Emergency Helpline',
-    helpSubtitle: 'Essential emergency services, local disaster guidance, and preparedness protocols for community residents.',
-    emergencyServicesTitle: 'Emergency Help & Services',
-    emergencyServicesDesc: 'Direct emergency response contacts for immediate assistance during crisis events.',
-    policeService: 'Police Emergency',
-    fireService: 'Fire Brigade',
-    ambulanceService: 'Medical Ambulance',
-    disasterMgmt: 'District Disaster Control Room',
-    prototypeVerifyLabel: 'Prototype / Verify locally',
-    localGuidanceTitle: 'Local Disaster Guidance & Safety Protocols',
-    landslideGuidance: 'Landslide Safety Protocol',
-    landslideDesc: 'If you notice ground cracks, tilting trees, or rumbling sounds, immediately move away from steep slopes along lateral escape paths.',
-    floodGuidance: 'Flood & Heavy Rainfall Safety',
-    floodDesc: 'Do not attempt to cross flowing water or submerged bridges. Move livestock and valuables to elevated ground.',
-    evacuationGuidance: 'Evacuation & Shelter',
-    evacuationDesc: 'Follow Panchayat and district collectorate instructions. Carry your emergency kit and essential identity documents.',
-    importantContactsTitle: 'Important Community Contacts',
-    sarpanchOffice: 'Village Panchayat / Sarpanch',
-    healthCentre: 'Primary Health Centre (PHC)',
-    shelterManager: 'Community Shelter Coordinator',
+    // Simulator Header
+    simulatorTag: 'AI REHABILITATION & CITY TRANSFORMATION SIMULATOR',
+    visualizingTransition: 'Visualizing the transition from',
+    to: 'to',
+    simulatorSubtitle: 'Prototype decision-support visualization for proactive relocation and rehabilitation.',
+    beforeStage: 'BEFORE',
+    beforeSub: 'Existing vulnerable settlement',
+    relocationStage: 'RELOCATION',
+    relocationSub: 'Movement to candidate site',
+    afterStage: 'AFTER',
+    afterSub: 'Proposed rehabilitated settlement',
+    playSimulation: 'PLAY SIMULATION',
+    pauseSimulation: 'PAUSE',
+    replaySimulation: 'REPLAY',
+    resetSimulation: 'RESET',
 
-    // Red Zone Analysis
-    redZoneTitle: 'Modelled High-Risk Area & Red Zone Analysis',
-    redZoneSubtitle: 'Interactive GIS spatial workspace for multi-hazard exposure and AI risk assessment.',
-    selectArea: 'Select Area Tool',
-    drawPolygon: 'Draw Polygon',
-    drawRectangle: 'Draw Rectangle',
-    drawCircle: 'Draw Circle',
-    selectVillage: 'Select Village',
-    selectModelledZone: 'Select Modelled Zone',
-    clearSelection: 'Clear Selection',
-    analysisSummary: 'Analysis Summary',
-    hazardExposure: 'Hazard Exposure',
-    populationExposure: 'Population Exposure',
-    buildingExposure: 'Building Exposure',
-    roadAccess: 'Roads & Access',
-    infrastructure: 'Infrastructure',
-    disasterHistory: 'Disaster History',
-    riskCalculation: 'Risk Calculation',
-    relocationImplications: 'Relocation Implications',
-    dataSources: 'Data Sources',
-    generateReport: 'Generate Analysis Report',
-    askAiAboutZone: 'Ask DisasterGuard AI about this Red Zone',
-    
-    // Risk & Hazards
+    // Map Insight
+    mapInsight: 'MAP INSIGHT',
+    modelledAnalysis: 'MODELLED ANALYSIS',
+    modelledAnalysisSub: 'Not an official statutory designation. Prototype decision-support visualization.',
+
+    // Layer Card Groups
+    riskAndHazards: '1. RISK & HAZARDS',
+    relocationElements: '2. RELOCATION ELEMENTS',
+    infrastructure: '3. INFRASTRUCTURE',
+    terrainAndContext: '4. TERRAIN & CONTEXT',
+
+    // Map Layers
+    modelledRedZone: 'Modelled Red Zone',
+    hazardZones: 'Hazard Zones',
+    landslideRisk: 'Landslide Risk',
+    floodRisk: 'Flood Risk',
+    currentVillage: 'Current Village',
+    relocationRoute: 'Relocation Route',
+    planningBoundary: 'Planning Boundary',
+    majorRoads: 'Major Roads',
+    roadNetwork: 'Road Network',
+    hospitalPhc: 'Hospital / PHC',
+    school: 'School',
+    waterSource: 'Water Source',
+    contours: 'Contours',
+    riverWater: 'River / Water Bodies',
+    villageBoundary: 'Village Boundary',
+    satelliteImagery: 'Satellite Imagery',
+
+    // Analytics Panel
+    stage1Before: 'STAGE 1: BEFORE RELOCATION',
+    stage2Relocation: 'STAGE 2: RELOCATION IN PROGRESS',
+    stage3After: 'STAGE 3: AFTER REHABILITATION',
+    riskLevel: 'Risk Level',
+    population: 'Population',
+    households: 'Households',
+    primaryHazards: 'Primary Hazards',
+    redZoneArea: 'Modelled Red Zone Area',
+    infrastructureAtRisk: 'Infrastructure at Risk',
+    prototypeSuitability: 'Prototype Suitability Score',
+    distance: 'Distance',
+    availableLand: 'Available Land',
+    suitableArea: 'Suitable Area',
+    estimatedCapacity: 'Estimated Capacity',
+    keySiteAdvantages: 'KEY SITE ADVANTAGES',
+    roadAccessibilityAdv: 'Road accessibility',
+    hazardExposureAdv: 'Hazard-safe elevation',
+    waterAccessAdv: 'Reliable water access',
+    healthcareAccessAdv: 'Healthcare access (<10 km)',
+    schoolAccessAdv: 'School connectivity',
+    suitableLandAdv: 'Stable geotechnical terrain',
+    emergencyAccessAdv: 'Rapid emergency access',
+
+    // Proposed Rehabilitation Breakdown
+    proposedRehabilitation: 'PROPOSED REHABILITATION',
+    residentialArea: 'Residential Area',
+    roads: 'Roads & Access',
+    openSpace: 'Central Assembly & Open Space',
+    healthcare: 'Healthcare Facility (PHC)',
+    communityFacility: 'Community Centre',
+    waterUtilities: 'Water / Solar Utilities',
+    emergencyFacility: 'Emergency Response Base',
+
+    // Decision Support Summary
+    decisionSupportSummary: 'DECISION SUPPORT SUMMARY',
+    aiGenerated: 'AI-GENERATED',
+    whyRelocate: 'WHY RELOCATE?',
+    whyThisSite: 'WHY THIS SITE?',
+    whatChangesAfter: 'WHAT CHANGES AFTER RELOCATION?',
+    limitations: 'LIMITATIONS',
+
+    // Comparison Slider
+    comparisonSlider: 'INTERACTIVE SETTLEMENT TRANSITION SLIDER',
+    currentSettlement: 'CURRENT VILLAGE',
+    rehabilitatedSettlement: 'REHABILITATED VILLAGE',
+
+    // AI Visual Context Gallery
+    aiVisualContext: 'AI VISUAL CONTEXT',
+    aiVisualSubtitle: 'Conceptual visualization — not geographic evidence',
+    aiStorytellingNotice: 'Every image is AI-generated for conceptual storytelling only and does not constitute geographic evidence or official satellite imagery.',
+    img01Title: '01 Affected Village',
+    img01Desc: 'Hillside scarp settlement exposed to monsoon saturation and debris flows.',
+    img02Title: '02 Proposed Relocation Site',
+    img02Desc: 'Elevated basalt plateau with gentle slope and clear road connectivity.',
+    img03Title: '03 Relocation Route',
+    img03Desc: 'All-weather paved corridor linking valley habitation to safe plateau.',
+    img04Title: '04 Nearby Hospital',
+    img04Desc: 'Sub-district health centre with emergency ambulance bays and solar backup.',
+    img05Title: '05 Nearby School',
+    img05Desc: 'Resilient model school campus functioning as multipurpose community hub.',
+    img06Title: '06 After Rehabilitation',
+    img06Desc: 'Planned disaster-resilient settlement with organized solar homesteads.',
+
+    // Chatbot
+    chatbotTitle: 'DisasterGuard AI',
+    chatbotPromptHint: 'Ask about this village, risk, relocation or rehabilitation.',
+    askChatbotPlaceholder: 'Ask about risk, safe sites, capacity, or simulation...',
+    quickWhyRisk: 'Why is this village at risk?',
+    quickExplainRedZone: 'Explain the Red Zone',
+    quickWhySite: 'Why this site?',
+    quickCompareSites: 'Compare candidate sites',
+    quickExplainCapacity: 'Explain capacity',
+    quickExplainRehab: 'Explain rehabilitation',
+    quickWhatChanges: 'What changes after relocation?',
+    quickDecisionSummary: 'Generate decision summary',
+
+    // Risk levels & hazards
     immediate: 'Immediate',
     shortTerm: 'Short Term',
     mediumTerm: 'Medium Term',
@@ -98,8 +170,8 @@ export const translations: Record<Language, Record<string, string>> = {
     high: 'High Risk',
     moderate: 'Moderate Risk',
     lower: 'Lower Risk',
-    
-    // Portal & Login
+
+    // Portal Login
     aiDecisionSupport: 'AI-Powered Decision Support',
     selectPortal: 'Select Your Portal',
     selectPortalDesc: 'Choose your authorized portal to access role-specific Maharashtra disaster-management decision support.',
@@ -109,95 +181,164 @@ export const translations: Record<Language, Record<string, string>> = {
     authorityMgmtDesc: 'For government and disaster-management decision support, red zones, relocation planning, and carrying capacity.',
     adminSystem: 'Admin / System Admin',
     adminSystemDesc: 'For system and data administration, user management, district configuration, and model parameters.',
-    accessPortal: 'Access Portal',
-    openData: 'Open Data',
-    officialSource: 'Official Source',
-    derived: 'Derived',
-    simulated: 'Simulated'
+    accessPortal: 'Access Portal'
   },
+
   mr: {
-    appName: 'डिझास्टरगार्ड (DisasterGuard)',
-    subtitle: 'एआय-सक्षम जीआयएस निर्णय समर्थन व्यासपीठ',
+    appName: 'डिझास्टरगार्ड (DISASTERGUARD)',
+    subtitle: 'महाराष्ट्र आपत्ती व्यवस्थापन व्यासपीठ',
     disclaimer: 'प्रोटोटाइप निर्णय-समर्थन विश्लेषण — अधिकृत वैधानिक पदनाम नाही.',
     communityView: 'समुदाय दृश्य',
     authorityView: 'प्रशासन दृश्य',
+    authorityMode: 'प्रशासन मोड (Authority)',
+    adminMode: 'प्रशासक मोड (Admin)',
+    communityMode: 'समुदाय मोड (Community)',
     district: 'जिल्हा',
-    village: 'गाव',
+    village: 'गाव / वस्ती',
+    candidateSite: 'उमेदवार सुरक्षित जागा',
     searchPlaceholder: 'गावे, आपत्ती किंवा ठिकाणे शोधा...',
-    aiAssistant: 'डिझास्टरगार्ड एआय',
+    aiAssistant: '✦ जेमिनी एआय (Gemini AI)',
     databaseSchema: 'डेटाबेस रचना',
     language: 'भाषा',
-    
-    // Navigation - Community
-    commHome: 'मुख्यपृष्ठ',
-    commVillage: 'माझे गाव',
-    commRisk: 'जोखीम माहिती',
-    commMap: 'साधा नकाशा',
-    commRelocation: 'पुनर्वसन पर्याय',
-    commHelp: 'मदत आणि हेल्पलाइन',
-    
-    // Navigation - Authority
-    authOverview: 'विहंगावलोकन डॅशबोर्ड',
+
+    // Navigation
+    authOverview: 'विहंगावलोकन',
     authGisMap: 'थेट जीआयएस नकाशा',
     authHabitations: 'संवेदनशील वस्त्या',
     authMultiHazard: 'बहु-आपत्ती जोखीम',
     authRedZones: 'रेड झोन विश्लेषण',
     authPlanner: 'पुनर्वसन नियोजन',
     authSafeSites: 'सुरक्षित ठिकाण शोधक',
-    authSuitability: 'जागा उपयुक्तता',
     authCapacity: 'वहन क्षमता',
     authSimulator: 'पुनर्वसन सिम्युलेटर',
-    authScenario: 'परिदृश्य सिम्युलेशन',
     authReports: 'निर्णय अहवाल',
     authSources: 'डेटा आणि स्रोत',
+    authHelp: 'मदत आणि हेल्पलाइन',
     authSettings: 'सेटिंग्ज',
 
-    // Help & Helpline page
-    helpTitle: 'मदत आणि आपत्कालीन हेल्पलाइन',
-    helpSubtitle: 'आवश्यक आपत्कालीन सेवा, स्थानिक आपत्ती मार्गदर्शन आणि समुदाय रहिवाशांसाठी तयारी प्रोटोकॉल.',
-    emergencyServicesTitle: 'आपत्कालीन मदत आणि सेवा',
-    emergencyServicesDesc: 'संकटकाळादरम्यान त्वरित मदतीसाठी थेट आपत्कालीन संपर्क.',
-    policeService: 'पोलिस आपत्कालीन सेवा',
-    fireService: 'अग्निशामक दल (फायर ब्रिगेड)',
-    ambulanceService: 'वैद्यकीय रुग्णवाहिका',
-    disasterMgmt: 'जिल्हा आपत्ती नियंत्रण कक्ष',
-    prototypeVerifyLabel: 'प्रोटोटाइप / स्थानिक पातळीवर पडताळणी करा',
-    localGuidanceTitle: 'स्थानिक आपत्ती मार्गदर्शन आणि सुरक्षा प्रोटोकॉल',
-    landslideGuidance: 'दरड कोसळणे सुरक्षा प्रोटोकॉल',
-    landslideDesc: 'जमिनीला तडे गेलेले आढळल्यास, झाडे कललेली दिसल्यास किंवा गडगडाटी आवाज आल्यास, ताबडतोब टेकडीवरून सुरक्षित बाजूला जा.',
-    floodGuidance: 'पूर आणि अतिवृष्टी सुरक्षा',
-    floodDesc: 'वाहत्या पाण्यात किंवा पाण्याखाली गेलेल्या पुलांवरून जाण्याचा प्रयत्न करू नका. जनावरे आणि मौल्यवान वस्तू उंच भागात हलवा.',
-    evacuationGuidance: 'स्थलांतर आणि निवारा',
-    evacuationDesc: 'पंचायत आणि जिल्हा प्रशासनाच्या सूचनांचे पालन करा. आपली आपत्कालीन किट आणि ओळखपत्रे तयार ठेवा.',
-    importantContactsTitle: 'महत्त्वाचे समुदाय संपर्क',
-    sarpanchOffice: 'ग्रामपंचायत / सरपंच कार्यालय',
-    healthCentre: 'प्राथमिक आरोग्य केंद्र (PHC)',
-    shelterManager: 'समुदाय निवारा समन्वयका',
+    // Simulator Header
+    simulatorTag: 'एआय पुनर्वसन व नगर परिवर्तन सिम्युलेटर',
+    visualizingTransition: 'संवेदनशील वस्तीतून सुरक्षित व नियोजित वस्तीत स्थलांतराचे दृश्य:',
+    to: 'येथून थेट येथे:',
+    simulatorSubtitle: 'सक्रिय स्थलांतर आणि सुरक्षित वसाहतीसाठी प्रोटोटाइप निर्णय-समर्थन व्हिज्युअलायझेशन.',
+    beforeStage: '१. स्थलांतरापूर्वी',
+    beforeSub: 'सध्याची संवेदनशील वस्ती',
+    relocationStage: '२. स्थलांतर प्रक्रिया',
+    relocationSub: 'उमेदवार जागेवर स्थलांतर',
+    afterStage: '३. पुनर्वसनानंतर',
+    afterSub: 'प्रस्तावित पुनर्वसित सुरक्षित वसाहत',
+    playSimulation: 'सिम्युलेशन सुरू करा',
+    pauseSimulation: 'थांबवा',
+    replaySimulation: 'पुन्हा चालवा',
+    resetSimulation: 'रीसेट',
 
-    // Red Zone Analysis
-    redZoneTitle: 'मॉडेल केलेले उच्च-जोखीम क्षेत्र आणि रेड झोन विश्लेषण',
-    redZoneSubtitle: 'बहु-आपत्ती प्रावरण आणि एआय जोखीम मूल्यमापनासाठी परस्परसंवादी जीआयएस जागा.',
-    selectArea: 'क्षेत्र निवडा साधन',
-    drawPolygon: 'बहुभुज काढा',
-    drawRectangle: 'आयताकृती काढा',
-    drawCircle: 'वर्तुळ काढा',
-    selectVillage: 'गाव निवडा',
-    selectModelledZone: 'मॉडेल केलेले क्षेत्र निवडा',
-    clearSelection: 'निवड साफ करा',
-    analysisSummary: 'विश्लेषण सारांश',
-    hazardExposure: 'आपत्ती प्रावरण',
-    populationExposure: 'लोकसंख्या प्रावरण',
-    buildingExposure: 'इमारती प्रावरण',
-    roadAccess: 'रस्ते आणि पोहोच',
-    infrastructure: 'पायाभूत सुविधा',
-    disasterHistory: 'आपत्ती इतिहास',
-    riskCalculation: 'जोखीम गणना',
-    relocationImplications: 'पुनर्वसन परिणाम',
-    dataSources: 'डेटा स्रोत',
-    generateReport: 'विश्लेषण अहवाल तयार करा',
-    askAiAboutZone: 'या रेड झोनबद्दल डिझास्टरगार्ड एआयला विचारा',
-    
-    // Risk & Hazards
+    // Map Insight
+    mapInsight: 'नकाशा अंतर्दृष्टी (MAP INSIGHT)',
+    modelledAnalysis: 'मॉडेल केलेले विश्लेषण (MODELLED)',
+    modelledAnalysisSub: 'अधिकृत वैधानिक पदनाम नाही. प्रोटोटाइप निर्णय-समर्थन व्हिज्युअलायझेशन.',
+
+    // Layer Card Groups
+    riskAndHazards: '१. जोखीम आणि आपत्ती (HAZARDS)',
+    relocationElements: '२. पुनर्वसन घटक (RELOCATION)',
+    infrastructure: '३. पायाभूत सुविधा (INFRASTRUCTURE)',
+    terrainAndContext: '४. भूप्रदेश आणि संदर्भ (TERRAIN)',
+
+    // Map Layers
+    modelledRedZone: 'मॉडेल केलेला रेड झोन',
+    hazardZones: 'आपत्ती क्षेत्रे',
+    landslideRisk: 'दरड कोसळण्याची जोखीम',
+    floodRisk: 'पूर जोखीम',
+    currentVillage: 'सध्याचे गाव',
+    relocationRoute: 'स्थलांतर मार्ग',
+    planningBoundary: 'नियोजन सीमा',
+    majorRoads: 'प्रमुख रस्ते',
+    roadNetwork: 'रस्ते जाळे',
+    hospitalPhc: 'रुग्णालय / प्राथमिक आरोग्य केंद्र',
+    school: 'शाळा',
+    waterSource: 'पाण्याचा स्रोत',
+    contours: 'कंटूर रेषा',
+    riverWater: 'नदी / जलाशय',
+    villageBoundary: 'गाव सीमा',
+    satelliteImagery: 'उपग्रह प्रतिमा',
+
+    // Analytics Panel
+    stage1Before: 'टप्पा १: स्थलांतरापूर्वीची स्थिती',
+    stage2Relocation: 'टप्पा २: स्थलांतर हालचाली',
+    stage3After: 'टप्पा ३: प्रस्तावित पुनर्वसन रचना',
+    riskLevel: 'जोखीम पातळी',
+    population: 'लोकसंख्या',
+    households: 'कुटुंबे',
+    primaryHazards: 'प्राथमिक आपत्ती',
+    redZoneArea: 'रेड झोन क्षेत्रफळ',
+    infrastructureAtRisk: 'धोक्यात असलेल्या सुविधा',
+    prototypeSuitability: 'प्रोटोटाइप उपयुक्तता गुण',
+    distance: 'अंतर',
+    availableLand: 'उपलब्ध जमीन',
+    suitableArea: 'वापरण्यायोग्य क्षेत्र',
+    estimatedCapacity: 'अंदाजित वहन क्षमता',
+    keySiteAdvantages: 'या जागेचे प्रमुख फायदे',
+    roadAccessibilityAdv: 'उत्तम रस्ते जोडणी',
+    hazardExposureAdv: 'आपत्तीमुक्त सुरक्षित उंची',
+    waterAccessAdv: 'विश्वासार्ह पाणीपुरवठा',
+    healthcareAccessAdv: 'आरोग्य सुविधा पोहोच (<१० किमी)',
+    schoolAccessAdv: 'शाळा पोहोच सुलभता',
+    suitableLandAdv: 'स्थिर भूशास्त्रीय रचना',
+    emergencyAccessAdv: 'तातडीची आपत्कालीन पोहोच',
+
+    // Proposed Rehabilitation Breakdown
+    proposedRehabilitation: 'प्रस्तावित पुनर्वसन रचना',
+    residentialArea: 'निवासी वसाहत क्षेत्र',
+    roads: 'रस्ते आणि अंतर्गत मार्ग',
+    openSpace: 'मध्यवर्ती सभा मैदान व हरित क्षेत्र',
+    healthcare: 'आरोग्य केंद्र (PHC)',
+    communityFacility: 'समुदाय केंद्र व पंचायत भवन',
+    waterUtilities: 'पाणी व सौर ऊर्जा प्रकल्प',
+    emergencyFacility: 'आपत्कालीन प्रतिसाद केंद्र',
+
+    // Decision Support Summary
+    decisionSupportSummary: 'निर्णय समर्थन सारांश (एआय)',
+    aiGenerated: 'एआय-निर्मित',
+    whyRelocate: 'स्थलांतर का आवश्यक आहे?',
+    whyThisSite: 'हीच जागा का निवडली?',
+    whatChangesAfter: 'पुनर्वसनाने काय बदल होईल?',
+    limitations: 'मर्यादा आणि पडताळणी',
+
+    // Comparison Slider
+    comparisonSlider: 'परस्परसंवादी वसाहत संक्रमण स्लाइडर',
+    currentSettlement: 'सध्याचे गाव',
+    rehabilitatedSettlement: 'पुनर्वसित सुरक्षित वसाहत',
+
+    // AI Visual Context Gallery
+    aiVisualContext: 'एआय व्हिज्युअल संदर्भ गॅलरी',
+    aiVisualSubtitle: 'संकल्पनात्मक दृश्य — भौगोलिक पुरावा नाही',
+    aiStorytellingNotice: 'प्रत्येक प्रतिमा केवळ कथात्मक संदर्भासाठी एआय-निर्मित आहे, हा कोणताही अधिकृत उपग्रह पुरावा नाही.',
+    img01Title: '०१ बाधित गाव',
+    img01Desc: 'दरड कोसळणे आणि अतिवृष्टीच्या धोक्यात असलेली मूळ डोंगरी वस्ती.',
+    img02Title: '०२ प्रस्तावित सुरक्षित जागा',
+    img02Desc: 'सपाट सुरक्षित पठार, पुरापासून दूर आणि सर्व हवामानातील रस्त्यांशी जोडलेले.',
+    img03Title: '०३ स्थलांतर मार्ग',
+    img03Desc: 'खोऱ्यातून सुरक्षित पठाराकडे जाणारा पक्का संरक्षित मार्ग.',
+    img04Title: '०४ नजीकचे रुग्णालय',
+    img04Desc: 'रुग्णवाहिका आणि आपत्कालीन सेवेने सज्ज प्राथमिक आरोग्य केंद्र.',
+    img05Title: '०५ नजीकची शाळा',
+    img05Desc: 'आपत्ती निवारा म्हणूनही वापरण्यायोग्य जिल्हा परिषद मॉडेल शाळा.',
+    img06Title: '०६ पुनर्वसनानंतरचे दृश्य',
+    img06Desc: 'सौरऊर्जा, रुंद रस्ते आणि सुरक्षित घरांसह सुनियोजित आधुनिक वसाहत.',
+
+    // Chatbot
+    chatbotTitle: 'डिझास्टरगार्ड एआय',
+    chatbotPromptHint: 'या गावाच्या धोक्याबद्दल, स्थलांतराबद्दल किंवा पुनर्वसनाबद्दल विचारा.',
+    askChatbotPlaceholder: 'जोखीम, सुरक्षित जागा किंवा सिम्युलेशनबद्दल विचारा...',
+    quickWhyRisk: 'हे गाव धोक्यात का आहे?',
+    quickExplainRedZone: 'रेड झोन समजावून सांगा',
+    quickWhySite: 'हीच जागा का योग्य आहे?',
+    quickCompareSites: 'उमेदवार जागांची तुलना करा',
+    quickExplainCapacity: 'वहन क्षमता समजावून सांगा',
+    quickExplainRehab: 'प्रस्तावित पुनर्वसन सांगा',
+    quickWhatChanges: 'पुनर्वसनानंतर काय बदलेल?',
+    quickDecisionSummary: 'निर्णय समर्थन सारांश तयार करा',
+
+    // Risk levels & hazards
     immediate: 'तात्काळ',
     shortTerm: 'अल्पकालीन',
     mediumTerm: 'मध्यमकालीन',
@@ -208,110 +349,179 @@ export const translations: Record<Language, Record<string, string>> = {
     extremeRainfall: 'अतिवृष्टी',
     seismicHazard: 'भूकंपीय धोका',
     multiHazard: 'बहु-आपत्ती',
-    veryHigh: 'अति उच्च धोका',
-    high: 'उच्च धोका',
-    moderate: 'मध्यम धोका',
-    lower: 'कमी धोका',
-    
-    // Portal & Login
+    veryHigh: 'अति उच्च जोखीम',
+    high: 'उच्च जोखीम',
+    moderate: 'मध्यम जोखीम',
+    lower: 'कमी जोखीम',
+
+    // Portal Login
     aiDecisionSupport: 'एआय-आधारित निर्णय सहाय्य',
     selectPortal: 'आपले पोर्टल निवडा',
     selectPortalDesc: 'महाराष्ट्र आपत्ती व्यवस्थापनासाठी आपल्या भूमिकेनुसार योग्य पोर्टल निवडा.',
     communityResident: 'समुदाय / नागरिक',
     communityResidentDesc: 'गावातील जोखीम, स्थलांतराचे पर्याय आणि आपत्कालीन मार्गदर्शन समजून घेण्यासाठी.',
-    authorityMgmt: 'प्राधिकरण / आपत्ती व्यवस्थापन',
+    authorityMgmt: 'प्रशासन / आपत्ती व्यवस्थापन',
     authorityMgmtDesc: 'शासन आणि आपत्ती व्यवस्थापनासाठी निर्णय सहाय्य, रेड झोन विश्लेषण, स्थलांतर नियोजन आणि वहन क्षमता.',
     adminSystem: 'प्रशासक / प्रणाली प्रशासक',
     adminSystemDesc: 'प्रणाली आणि डेटा व्यवस्थापन, वापरकर्ता व्यवस्थापन, जिल्हा कॉन्फिगरेशन आणि मॉडेल पॅरामीटर्ससाठी.',
-    accessPortal: 'पोर्टलमध्ये प्रवेश करा',
-    openData: 'मुक्त डेटा',
-    officialSource: 'अधिकृत स्रोत',
-    derived: 'व्युत्पन्न',
-    simulated: 'सिम्युलेटेड'
+    accessPortal: 'पोर्टलमध्ये प्रवेश करा'
   },
+
   hi: {
-    appName: 'डिझास्टरगार्ड (DisasterGuard)',
-    subtitle: 'एआई-संचालित जीआईएस निर्णय सहायता मंच',
-    disclaimer: 'प्रोटोटाइप निर्णय-समर्थन विश्लेषण — आधिकारिक वैधानिक पदनाम नहीं।',
+    appName: 'डिज़ास्टरगार्ड (DISASTERGUARD)',
+    subtitle: 'महाराष्ट्र आपदा प्रबंधन मंच',
+    disclaimer: 'प्रोटोटाइप निर्णय-समर्थन विश्लेषण — कोई आधिकारिक वैधानिक पदनाम नहीं।',
     communityView: 'समुदाय दृश्य',
     authorityView: 'प्रशासन दृश्य',
-    district: 'जिला',
-    village: 'गाँव',
+    authorityMode: 'प्राधिकरण मोड (Authority)',
+    adminMode: 'प्रशासक मोड (Admin)',
+    communityMode: 'समुदाय मोड (Community)',
+    district: 'ज़िला',
+    village: 'गाँव / बस्ती',
+    candidateSite: 'उम्मीदवार सुरक्षित स्थल',
     searchPlaceholder: 'गाँव, खतरे या स्थान खोजें...',
-    aiAssistant: 'डिझास्टरगार्ड एआई',
+    aiAssistant: '✦ जेमिनी एआई (Gemini AI)',
     databaseSchema: 'डेटाबेस स्कीमा',
     language: 'भाषा',
-    
-    // Navigation - Community
-    commHome: 'होम',
-    commVillage: 'मेरा गाँव',
-    commRisk: 'जोखिम की जानकारी',
-    commMap: 'सरल मानचित्र',
-    commRelocation: 'पुनर्वास विकल्प',
-    commHelp: 'सहायता और हेल्पलाइन',
-    
-    // Navigation - Authority
-    authOverview: 'अवलोकन डैशबोर्ड',
+
+    // Navigation
+    authOverview: 'अवलोकन',
     authGisMap: 'लाइव जीआईएस मानचित्र',
     authHabitations: 'संवेदनशील बस्तियाँ',
     authMultiHazard: 'बहु-खतरा जोखिम',
-    authRedZones: 'रेड जोन विश्लेषण',
+    authRedZones: 'रेड ज़ोन विश्लेषण',
     authPlanner: 'पुनर्वास योजनाकार',
     authSafeSites: 'सुरक्षित स्थल खोजक',
-    authSuitability: 'स्थल उपयुक्तता',
     authCapacity: 'वहन क्षमता',
     authSimulator: 'पुनर्वास सिम्युलेटर',
-    authScenario: 'परिदृश्य सिमुलेशन',
     authReports: 'निर्णय रिपोर्ट',
     authSources: 'डेटा और स्रोत',
+    authHelp: 'सहायता और हेल्पलाइन',
     authSettings: 'सेटिंग्स',
 
-    // Help & Helpline page
-    helpTitle: 'सहायता और आपातकालीन हेल्पलाइन',
-    helpSubtitle: 'समुदाय के निवासियों के लिए आवश्यक आपातकालीन सेवाएँ, स्थानीय आपदा मार्गदर्शन और तैयारी प्रोटोकॉल।',
-    emergencyServicesTitle: 'आपातकालीन सहायता और सेवाएँ',
-    emergencyServicesDesc: 'संकट की घटनाओं के दौरान तुरंत सहायता के लिए सीधे आपातकालीन संपर्क।',
-    policeService: 'पुलिस आपातकालीन सेवा',
-    fireService: 'दमकल सेवा (फायर ब्रिगेड)',
-    ambulanceService: 'चिकित्सा एम्बुलेंस',
-    disasterMgmt: 'जिला आपदा नियंत्रण कक्ष',
-    prototypeVerifyLabel: 'प्रोटोटाइप / स्थानीय स्तर पर सत्यापित करें',
-    localGuidanceTitle: 'स्थानीय आपदा मार्गदर्शन और सुरक्षा प्रोटोकॉल',
-    landslideGuidance: 'भूस्खलन सुरक्षा प्रोटोकॉल',
-    landslideDesc: 'यदि आपको जमीन पर दरारें, झुकते हुए पेड़ या गड़गड़ाहट की आवाजें दिखाई दें, तो तुरंत ढलान से दूर सुरक्षित रास्तों पर जाएं।',
-    floodGuidance: 'बाढ़ और अतिवृष्टि सुरक्षा',
-    floodDesc: 'बहते पानी या जलमग्न पुलों को पार करने का प्रयास न करें। मवेशियों और कीमती सामानों को ऊंचे स्थानों पर ले जाएं।',
-    evacuationGuidance: 'निकासी और आश्रय',
-    evacuationDesc: 'पंचायत और जिला प्रशासन के निर्देशों का पालन करें। अपनी आपातकालीन किट और पहचान दस्तावेज तैयार रखें।',
-    importantContactsTitle: 'महत्वपूर्ण समुदाय संपर्क',
-    sarpanchOffice: 'ग्राम पंचायत / सरपंच कार्यालय',
-    healthCentre: 'प्राथमिक स्वास्थ्य केंद्र (PHC)',
-    shelterManager: 'समुदाय आश्रय समन्वयक',
+    // Simulator Header
+    simulatorTag: 'एआई पुनर्वास एवं नगर रूपांतरण सिम्युलेटर',
+    visualizingTransition: 'संवेदनशील बस्ती से सुरक्षित व सुनियोजित बस्ती में स्थानांतरण का दृश्य:',
+    to: 'यहाँ से सीधे यहाँ:',
+    simulatorSubtitle: 'सक्रिय पुनर्वास और सुरक्षित बस्ती के लिए प्रोटोटाइप निर्णय-समर्थन विज़ुअलाइज़ेशन।',
+    beforeStage: '१. स्थानांतरण पूर्व',
+    beforeSub: 'मौजूदा संवेदनशील बस्ती',
+    relocationStage: '२. स्थानांतरण प्रक्रिया',
+    relocationSub: 'उम्मीदवार स्थल पर स्थानांतरण',
+    afterStage: '३. पुनर्वास उपरांत',
+    afterSub: 'प्रस्तावित पुनर्वासित सुरक्षित बस्ती',
+    playSimulation: 'सिमुलेशन प्रारंभ करें',
+    pauseSimulation: 'रोकें',
+    replaySimulation: 'पुनः चलाएं',
+    resetSimulation: 'रीसेट',
 
-    // Red Zone Analysis
-    redZoneTitle: 'मॉडल किया गया उच्च-जोखिम क्षेत्र और रेड जोन विश्लेषण',
-    redZoneSubtitle: 'बहु-खतरा जोखिम और एआई जोखिम मूल्यांकन के लिए इंटरैक्टिव जीआईएस स्थान।',
-    selectArea: 'क्षेत्र चयन टूल',
-    drawPolygon: 'बहुभुज बनाएं',
-    drawRectangle: 'आयत बनाएं',
-    drawCircle: 'वृत्त बनाएं',
-    selectVillage: 'गाँव चुनें',
-    selectModelledZone: 'मॉडल किया गया क्षेत्र चुनें',
-    clearSelection: 'चयन साफ़ करें',
-    analysisSummary: 'विश्लेषण सारांश',
-    hazardExposure: 'खतरा संपर्क',
-    populationExposure: 'जनसंख्या संपर्क',
-    buildingExposure: 'भवन संपर्क',
-    roadAccess: 'सड़कें और पहुँच',
-    infrastructure: 'बुनियादी ढांचा',
-    disasterHistory: 'आपदा इतिहास',
-    riskCalculation: 'जोखिम गणना',
-    relocationImplications: 'पुनर्वास निहितार्थ',
-    dataSources: 'डेटा स्रोत',
-    generateReport: 'विश्लेषण रिपोर्ट तैयार करें',
-    askAiAboutZone: 'इस रेड जोन के बारे में डिझास्टरगार्ड एआई से पूछें',
-    
-    // Risk & Hazards
+    // Map Insight
+    mapInsight: 'मानचित्र अंतर्दृष्टि (MAP INSIGHT)',
+    modelledAnalysis: 'मॉडल किया गया विश्लेषण (MODELLED)',
+    modelledAnalysisSub: 'आधिकारिक वैधानिक पदनाम नहीं। प्रोटोटाइप निर्णय-समर्थन विज़ुअलाइज़ेशन।',
+
+    // Layer Card Groups
+    riskAndHazards: '१. जोखिम एवं खतरे (HAZARDS)',
+    relocationElements: '२. पुनर्वास तत्व (RELOCATION)',
+    infrastructure: '३. बुनियादी ढांचा (INFRASTRUCTURE)',
+    terrainAndContext: '४. भू-भाग एवं संदर्भ (TERRAIN)',
+
+    // Map Layers
+    modelledRedZone: 'मॉडल किया गया रेड ज़ोन',
+    hazardZones: 'खतरा क्षेत्र',
+    landslideRisk: 'भूस्खलन जोखिम',
+    floodRisk: 'बाढ़ जोखिम',
+    currentVillage: 'वर्तमान गाँव',
+    relocationRoute: 'पुनर्वास मार्ग',
+    planningBoundary: 'योजना सीमा',
+    majorRoads: 'मुख्य सड़कें',
+    roadNetwork: 'सड़क नेटवर्क',
+    hospitalPhc: 'अस्पताल / प्राथमिक स्वास्थ्य केंद्र',
+    school: 'विद्यालय',
+    waterSource: 'जल स्रोत',
+    contours: 'समोच्च रेखाएं (Contours)',
+    riverWater: 'नदी / जल निकाय',
+    villageBoundary: 'गाँव की सीमा',
+    satelliteImagery: 'उपग्रह इमेजरी',
+
+    // Analytics Panel
+    stage1Before: 'चरण १: स्थानांतरण पूर्व स्थिति',
+    stage2Relocation: 'चरण २: स्थानांतरण प्रक्रिया',
+    stage3After: 'चरण ३: प्रस्तावित पुनर्वास संरचना',
+    riskLevel: 'जोखिम स्तर',
+    population: 'जनसंख्या',
+    households: 'परिवार',
+    primaryHazards: 'प्राथमिक खतरे',
+    redZoneArea: 'रेड ज़ोन क्षेत्रफल',
+    infrastructureAtRisk: 'जोखिम में बुनियादी ढांचा',
+    prototypeSuitability: 'प्रोटोटाइप उपयुक्तता स्कोर',
+    distance: 'दूरी',
+    availableLand: 'उपलब्ध भूमि',
+    suitableArea: 'उपयुक्त क्षेत्र',
+    estimatedCapacity: 'अनुमानित वहन क्षमता',
+    keySiteAdvantages: 'इस स्थल के प्रमुख लाभ',
+    roadAccessibilityAdv: 'उत्कृष्ट सड़क संपर्क',
+    hazardExposureAdv: 'खतरे से मुक्त सुरक्षित ऊंचाई',
+    waterAccessAdv: 'विश्वसनीय जल उपलब्धता',
+    healthcareAccessAdv: 'स्वास्थ्य सुविधा पहुँच (<१० किमी)',
+    schoolAccessAdv: 'विद्यालय कनेक्टिविटी',
+    suitableLandAdv: 'स्थिर भू-तकनीकी भूभाग',
+    emergencyAccessAdv: 'त्वरित आपातकालीन पहुँच',
+
+    // Proposed Rehabilitation Breakdown
+    proposedRehabilitation: 'प्रस्तावित पुनर्वास संरचना',
+    residentialArea: 'आवासीय क्लस्टर क्षेत्र',
+    roads: 'सड़कें एवं मुख्य मार्ग',
+    openSpace: 'केंद्रीय असेंबली मैदान एवं खुला पार्क',
+    healthcare: 'स्वास्थ्य केंद्र (PHC)',
+    communityFacility: 'सामुदायिक केंद्र एवं पंचायत भवन',
+    waterUtilities: 'जल एवं सौर ऊर्जा सुविधा',
+    emergencyFacility: 'आपदा प्रतिक्रिया केंद्र',
+
+    // Decision Support Summary
+    decisionSupportSummary: 'निर्णय सहायता सारांश (एआई)',
+    aiGenerated: 'एआई-जनित',
+    whyRelocate: 'स्थानांतरण क्यों आवश्यक है?',
+    whyThisSite: 'यही स्थल क्यों चुना गया?',
+    whatChangesAfter: 'स्थानांतरण के बाद क्या बदलेगा?',
+    limitations: 'सीमाएं और सत्यापन',
+
+    // Comparison Slider
+    comparisonSlider: 'इंटरैक्टिव बस्ती संक्रमण स्लाइडर',
+    currentSettlement: 'वर्तमान गाँव',
+    rehabilitatedSettlement: 'पुनर्वासित सुरक्षित बस्ती',
+
+    // AI Visual Context Gallery
+    aiVisualContext: 'एआई विज़ुअल संदर्भ गैलरी',
+    aiVisualSubtitle: 'वैचारिक विज़ुअलाइज़ेशन — भौगोलिक साक्ष्य नहीं',
+    aiStorytellingNotice: 'प्रत्येक छवि केवल कथा संदर्भ के लिए एआई-जनित है, यह कोई आधिकारिक उपग्रह साक्ष्य नहीं है।',
+    img01Title: '०१ प्रभावित गाँव',
+    img01Desc: 'भूस्खलन और अत्यधिक मानसूनी वर्षा के जोखिम में स्थित पहाड़ी गाँव।',
+    img02Title: '०२ प्रस्तावित सुरक्षित स्थल',
+    img02Desc: 'बाढ़ मुक्त समतल बेसाल्ट पठार, बारहमासी सड़कों से जुड़ा हुआ।',
+    img03Title: '०३ पुनर्वास मार्ग',
+    img03Desc: 'घाटी बस्ती को सुरक्षित पठार से जोड़ने वाला पक्का मार्ग।',
+    img04Title: '०४ निकटतम अस्पताल',
+    img04Desc: 'एम्बुलेंस और आपातकालीन सेवाओं से लैस प्राथमिक स्वास्थ्य केंद्र।',
+    img05Title: '०५ निकटतम विद्यालय',
+    img05Desc: 'बहुउद्देशीय आपदा आश्रय के रूप में भी उपयोगी आदर्श विद्यालय।',
+    img06Title: '०६ पुनर्वास उपरांत दृश्य',
+    img06Desc: 'सौर ऊर्जा, चौड़ी सड़कें और सुरक्षित घरों वाली सुनियोजित आधुनिक बस्ती।',
+
+    // Chatbot
+    chatbotTitle: 'डिज़ास्टरगार्ड एआई',
+    chatbotPromptHint: 'इस गाँव, जोखिम, स्थानांतरण या पुनर्वास के बारे में पूछें।',
+    askChatbotPlaceholder: 'जोखिम, सुरक्षित स्थल या सिमुलेशन के बारे में पूछें...',
+    quickWhyRisk: 'यह गाँव जोखिम में क्यों है?',
+    quickExplainRedZone: 'रेड ज़ोन को समझाइए',
+    quickWhySite: 'यही स्थल क्यों उपयुक्त है?',
+    quickCompareSites: 'उम्मीदवार स्थलों की तुलना करें',
+    quickExplainCapacity: 'वहन क्षमता समझाइए',
+    quickExplainRehab: 'प्रस्तावित पुनर्वास बताइए',
+    quickWhatChanges: 'स्थानांतरण के बाद क्या बदलाव आएगा?',
+    quickDecisionSummary: 'निर्णय समर्थन सारांश तैयार करें',
+
+    // Risk levels & hazards
     immediate: 'तत्काल',
     shortTerm: 'अल्पकालिक',
     mediumTerm: 'मध्यमकालिक',
@@ -326,9 +536,9 @@ export const translations: Record<Language, Record<string, string>> = {
     high: 'उच्च जोखिम',
     moderate: 'मध्यम जोखिम',
     lower: 'कम जोखिम',
-    
-    // Portal & Login
-    aiDecisionSupport: 'AI-आधारित निर्णय सहायता',
+
+    // Portal Login
+    aiDecisionSupport: 'एआई-आधारित निर्णय सहायता',
     selectPortal: 'अपना पोर्टल चुनें',
     selectPortalDesc: 'महाराष्ट्र आपदा प्रबंधन के लिए अपनी भूमिका के अनुसार पोर्टल चुनें।',
     communityResident: 'समुदाय / नागरिक',
@@ -337,16 +547,12 @@ export const translations: Record<Language, Record<string, string>> = {
     authorityMgmtDesc: 'सरकार और आपदा प्रबंधन के लिए निर्णय सहायता, रेड ज़ोन विश्लेषण, पुनर्वास योजना और वहन क्षमता।',
     adminSystem: 'प्रशासक / सिस्टम एडमिन',
     adminSystemDesc: 'सिस्टम और डेटा प्रबंधन, उपयोगकर्ता प्रबंधन, जिला कॉन्फ़िगरेशन और मॉडल पैरामीटर के लिए।',
-    accessPortal: 'पोर्टल में प्रवेश करें',
-    openData: 'खुला डेटा',
-    officialSource: 'आधिकारिक स्रोत',
-    derived: 'व्युत्पन्न',
-    simulated: 'सिम्युलेटेड'
+    accessPortal: 'पोर्टल में प्रवेश करें'
   }
 };
 
 export function t(key: string, lang: Language = 'en'): string {
-  return translations[lang]?.[key] || translations['en'][key] || key;
+  return translations[lang]?.[key] || translations['en']?.[key] || key;
 }
 
 export function translateHazardType(type: string, lang: Language): string {
@@ -360,6 +566,10 @@ export function translateHazardType(type: string, lang: Language): string {
     if (lang === 'mr') return 'पूर';
     if (lang === 'hi') return 'बाढ़';
   }
+  if (lower.includes('coastal')) {
+    if (lang === 'mr') return 'किनारपट्टी धूप';
+    if (lang === 'hi') return 'तटीय कटाव';
+  }
   if (lower.includes('seismic')) {
     if (lang === 'mr') return 'भूकंपीय धोका';
     if (lang === 'hi') return 'भूकंपीय खतरा';
@@ -367,6 +577,10 @@ export function translateHazardType(type: string, lang: Language): string {
   if (lower.includes('rainfall')) {
     if (lang === 'mr') return 'अतिवृष्टी';
     if (lang === 'hi') return 'अतिवृष्टि';
+  }
+  if (lower.includes('multi')) {
+    if (lang === 'mr') return 'बहु-आपत्ती';
+    if (lang === 'hi') return 'बहु-खतरा';
   }
   return type;
 }
@@ -395,34 +609,4 @@ export function translateRiskLevel(level: string, lang: Language): string {
     return 'Monitor / Low';
   }
   return level;
-}
-
-export function translateRoadType(road: string, lang: Language): string {
-  if (!road) return road;
-  if (road.toLowerCase().includes('paved') || road.toLowerCase().includes('good')) {
-    if (lang === 'mr') return 'सर्वमोसमी पक्का रस्ता (Good)';
-    if (lang === 'hi') return 'सभी मौसम योग्य पक्की सड़क (Good)';
-  }
-  if (road.toLowerCase().includes('kaccha') || road.toLowerCase().includes('poor')) {
-    if (lang === 'mr') return 'कच्चा रस्ता (Poor)';
-    if (lang === 'hi') return 'कच्ची सड़क (Poor)';
-  }
-  return road;
-}
-
-export function translateAccessibility(access: string, lang: Language): string {
-  if (!access) return access;
-  const lower = access.toLowerCase();
-  if (lower === 'poor') return lang === 'mr' ? 'कमी (Poor)' : lang === 'hi' ? 'खराब (Poor)' : 'Poor';
-  if (lower === 'moderate') return lang === 'mr' ? 'मध्यम (Moderate)' : lang === 'hi' ? 'मध्यम (Moderate)' : 'Moderate';
-  if (lower === 'good') return lang === 'mr' ? 'चांगली (Good)' : lang === 'hi' ? 'अच्छी (Good)' : 'Good';
-  return access;
-}
-
-export function translateRelocationStatus(status: string, lang: Language): string {
-  if (!status) return status;
-  if (status.includes('Assessment Required')) return lang === 'mr' ? 'मुल्यांकन आवश्यक' : lang === 'hi' ? 'मूल्यांकन आवश्यक' : 'Assessment Required';
-  if (status.includes('Red Zone Declared')) return lang === 'mr' ? 'रेड झोन घोषित' : lang === 'hi' ? 'रेड जोन घोषित' : 'Red Zone Declared';
-  if (status.includes('Candidate Site')) return lang === 'mr' ? 'उमेदवार ठिकाण (पुढील मूल्यांकनासाठी)' : lang === 'hi' ? 'उम्मीदवार स्थल (आगे के मूल्यांकन के लिए)' : 'Candidate site for further assessment';
-  return status;
 }

@@ -108,7 +108,9 @@ export async function fetchDistrictData(districtName: string) {
         safetyScore: row.safety_score || 95,
         terrainScore: row.terrain_score || 91,
         landAvailabilityHa: row.land_availability_ha || row.land || 20.5,
-        status: row.status || 'Development Ready'
+        status: row.status || 'Development Ready',
+        boundaryGeoJson: row.boundary_geojson || row.geojson || row.boundary || null,
+        polygonCoordinates: row.polygon_coordinates || row.coordinates || null
       }));
     }
 

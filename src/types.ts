@@ -29,6 +29,8 @@ export interface Habitation {
   };
   redZoneConditions: string[];
   aiReasoning: string;
+  boundaryGeoJson?: any;
+  polygonCoordinates?: number[][];
 }
 
 export interface RelocationSite {
@@ -51,6 +53,8 @@ export interface RelocationSite {
   terrainScore: number;
   landAvailabilityHa: number;
   status: 'Candidate Site' | 'Preliminary Surveyed' | 'Geotechnically Approved' | 'Development Ready';
+  boundaryGeoJson?: any;
+  polygonCoordinates?: number[][];
 }
 
 export interface DataSource {
