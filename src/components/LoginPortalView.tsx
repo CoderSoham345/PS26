@@ -75,13 +75,13 @@ export const LoginPortalView: React.FC<LoginPortalViewProps> = ({
           <div className="space-y-8 text-center">
             <div className="space-y-3 max-w-xl mx-auto">
               <span className="px-3.5 py-1 bg-[#E7F6EF] text-[#087F5B] rounded-full text-xs font-extrabold uppercase tracking-widest border border-[#087F5B]/30">
-                AI-Powered Decision Support
+                {t('aiDecisionSupport', currentLang)}
               </span>
               <h2 className="text-3xl sm:text-4xl font-black text-[#17221D] tracking-tight">
-                Select Your Portal
+                {t('selectPortal', currentLang)}
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Choose your authorized portal to access role-specific Maharashtra disaster-management decision support.
+                {t('selectPortalDesc', currentLang)}
               </p>
             </div>
 
@@ -96,14 +96,14 @@ export const LoginPortalView: React.FC<LoginPortalViewProps> = ({
                     <Users className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-base font-extrabold text-[#17221D]">Community / Resident</h3>
+                    <h3 className="text-base font-extrabold text-[#17221D]">{t('communityResident', currentLang)}</h3>
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                      For residents and local communities to understand village risk, relocation options, and emergency guidance.
+                      {t('communityResidentDesc', currentLang)}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-[#DCE7E1] text-xs font-bold text-[#087F5B]">
-                  <span>Access Portal</span>
+                  <span>{t('accessPortal', currentLang)}</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -118,14 +118,14 @@ export const LoginPortalView: React.FC<LoginPortalViewProps> = ({
                     <LayoutDashboard className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-base font-extrabold text-[#17221D]">Authority / Disaster Management</h3>
+                    <h3 className="text-base font-extrabold text-[#17221D]">{t('authorityMgmt', currentLang)}</h3>
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                      For government and disaster-management decision support, red zones, relocation planning, and carrying capacity.
+                      {t('authorityMgmtDesc', currentLang)}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-[#DCE7E1] text-xs font-bold text-[#087F5B]">
-                  <span>Access Portal</span>
+                  <span>{t('accessPortal', currentLang)}</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -140,14 +140,14 @@ export const LoginPortalView: React.FC<LoginPortalViewProps> = ({
                     <Settings className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-base font-extrabold text-[#17221D]">Admin / System Admin</h3>
+                    <h3 className="text-base font-extrabold text-[#17221D]">{t('adminSystem', currentLang)}</h3>
                     <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                      For system and data administration, user management, district configuration, and model parameters.
+                      {t('adminSystemDesc', currentLang)}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pt-4 border-t border-[#DCE7E1] text-xs font-bold text-slate-900">
-                  <span>Access Portal</span>
+                  <span>{t('accessPortal', currentLang)}</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>

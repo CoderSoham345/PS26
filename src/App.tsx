@@ -40,7 +40,13 @@ export default function App() {
   const [userRole, setUserRole] = useState<'community' | 'authority' | 'admin' | null>(null);
   const [activeTab, setActiveTab] = useState<string>('community-home');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('Raigad');
-  const [currentLang, setCurrentLang] = useState<string>('en');
+  const [currentLang, setCurrentLang] = useState<string>(() => {
+    return localStorage.getItem('disasterguard_language') || 'en';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('disasterguard_language', currentLang);
+  }, [currentLang]);
 
   const [currentDistrictData, setCurrentDistrictData] = useState(PILOT_DISTRICTS['raigad']);
 

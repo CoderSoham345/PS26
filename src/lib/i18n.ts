@@ -99,8 +99,17 @@ export const translations: Record<Language, Record<string, string>> = {
     moderate: 'Moderate Risk',
     lower: 'Lower Risk',
     
-    // Status
-    prototypeModel: 'Prototype Model',
+    // Portal & Login
+    aiDecisionSupport: 'AI-Powered Decision Support',
+    selectPortal: 'Select Your Portal',
+    selectPortalDesc: 'Choose your authorized portal to access role-specific Maharashtra disaster-management decision support.',
+    communityResident: 'Community / Resident',
+    communityResidentDesc: 'For residents and local communities to understand village risk, relocation options, and emergency guidance.',
+    authorityMgmt: 'Authority / Disaster Management',
+    authorityMgmtDesc: 'For government and disaster-management decision support, red zones, relocation planning, and carrying capacity.',
+    adminSystem: 'Admin / System Admin',
+    adminSystemDesc: 'For system and data administration, user management, district configuration, and model parameters.',
+    accessPortal: 'Access Portal',
     openData: 'Open Data',
     officialSource: 'Official Source',
     derived: 'Derived',
@@ -204,8 +213,17 @@ export const translations: Record<Language, Record<string, string>> = {
     moderate: 'मध्यम धोका',
     lower: 'कमी धोका',
     
-    // Status
-    prototypeModel: 'प्रोटोटाइप मॉडेल',
+    // Portal & Login
+    aiDecisionSupport: 'एआय-आधारित निर्णय सहाय्य',
+    selectPortal: 'आपले पोर्टल निवडा',
+    selectPortalDesc: 'महाराष्ट्र आपत्ती व्यवस्थापनासाठी आपल्या भूमिकेनुसार योग्य पोर्टल निवडा.',
+    communityResident: 'समुदाय / नागरिक',
+    communityResidentDesc: 'गावातील जोखीम, स्थलांतराचे पर्याय आणि आपत्कालीन मार्गदर्शन समजून घेण्यासाठी.',
+    authorityMgmt: 'प्राधिकरण / आपत्ती व्यवस्थापन',
+    authorityMgmtDesc: 'शासन आणि आपत्ती व्यवस्थापनासाठी निर्णय सहाय्य, रेड झोन विश्लेषण, स्थलांतर नियोजन आणि वहन क्षमता.',
+    adminSystem: 'प्रशासक / प्रणाली प्रशासक',
+    adminSystemDesc: 'प्रणाली आणि डेटा व्यवस्थापन, वापरकर्ता व्यवस्थापन, जिल्हा कॉन्फिगरेशन आणि मॉडेल पॅरामीटर्ससाठी.',
+    accessPortal: 'पोर्टलमध्ये प्रवेश करा',
     openData: 'मुक्त डेटा',
     officialSource: 'अधिकृत स्रोत',
     derived: 'व्युत्पन्न',
@@ -309,8 +327,17 @@ export const translations: Record<Language, Record<string, string>> = {
     moderate: 'मध्यम जोखिम',
     lower: 'कम जोखिम',
     
-    // Status
-    prototypeModel: 'प्रोटोटाइप मॉडल',
+    // Portal & Login
+    aiDecisionSupport: 'AI-आधारित निर्णय सहायता',
+    selectPortal: 'अपना पोर्टल चुनें',
+    selectPortalDesc: 'महाराष्ट्र आपदा प्रबंधन के लिए अपनी भूमिका के अनुसार पोर्टल चुनें।',
+    communityResident: 'समुदाय / नागरिक',
+    communityResidentDesc: 'गाँव के जोखिम, पुनर्वास विकल्प और आपातकालीन मार्गदर्शन को समझने के लिए।',
+    authorityMgmt: 'प्राधिकरण / आपदा प्रबंधन',
+    authorityMgmtDesc: 'सरकार और आपदा प्रबंधन के लिए निर्णय सहायता, रेड ज़ोन विश्लेषण, पुनर्वास योजना और वहन क्षमता।',
+    adminSystem: 'प्रशासक / सिस्टम एडमिन',
+    adminSystemDesc: 'सिस्टम और डेटा प्रबंधन, उपयोगकर्ता प्रबंधन, जिला कॉन्फ़िगरेशन और मॉडल पैरामीटर के लिए।',
+    accessPortal: 'पोर्टल में प्रवेश करें',
     openData: 'खुला डेटा',
     officialSource: 'आधिकारिक स्रोत',
     derived: 'व्युत्पन्न',

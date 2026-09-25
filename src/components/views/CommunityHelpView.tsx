@@ -141,16 +141,19 @@ export const CommunityHelpView: React.FC<CommunityHelpViewProps> = ({ selectedVi
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
           <div className="p-4 bg-[#F6F9F7] border border-[#DCE7E1] rounded-2xl space-y-1">
-            <div className="font-bold text-[#17221D]">{t('sarpanchOffice', currentLang)}</div>
-            <div className="text-slate-500 font-mono">[Official local number]</div>
+            <div className="font-bold text-[#17221D]">District Emergency Operation Centre</div>
+            <div className="text-slate-700 font-mono font-bold">1070 / 022-22027990</div>
+            <div className="text-[10px] text-slate-400">Maharashtra State Relief & Rehabilitation Dept</div>
           </div>
           <div className="p-4 bg-[#F6F9F7] border border-[#DCE7E1] rounded-2xl space-y-1">
-            <div className="font-bold text-[#17221D]">{t('healthCentre', currentLang)}</div>
-            <div className="text-slate-500 font-mono">[PHC Emergency line]</div>
+            <div className="font-bold text-[#17221D]">State Emergency Control Room</div>
+            <div className="text-slate-700 font-mono font-bold">112 / 1070</div>
+            <div className="text-[10px] text-slate-400">Maharashtra SDMA</div>
           </div>
           <div className="p-4 bg-[#F6F9F7] border border-[#DCE7E1] rounded-2xl space-y-1">
-            <div className="font-bold text-[#17221D]">{t('shelterManager', currentLang)}</div>
-            <div className="text-slate-500 font-mono">[Local coordinator]</div>
+            <div className="font-bold text-[#17221D]">Medical Emergency Helpline</div>
+            <div className="text-slate-700 font-mono font-bold">108 (Ambulance)</div>
+            <div className="text-[10px] text-slate-400">National Health Mission MH</div>
           </div>
         </div>
 
