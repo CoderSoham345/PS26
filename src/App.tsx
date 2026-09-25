@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
-import { DatabaseSchemaModal } from './components/DatabaseSchemaModal';
+import { LoginPortalView } from './components/LoginPortalView';
+import { AdminDashboardView } from './components/views/AdminDashboardView';
 import { AIAssistantModal } from './components/AIAssistantModal';
 
 // Community Views
@@ -29,14 +30,14 @@ import { AuthorityReportView } from './components/views/AuthorityReportView';
 import { DataSourcesView } from './components/views/DataSourcesView';
 import { SettingsView } from './components/views/SettingsView';
 
-import { MOCK_DATA_SOURCES, SYSTEM_METRICS, MAHARASHTRA_DISTRICTS, PILOT_DISTRICTS } from './data/mockData';
+import { SYSTEM_METRICS, MAHARASHTRA_DISTRICTS, PILOT_DISTRICTS } from './data/mockData';
 import { Habitation, RelocationSite } from './types';
 import { fetchDistrictData } from './lib/supabase';
 import { Language, t } from './lib/i18n';
 import { Home, UserCheck, AlertTriangle, ArrowUpRight, HelpCircle } from 'lucide-react';
 
 export default function App() {
-  const [isAuthorityView, setIsAuthorityView] = useState<boolean>(false);
+  const [userRole, setUserRole] = useState<'community' | 'authority' | 'admin' | null>(null);
   const [activeTab, setActiveTab] = useState<string>('community-home');
   const [selectedDistrict, setSelectedDistrict] = useState<string>('Raigad');
   const [currentLang, setCurrentLang] = useState<string>('en');
@@ -46,7 +47,6 @@ export default function App() {
   const [selectedVillage, setSelectedVillage] = useState<Habitation>(currentDistrictData.targetVillages[0]);
   const [selectedSite, setSelectedSite] = useState<RelocationSite>(currentDistrictData.relocationSites[0]);
 
-  const [dbModalOpen, setDbModalOpen] = useState<boolean>(false);
   const [aiModalOpen, setAiModalOpen] = useState<boolean>(false);
 
   // When district changes, fetch from Supabase (or fallback) and update villages and sites
@@ -70,32 +70,66 @@ export default function App() {
     };
   }, [selectedDistrict]);
 
+  const handleLoginSuccess = (role: 'community' | 'authority' | 'admin', district: string) => {
+    setSelectedDistrict(district);
+    setUserRole(role);
+    if (role === 'community') setActiveTab('community-home');
+    else if (role === 'authority') setActiveTab('overview');
+    else if (role === 'admin') setActiveTab('overview');
+  };
+
+  if (!userRole) {
+    return (
+      <LoginPortalView
+        onLoginSuccess={handleLoginSuccess}
+        currentLang={currentLang as Language}
+        setLang={setCurrentLang}
+        districts={MAHARASHTRA_DISTRICTS}
+      />
+    );
+  }
+
+  const isAuthorityView = userRole === 'authority';
+  const isAdminView = userRole === 'admin';
+
   return (
     <div className="flex min-h-screen bg-[#F6F9F7] text-[#17221D] font-sans">
-      {/* Left Sidebar */}
-      <Sidebar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        isAuthorityView={isAuthorityView}
-        setIsAuthorityView={setIsAuthorityView}
-        currentLang={currentLang as Language}
-      />
+      {/* Left Sidebar (Only for Community or Authority, or Admin sidebar) */}
+      {!isAdminView && (
+        <Sidebar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          isAuthorityView={isAuthorityView}
+          currentLang={currentLang as Language}
+          onSwitchRole={() => setUserRole(null)}
+        />
+      )}
 
       {/* Main Container */}
       <div className="flex-1 flex flex-col min-w-0 pb-16 md:pb-0">
         <Navbar
-          currentLang={currentLang}
+          currentLang={currentLang as Language}
           setLang={setCurrentLang}
           selectedDistrict={selectedDistrict}
           setSelectedDistrict={setSelectedDistrict}
           districts={MAHARASHTRA_DISTRICTS}
-          onOpenDbModal={() => setDbModalOpen(true)}
           onOpenAiAssistant={() => setAiModalOpen(true)}
+          isAuthorityView={isAuthorityView || isAdminView}
+          onSwitchRole={() => setUserRole(null)}
         />
 
         <main className="flex-1 p-6 overflow-y-auto">
-          {/* Community Experience Level */}
-          {!isAuthorityView && (
+          {/* Admin Dashboard */}
+          {isAdminView && (
+            <AdminDashboardView
+              habitations={currentDistrictData.targetVillages}
+              relocationSites={currentDistrictData.relocationSites}
+              selectedDistrict={selectedDistrict}
+            />
+          )}
+
+          {/* Community Experience */}
+          {userRole === 'community' && (
             <>
               {activeTab === 'community-home' && (
                 <CommunityHomeView
@@ -107,7 +141,7 @@ export default function App() {
                   currentLang={currentLang}
                   setLang={setCurrentLang}
                   onSwitchToAuthority={() => {
-                    setIsAuthorityView(true);
+                    setUserRole('authority');
                     setActiveTab('overview');
                   }}
                 />
@@ -163,7 +197,7 @@ export default function App() {
             </>
           )}
 
-          {/* Authority / Advanced Experience Level */}
+          {/* Authority Experience */}
           {isAuthorityView && (
             <>
               {activeTab === 'overview' && (
@@ -211,6 +245,7 @@ export default function App() {
                 <RedZoneView
                   selectedVillage={selectedVillage}
                   onNavigateToPlanner={() => setActiveTab('prioritization')}
+                  currentLang={currentLang as Language}
                 />
               )}
 
@@ -229,17 +264,18 @@ export default function App() {
                   habitations={currentDistrictData.targetVillages}
                   relocationSites={currentDistrictData.relocationSites}
                   selectedHabitation={selectedVillage}
-                  onSelectSite={(s) => {
-                    setSelectedSite(s);
-                    setActiveTab('suitability');
-                  }}
+                  onSelectSite={(s) => setSelectedSite(s)}
+                  onNavigateToSimulator={() => setActiveTab('simulator')}
                 />
               )}
 
               {activeTab === 'suitability' && (
                 <SiteSuitabilityView
                   site={selectedSite}
-                  onNavigateToCapacity={() => setActiveTab('capacity')}
+                  allSites={currentDistrictData.relocationSites}
+                  selectedVillage={selectedVillage}
+                  onNavigateToPlanner={() => setActiveTab('prioritization')}
+                  currentLang={currentLang as Language}
                 />
               )}
 
@@ -274,7 +310,7 @@ export default function App() {
 
               {activeTab === 'sources' && (
                 <DataSourcesView
-                  sources={MOCK_DATA_SOURCES}
+                  sources={[]}
                 />
               )}
 
@@ -287,7 +323,7 @@ export default function App() {
       </div>
 
       {/* Mobile Bottom Navigation for Community View */}
-      {!isAuthorityView && (
+      {userRole === 'community' && (
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-[#DCE7E1] flex md:hidden items-center justify-around py-2 shadow-lg">
           {[
             { id: 'community-home', labelKey: 'commHome', icon: Home },
@@ -314,8 +350,7 @@ export default function App() {
         </div>
       )}
 
-      {/* Modals */}
-      <DatabaseSchemaModal isOpen={dbModalOpen} onClose={() => setDbModalOpen(false)} />
+      {/* AI Assistant Modal */}
       <AIAssistantModal isOpen={aiModalOpen} onClose={() => setAiModalOpen(false)} habitations={currentDistrictData.targetVillages} />
     </div>
   );

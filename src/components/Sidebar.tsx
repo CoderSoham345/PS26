@@ -15,8 +15,7 @@ import {
   FileText,
   Database,
   Settings,
-  Shield,
-  Layers
+  Shield
 } from 'lucide-react';
 import { Language, t } from '../lib/i18n';
 
@@ -24,8 +23,8 @@ interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   isAuthorityView: boolean;
-  setIsAuthorityView: (b: boolean) => void;
   currentLang: Language;
+  onSwitchRole: () => void;
 }
 
 interface SidebarItem {
@@ -42,8 +41,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   activeTab,
   setActiveTab,
   isAuthorityView,
-  setIsAuthorityView,
-  currentLang
+  currentLang,
+  onSwitchRole
 }) => {
   const communityItems: SidebarItem[] = [
     { id: 'community-home', labelKey: 'commHome', icon: Home },
@@ -84,36 +83,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <span className="text-[#087F5B]">GUARD</span>
           </h1>
           <p className="text-[10px] font-bold text-slate-500 tracking-wide">
-            {isAuthorityView ? t('authorityView', currentLang) : t('communityView', currentLang)}
+            {isAuthorityView ? 'Authority / Admin Experience' : 'Community / Resident Experience'}
           </p>
-        </div>
-      </div>
-
-      {/* Mode Switcher Banner */}
-      <div className="p-3 border-b border-[#DCE7E1] bg-[#F6F9F7]">
-        <div className="grid grid-cols-2 gap-1.5 bg-[#DCE7E1]/50 p-1 rounded-xl">
-          <button
-            onClick={() => {
-              setIsAuthorityView(false);
-              setActiveTab('community-home');
-            }}
-            className={`py-2 rounded-lg text-[11px] font-bold transition-all ${
-              !isAuthorityView ? 'bg-white text-[#087F5B] shadow-sm' : 'text-slate-600 hover:text-[#17221D]'
-            }`}
-          >
-            {t('communityView', currentLang)}
-          </button>
-          <button
-            onClick={() => {
-              setIsAuthorityView(true);
-              setActiveTab('overview');
-            }}
-            className={`py-2 rounded-lg text-[11px] font-bold transition-all ${
-              isAuthorityView ? 'bg-[#087F5B] text-white shadow-sm' : 'text-slate-600 hover:text-[#17221D]'
-            }`}
-          >
-            {t('authorityView', currentLang)}
-          </button>
         </div>
       </div>
 
@@ -162,6 +133,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
             </button>
           );
         })}
+      </div>
+
+      {/* Switch Experience Footer Button */}
+      <div className="p-4 border-t border-[#DCE7E1] bg-[#F6F9F7]">
+        <button
+          onClick={onSwitchRole}
+          className="w-full py-2.5 px-3 bg-white hover:bg-slate-50 border border-[#DCE7E1] text-[#17221D] rounded-xl text-xs font-bold transition-colors flex items-center justify-center space-x-2 shadow-sm"
+        >
+          <RefreshCw className="w-3.5 h-3.5 text-[#087F5B]" />
+          <span>Switch Experience / Role</span>
+        </button>
       </div>
     </aside>
   );

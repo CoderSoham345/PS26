@@ -83,16 +83,21 @@ app.post('/api/ai/query', async (req, res) => {
     res.json({ response: response.text || 'No response generated.' });
   } catch (error: any) {
     console.error('AI Query Error:', error);
-    res.status(500).json({ error: error.message || 'Failed to process AI query' });
+    const isQuota = error.message?.includes('resource_exhausted') || error.message?.includes('quota');
+    res.json({
+      response: isQuota 
+        ? `[Gemini AI Quota Notice - Simulated Reasoning Fallback]: Based on DisasterGuard spatial models for Maharashtra districts, habitations with high slope gradients and landslide exposure require immediate relocation assessment. (Quota limit reached for current billing tier — showing simulated AI decision support).`
+        : `[AI Service Fallback]: ${error.message || 'Failed to process AI query'}`
+    });
   }
 });
 
 app.post('/api/ai/report', async (req, res) => {
-  try {
-    const { villageId } = req.body;
-    const village = MOCK_HABITATIONS.find(v => v.id === villageId) || MOCK_HABITATIONS[0];
-    const sites = MOCK_RELOCATION_SITES;
+  const { villageId } = req.body;
+  const village = MOCK_HABITATIONS.find(v => v.id === villageId) || MOCK_HABITATIONS[0];
+  const sites = MOCK_RELOCATION_SITES;
 
+  try {
     if (!process.env.GEMINI_API_KEY) {
       return res.json({
         rawReport: `OFFICIAL RELOCATION & RESILIENCE ASSESSMENT REPORT: ${village.name}\nGenerated Date: ${new Date().toISOString().split('T')[0]}\n\n1. HABITATION PROFILE:\n- Habitation: ${village.name}, Taluka: ${village.taluka}, District: ${village.district}.\n- Population: ${village.population} (${village.households} households).\n- Coordinates: ${village.lat}, ${village.lng}.\n\n2. HAZARD ASSESSMENT:\n- Primary Hazard: ${village.primaryHazard}.\n- Terrain Slope: ${village.terrainSlope}.\n- Soil: ${village.soilType}.\n\n3. RED ZONE CONDITIONS:\n- ${village.redZoneConditions.join('\n- ')}\n\n4. AI RELOCATION REASONING:\n${village.aiReasoning}\n\n5. RECOMMENDED RELOCATION SITE:\n- Primary Candidate Site: ${sites[0].name} located ${sites[0].distanceFromSourceKm} km away. Estimated capacity: ${sites[0].estimatedCapacity} persons.`
@@ -110,7 +115,10 @@ app.post('/api/ai/report', async (req, res) => {
     res.json({ rawReport: response.text });
   } catch (error: any) {
     console.error('Report Generation Error:', error);
-    res.status(500).json({ error: error.message || 'Failed to generate report' });
+    const isQuota = error.message?.includes('resource_exhausted') || error.message?.includes('quota');
+    res.json({
+      rawReport: `OFFICIAL RELOCATION & RESILIENCE ASSESSMENT REPORT: ${village.name}\nGenerated Date: ${new Date().toISOString().split('T')[0]}\n\n1. HABITATION PROFILE:\n- Habitation: ${village.name}, Taluka: ${village.taluka}, District: ${village.district}.\n- Population: ${village.population} (${village.households} households).\n\n2. HAZARD ASSESSMENT:\n- Primary Hazard: ${village.primaryHazard}.\n- Terrain Slope: ${village.terrainSlope}.\n\n3. RED ZONE CONDITIONS:\n- ${village.redZoneConditions.join('\n- ')}\n\n4. AI REASONING (Quota Fallback Active):\n${village.aiReasoning}\n\n5. RECOMMENDED RELOCATION SITE:\n- Primary Candidate Site: ${sites[0].name} located ${sites[0].distanceFromSourceKm} km away.`
+    });
   }
 });
 

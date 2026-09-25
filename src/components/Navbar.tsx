@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Search, Bell, Globe, User, ShieldAlert, ChevronDown, Database } from 'lucide-react';
+import { Search, Globe, ChevronDown, UserCheck, LayoutDashboard, RefreshCw } from 'lucide-react';
+import { Language } from '../lib/i18n';
 
 interface NavbarProps {
-  currentLang: string;
+  currentLang: Language;
   setLang: (lang: string) => void;
   selectedDistrict: string;
   setSelectedDistrict: (district: string) => void;
   districts: string[];
-  onOpenDbModal: () => void;
   onOpenAiAssistant: () => void;
+  isAuthorityView: boolean;
+  onSwitchRole: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,25 +19,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   selectedDistrict,
   setSelectedDistrict,
   districts,
-  onOpenDbModal,
-  onOpenAiAssistant
+  onOpenAiAssistant,
+  isAuthorityView,
+  onSwitchRole
 }) => {
   const [showLangMenu, setShowLangMenu] = useState(false);
-  const [showNotifications, setShowNotifications] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   const languages = [
     { code: 'en', label: 'English' },
     { code: 'hi', label: 'Hindi (हिन्दी)' },
     { code: 'mr', label: 'Marathi (मराठी)' },
-    { code: 'as', label: 'Assamese (অসমীয়া)' },
-    { code: 'bn', label: 'Bengali (বাংলা)' },
-  ];
-
-  const notifications = [
-    { id: 1, title: 'Red Zone Alert Issued', desc: 'Raigad District Collectorate declared Talien Wadi red zone.', time: '10 mins ago', type: 'urgent' },
-    { id: 2, title: 'IMD Heavy Rainfall Warning', desc: 'Orange alert for Ratnagiri and Sindhudurg next 48 hours.', time: '1 hour ago', type: 'warning' },
-    { id: 3, title: 'Carrying Capacity Verified', desc: 'Khed Plateau Site A simulation completed successfully.', time: '3 hours ago', type: 'info' },
   ];
 
   return (
@@ -71,14 +65,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Right Controls */}
       <div className="flex items-center space-x-3">
-        {/* Database Schema Button */}
+        {/* Switch Experience Button */}
         <button
-          onClick={onOpenDbModal}
-          title="Supabase / PostgreSQL Schema"
-          className="hidden lg:flex items-center space-x-1.5 bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] text-[#17221D] px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors"
+          onClick={onSwitchRole}
+          title="Switch Experience / Role"
+          className="hidden md:flex items-center space-x-1.5 bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] text-[#17221D] px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors"
         >
-          <Database className="w-3.5 h-3.5 text-[#087F5B]" />
-          <span>DB Schema</span>
+          <RefreshCw className="w-3.5 h-3.5 text-[#087F5B]" />
+          <span>Switch Experience</span>
         </button>
 
         {/* AI Assistant Quick Trigger */}
@@ -93,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Language Dropdown */}
         <div className="relative">
           <button
-            onClick={() => { setShowLangMenu(!showLangMenu); setShowNotifications(false); }}
+            onClick={() => setShowLangMenu(!showLangMenu)}
             className="flex items-center space-x-1.5 bg-[#F6F9F7] border border-[#DCE7E1] hover:border-slate-300 text-[#17221D] px-3 py-1.5 rounded-xl text-xs font-semibold transition-colors"
           >
             <Globe className="w-3.5 h-3.5 text-slate-500" />
@@ -117,14 +111,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
         </div>
 
-        {/* User Profile */}
+        {/* User Profile / Role Indicator */}
         <div className="flex items-center space-x-2 pl-2 border-l border-[#DCE7E1]">
           <div className="w-8 h-8 rounded-full bg-[#E7F6EF] border border-[#087F5B]/30 flex items-center justify-center text-[#087F5B] font-bold text-xs">
-            SD
+            {isAuthorityView ? <LayoutDashboard className="w-4 h-4" /> : <UserCheck className="w-4 h-4" />}
           </div>
           <div className="hidden xl:block text-left">
-            <div className="text-xs font-bold text-[#17221D]">State Admin</div>
-            <div className="text-[10px] text-[#087F5B] font-medium">Maharashtra SDMA</div>
+            <div className="text-xs font-bold text-[#17221D]">
+              {isAuthorityView ? 'Authority / Admin' : 'Community / Resident'}
+            </div>
+            <div className="text-[10px] text-[#087F5B] font-medium">
+              {isAuthorityView ? 'State/District Admin' : 'Resident Experience'}
+            </div>
           </div>
         </div>
       </div>
