@@ -71,26 +71,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const currentItems = isAuthorityView ? authorityItems : communityItems;
 
   return (
-    <aside className="w-72 bg-white border-r border-[#DCE7E1] flex flex-col h-screen sticky top-0 z-40 select-none shadow-sm">
+    <aside className="w-64 bg-[#111827] border-r border-[#1E293B] flex flex-col h-screen sticky top-0 z-40 select-none shadow-xl text-[#F8FAFC]">
       {/* Brand Header */}
-      <div className="p-5 border-b border-[#DCE7E1] flex items-center space-x-3 bg-[#F6F9F7]">
-        <div className="w-10 h-10 rounded-xl bg-[#087F5B] flex items-center justify-center shadow-md">
-          <Shield className="w-5 h-5 text-white" />
+      <div className="p-5 border-b border-[#1E293B] flex items-center space-x-3 bg-[#0B0F17]">
+        <div className="w-10 h-10 rounded-xl bg-[#10B981] flex items-center justify-center shadow-lg">
+          <Shield className="w-5 h-5 text-slate-950 font-black" />
         </div>
         <div>
-          <h1 className="text-base font-black tracking-wider text-[#17221D] flex items-center space-x-1.5">
+          <h1 className="text-sm font-black tracking-wider text-[#F8FAFC] flex items-center space-x-1.5">
             <span>DISASTER</span>
-            <span className="text-[#087F5B]">GUARD</span>
+            <span className="text-[#10B981]">GUARD</span>
           </h1>
-          <p className="text-[10px] font-bold text-slate-500 tracking-wide">
-            {isAuthorityView ? 'Authority / Admin Experience' : 'Community / Resident Experience'}
+          <p className="text-[9px] font-bold text-[#94A3B8] uppercase tracking-wide">
+            {isAuthorityView ? 'Authority / Admin' : 'Community Mode'}
           </p>
         </div>
       </div>
 
       {/* Navigation List */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 scrollbar-thin scrollbar-thumb-slate-300">
-        <div className="px-3 pb-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 scrollbar-thin scrollbar-thumb-[#1E293B]">
+        <div className="px-3 pb-2 text-[10px] font-bold text-[#64748B] uppercase tracking-widest">
           {isAuthorityView ? 'Advanced GIS Modules' : t('communityView', currentLang)}
         </div>
 
@@ -102,15 +102,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
+              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
                 isActive
-                  ? 'bg-[#E7F6EF] text-[#087F5B] border border-[#087F5B]/30 shadow-sm'
-                  : 'text-slate-600 hover:bg-[#F6F9F7] hover:text-[#17221D] border border-transparent'
+                  ? 'bg-[#10B981] text-slate-950 shadow-md font-bold'
+                  : 'text-[#94A3B8] hover:bg-[#16202B] hover:text-[#F8FAFC] border border-transparent'
               }`}
             >
               <div className="flex items-center space-x-3">
                 <div className={`p-1.5 rounded-lg transition-colors ${
-                  isActive ? 'bg-[#087F5B] text-white' : 'bg-[#F6F9F7] text-slate-500 group-hover:text-[#17221D]'
+                  isActive ? 'bg-slate-950 text-[#10B981]' : 'bg-[#16202B] text-[#94A3B8] group-hover:text-[#F8FAFC]'
                 }`}>
                   <Icon className="w-4 h-4" />
                 </div>
@@ -118,17 +118,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
               </div>
 
               {item.badge && (
-                <span className="text-[10px] bg-[#087F5B] text-white px-2 py-0.5 rounded-full font-bold">
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold ${isActive ? 'bg-slate-950 text-[#10B981]' : 'bg-[#10B981] text-slate-950'}`}>
                   {item.badge}
                 </span>
               )}
               {item.count && (
-                <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">
+                <span className={`text-[9px] px-2 py-0.5 rounded-full font-bold ${isActive ? 'bg-slate-950 text-[#10B981]' : 'bg-[#16202B] text-[#94A3B8]'}`}>
                   {item.count}
                 </span>
               )}
               {item.urgent && (
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#EF4444] animate-pulse" />
               )}
             </button>
           );
@@ -136,12 +136,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Switch Experience Footer Button */}
-      <div className="p-4 border-t border-[#DCE7E1] bg-[#F6F9F7]">
+      <div className="p-4 border-t border-[#1E293B] bg-[#0B0F17]">
         <button
           onClick={onSwitchRole}
-          className="w-full py-2.5 px-3 bg-white hover:bg-slate-50 border border-[#DCE7E1] text-[#17221D] rounded-xl text-xs font-bold transition-colors flex items-center justify-center space-x-2 shadow-sm"
+          className="w-full py-2.5 px-3 bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] rounded-xl text-xs font-bold transition-colors flex items-center justify-center space-x-2 border border-[#1E293B] shadow-sm"
         >
-          <RefreshCw className="w-3.5 h-3.5 text-[#087F5B]" />
+          <RefreshCw className="w-3.5 h-3.5 text-[#10B981]" />
           <span>Switch Experience / Role</span>
         </button>
       </div>

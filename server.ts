@@ -83,11 +83,12 @@ app.post('/api/ai/query', async (req, res) => {
     res.json({ response: response.text || 'No response generated.' });
   } catch (error: any) {
     console.error('AI Query Error:', error);
-    const isQuota = error.message?.includes('resource_exhausted') || error.message?.includes('quota');
+    const msg = error.message || '';
+    const isQuotaOrOverload = msg.includes('resource_exhausted') || msg.includes('quota') || msg.includes('overloaded') || msg.includes('503') || msg.includes('429');
     res.json({
-      response: isQuota 
-        ? `[Gemini AI Quota Notice - Simulated Reasoning Fallback]: Based on DisasterGuard spatial models for Maharashtra districts, habitations with high slope gradients and landslide exposure require immediate relocation assessment. (Quota limit reached for current billing tier — showing simulated AI decision support).`
-        : `[AI Service Fallback]: ${error.message || 'Failed to process AI query'}`
+      response: isQuotaOrOverload 
+        ? `[Gemini AI Notice - Simulated Reasoning Fallback]: Based on DisasterGuard spatial models for Maharashtra districts, habitations with high slope gradients and landslide exposure require immediate relocation assessment. (API model currently overloaded or quota limit reached — showing simulated AI decision support).`
+        : `[AI Service Fallback]: ${msg || 'Failed to process AI query'}`
     });
   }
 });
@@ -115,9 +116,8 @@ app.post('/api/ai/report', async (req, res) => {
     res.json({ rawReport: response.text });
   } catch (error: any) {
     console.error('Report Generation Error:', error);
-    const isQuota = error.message?.includes('resource_exhausted') || error.message?.includes('quota');
     res.json({
-      rawReport: `OFFICIAL RELOCATION & RESILIENCE ASSESSMENT REPORT: ${village.name}\nGenerated Date: ${new Date().toISOString().split('T')[0]}\n\n1. HABITATION PROFILE:\n- Habitation: ${village.name}, Taluka: ${village.taluka}, District: ${village.district}.\n- Population: ${village.population} (${village.households} households).\n\n2. HAZARD ASSESSMENT:\n- Primary Hazard: ${village.primaryHazard}.\n- Terrain Slope: ${village.terrainSlope}.\n\n3. RED ZONE CONDITIONS:\n- ${village.redZoneConditions.join('\n- ')}\n\n4. AI REASONING (Quota Fallback Active):\n${village.aiReasoning}\n\n5. RECOMMENDED RELOCATION SITE:\n- Primary Candidate Site: ${sites[0].name} located ${sites[0].distanceFromSourceKm} km away.`
+      rawReport: `OFFICIAL RELOCATION & RESILIENCE ASSESSMENT REPORT: ${village.name}\nGenerated Date: ${new Date().toISOString().split('T')[0]}\n\n1. HABITATION PROFILE:\n- Habitation: ${village.name}, Taluka: ${village.taluka}, District: ${village.district}.\n- Population: ${village.population} (${village.households} households).\n\n2. HAZARD ASSESSMENT:\n- Primary Hazard: ${village.primaryHazard}.\n- Terrain Slope: ${village.terrainSlope}.\n\n3. RED ZONE CONDITIONS:\n- ${village.redZoneConditions.join('\n- ')}\n\n4. AI REASONING (Model Overloaded / Quota Fallback Active):\n${village.aiReasoning}\n\n5. RECOMMENDED RELOCATION SITE:\n- Primary Candidate Site: ${sites[0].name} located ${sites[0].distanceFromSourceKm} km away.`
     });
   }
 });

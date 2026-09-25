@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import * as maptilersdk from '@maptiler/sdk';
 import '@maptiler/sdk/dist/maptiler-sdk.css';
 import { 
-  Play, Pause, Layers, MapPin, Building, Users, Activity, ArrowUpRight, FileText, CheckCircle2, AlertTriangle, ShieldCheck, Heart, GraduationCap, Truck, Waves, Mountain, Check 
+  Play, Pause, Layers, MapPin, Building, Users, Activity, ArrowUpRight, FileText, CheckCircle2, AlertTriangle, ShieldCheck, Heart, GraduationCap, Truck, Waves, Mountain, Check, RotateCcw, Sparkles, MessageSquare, X 
 } from 'lucide-react';
 import { Habitation, RelocationSite } from '../../types';
 import { Language } from '../../lib/i18n';
@@ -23,6 +23,7 @@ export const RehabilitationSimulatorView: React.FC<RehabilitationSimulatorViewPr
 
   const [stage, setStage] = useState<'before' | 'relocation' | 'after'>('before');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [chatOpen, setChatOpen] = useState<boolean>(false);
 
   // Map layers visibility state
   const [layersVisibility, setLayersVisibility] = useState({
@@ -86,142 +87,152 @@ export const RehabilitationSimulatorView: React.FC<RehabilitationSimulatorViewPr
   }, [isPlaying]);
 
   return (
-    <div className="space-y-6 pb-16 animate-fadeIn font-sans">
-      {/* Simulator Hero Header */}
-      <div className="bg-white border border-[#DCE7E1] p-5 rounded-3xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-6 pb-20 animate-fadeIn font-sans text-[#F8FAFC]">
+      {/* Top Banner (Simulator Workflow Control) */}
+      <div className="bg-[#111827] border border-[#1E293B] p-6 rounded-3xl shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div>
           <div className="flex items-center space-x-2 mb-1">
-            <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] px-2.5 py-0.5 rounded font-bold uppercase tracking-wider border border-[#087F5B]/30">
+            <span className="text-[10px] bg-[#10B981]/20 text-[#10B981] px-2.5 py-0.5 rounded font-bold uppercase tracking-wider border border-[#10B981]/30">
               AI Rehabilitation & City Transformation Simulator
             </span>
           </div>
-          <h1 className="text-xl font-extrabold text-[#17221D]">
-            Visualizing transition from {habitation.name} to {site.name}
+          <h1 className="text-xl font-extrabold text-[#F8FAFC]">
+            Visualize the transition from vulnerable village to a safe, planned settlement
           </h1>
+          <p className="text-xs text-[#94A3B8] mt-0.5">
+            Current transition: <strong className="text-[#F8FAFC]">{habitation.name}</strong> to <strong className="text-[#10B981]">{site.name}</strong>
+          </p>
         </div>
 
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-1 bg-[#F6F9F7] p-1.5 rounded-2xl border border-[#DCE7E1]">
-            {(['before', 'relocation', 'after'] as const).map((s) => (
+        {/* Workflow Steps & Simulation Controls */}
+        <div className="flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex items-center space-x-1.5 bg-[#16202B] p-1.5 rounded-2xl border border-[#1E293B]">
+            {[
+              { id: 'before', label: '1. BEFORE' },
+              { id: 'relocation', label: '2. RELOCATION' },
+              { id: 'after', label: '3. AFTER' },
+            ].map((s) => (
               <button
-                key={s}
-                onClick={() => setStage(s)}
-                className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
-                  stage === s ? 'bg-[#087F5B] text-white shadow-sm' : 'text-slate-600 hover:text-[#17221D]'
+                key={s.id}
+                onClick={() => setStage(s.id as any)}
+                className={`px-3.5 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all ${
+                  stage === s.id ? 'bg-[#10B981] text-slate-950 shadow-md font-bold' : 'text-[#94A3B8] hover:text-[#F8FAFC]'
                 }`}
               >
-                {s}
+                {s.label}
               </button>
             ))}
           </div>
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center space-x-1.5 shadow-sm"
-          >
-            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-            <span>{isPlaying ? 'Pause' : 'Play Simulation'}</span>
-          </button>
+
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="px-4 py-2.5 bg-[#10B981] hover:bg-[#047857] text-slate-950 font-bold text-xs rounded-xl flex items-center space-x-1.5 shadow-md transition-colors"
+            >
+              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              <span>{isPlaying ? 'Pause' : 'Play Simulation'}</span>
+            </button>
+            <button
+              onClick={() => { setStage('before'); setIsPlaying(false); }}
+              className="p-2.5 bg-[#16202B] hover:bg-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] rounded-xl transition-colors border border-[#1E293B]"
+              title="Reset simulation"
+            >
+              <RotateCcw className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Main Workspace: 70% Map / 30% Right Decision Panel */}
+      {/* Main GIS Map View (Central Area) & Right Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Map Canvas (65-70% width) */}
-        <div className="lg:col-span-8 bg-white border border-[#DCE7E1] rounded-3xl shadow-sm overflow-hidden flex flex-col h-[680px] relative">
+        <div className="lg:col-span-8 bg-[#111827] border border-[#1E293B] rounded-3xl shadow-xl overflow-hidden flex flex-col h-[680px] relative">
           <div ref={mapContainerRef} className="flex-1 w-full h-full" />
 
-          {/* Map Layers Control Box */}
-          <div className="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-2xl shadow-xl text-[11px] space-y-1.5 z-10 w-64 border border-slate-700">
-            <div className="font-bold text-slate-200 flex items-center justify-between pb-1 border-b border-slate-700">
-              <span>Map Layers</span>
-              <Layers className="w-3.5 h-3.5 text-[#087F5B]" />
-            </div>
-            {[
-              { key: 'currentVillage', label: `Current Village (${habitation.name})`, color: 'bg-red-500' },
-              { key: 'redZone', label: 'Modelled Red Zone', color: 'bg-red-600' },
-              { key: 'candidateSite', label: `Candidate Site (${site.name})`, color: 'bg-emerald-500' },
-              { key: 'relocationRoute', label: 'Relocation Route', color: 'bg-sky-400' },
-              { key: 'majorHighway', label: 'Major Highway (NH-66)', color: 'bg-amber-500' },
-              { key: 'roadNetwork', label: 'Road Network', color: 'bg-slate-400' },
-              { key: 'hospital', label: 'Hospital / PHC', color: 'bg-red-500' },
-              { key: 'school', label: 'School', color: 'bg-blue-500' },
-              { key: 'waterSource', label: 'Water Source', color: 'bg-cyan-500' },
-              { key: 'hazardZones', label: 'Hazard Zones', color: 'bg-amber-600' },
-              { key: 'contours', label: 'Contours (Elevation)', color: 'bg-slate-300' },
-            ].map((layer) => (
-              <label key={layer.key} className="flex items-center space-x-2 cursor-pointer hover:bg-slate-800 p-1 rounded transition-colors">
-                <input
-                  type="checkbox"
-                  checked={(layersVisibility as any)[layer.key]}
-                  onChange={(e) => setLayersVisibility({ ...layersVisibility, [layer.key]: e.target.checked })}
-                  className="rounded border-slate-600 text-[#087F5B] focus:ring-0 bg-slate-800"
-                />
-                <span className={`w-2 h-2 rounded-full ${layer.color} inline-block`} />
-                <span className="font-medium text-slate-200 truncate">{layer.label}</span>
-              </label>
-            ))}
+          {/* Map Controls Floating UI (Top-Right) */}
+          <div className="absolute top-4 right-4 bg-[#111827]/95 backdrop-blur-md p-2 rounded-2xl shadow-2xl flex flex-col space-y-1.5 z-10 border border-[#1E293B]">
+            <button className="w-8 h-8 rounded-xl bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] flex items-center justify-center font-bold text-sm shadow-xs">+</button>
+            <button className="w-8 h-8 rounded-xl bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] flex items-center justify-center font-bold text-sm shadow-xs">-</button>
+            <div className="w-full h-px bg-[#1E293B] my-0.5" />
+            <button className="w-8 h-8 rounded-xl bg-[#16202B] hover:bg-[#1E293B] text-[#10B981] flex items-center justify-center shadow-xs" title="Layers">
+              <Layers className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Compass North Arrow (Top-Left) */}
+          <div className="absolute top-4 left-4 bg-[#111827]/90 text-[#F8FAFC] w-10 h-10 rounded-2xl flex flex-col items-center justify-center shadow-lg font-bold text-[10px] z-10 border border-[#1E293B]">
+            <span>N</span>
+            <div className="w-2 h-2 border-t-2 border-r-2 border-[#10B981] transform -rotate-45 mt-0.5" />
           </div>
 
           {/* Scale bar overlay */}
-          <div className="absolute bottom-4 left-4 bg-slate-900/80 text-white px-3 py-1.5 rounded-xl text-[10px] font-mono flex items-center space-x-3 z-10 border border-slate-700">
+          <div className="absolute bottom-4 left-4 bg-[#111827]/90 text-[#F8FAFC] px-3 py-1.5 rounded-xl text-[10px] font-mono flex items-center space-x-3 z-10 border border-[#1E293B]">
             <span>0</span>
-            <div className="w-24 h-1 bg-white/60 relative">
-              <div className="absolute inset-0 border-b border-t border-white" />
+            <div className="w-24 h-1 bg-[#10B981]/60 relative">
+              <div className="absolute inset-0 border-b border-t border-[#10B981]" />
             </div>
             <span>3 km</span>
           </div>
         </div>
 
-        {/* Right Decision Panel (30-35% width) */}
-        <div className="lg:col-span-4 bg-white border border-[#DCE7E1] p-6 rounded-3xl shadow-sm flex flex-col justify-between space-y-6 overflow-y-auto max-h-[680px]">
+        {/* Right Sidebar (Analytics & Decision Support Cards) */}
+        <div className="lg:col-span-4 bg-[#111827] border border-[#1E293B] p-6 rounded-3xl shadow-xl flex flex-col justify-between space-y-6 overflow-y-auto max-h-[680px]">
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] bg-red-100 text-red-700 px-2.5 py-1 rounded font-bold uppercase">
-                {stage === 'before' && '🔴 Stage 1: Before Relocation'}
-                {stage === 'relocation' && '🟠 Stage 2: Transit Corridor'}
-                {stage === 'after' && '🟢 Stage 3: Rehabilitated Settlement'}
+            <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
+              <span className="text-[10px] bg-red-950/80 text-red-400 border border-red-800/50 px-3 py-1 rounded-lg font-bold uppercase tracking-wider">
+                {stage === 'before' && 'Stage 1: Before Relocation'}
+                {stage === 'relocation' && 'Stage 2: Relocation & Transit'}
+                {stage === 'after' && 'Stage 3: Rehabilitated Settlement'}
               </span>
-              <span className="text-xs text-[#087F5B] font-bold">Selected Site Summary</span>
+              <span className="text-xs text-[#10B981] font-bold">Decision Support</span>
             </div>
 
-            {/* Village & Site Dual Summary Cards matching reference */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="p-3 bg-red-50 border border-red-200 rounded-2xl space-y-1">
-                <div className="text-[10px] text-red-600 font-bold uppercase">{habitation.name}</div>
-                <div className="text-sm font-black text-red-900">{habitation.population} pop</div>
-                <div className="text-[10px] text-slate-500">{habitation.households} households</div>
+            {/* Current Village Card */}
+            <div className="space-y-3 bg-[#16202B] border border-red-900/40 p-4 rounded-2xl">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black text-[#F8FAFC] uppercase">Current Village: {habitation.name}</span>
+                <span className="px-2 py-0.5 bg-[#EF4444] text-white rounded font-bold text-[9px] uppercase tracking-wider">Risk: Very High</span>
               </div>
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-2xl space-y-1">
-                <div className="text-[10px] text-[#087F5B] font-bold uppercase">{site.name}</div>
-                <div className="text-sm font-black text-[#087F5B]">{site.suitabilityScore} / 100</div>
-                <div className="text-[10px] text-slate-500">{(site.landAvailabilityHa * 2.47105).toFixed(1)} acres</div>
+              <div className="grid grid-cols-2 gap-2 text-xs text-[#94A3B8] pt-1">
+                <div>District: <strong className="text-[#F8FAFC]">{habitation.district}</strong></div>
+                <div>Population: <strong className="text-[#F8FAFC]">~{habitation.population}</strong></div>
+                <div>Households: <strong className="text-[#F8FAFC]">~{habitation.households}</strong></div>
+                <div>Primary Hazards: <strong className="text-red-400">{habitation.primaryHazard}</strong></div>
+              </div>
+              <div className="text-xs text-[#94A3B8] pt-1 border-t border-[#1E293B]">
+                Red Zone Area: <strong className="text-[#F8FAFC]">{Math.round(habitation.population * 0.1)} ha</strong> • Infrastructure Exposed: Roads, Houses, PHC, School
               </div>
             </div>
 
-            {/* Key Advantages Checklist */}
-            <div className="space-y-2">
-              <div className="text-xs font-black text-[#17221D] uppercase tracking-wider">Key Advantages of {site.name}</div>
-              <div className="space-y-1.5 text-xs text-slate-700">
-                <div className="flex items-center space-x-2">
-                  <Check className="w-3.5 h-3.5 text-[#087F5B]" />
-                  <span>Outside hazard-prone zone</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Check className="w-3.5 h-3.5 text-[#087F5B]" />
-                  <span>Good road connectivity (NH-66)</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Check className="w-3.5 h-3.5 text-[#087F5B]" />
-                  <span>Near school and healthcare facilities</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Check className="w-3.5 h-3.5 text-[#087F5B]" />
-                  <span>Adequate land for planned settlement</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Check className="w-3.5 h-3.5 text-[#087F5B]" />
-                  <span>Access to water source (1.8 km)</span>
-                </div>
+            {/* Candidate Site Analysis Card */}
+            <div className="space-y-3 bg-[#16202B] border border-emerald-900/40 p-4 rounded-2xl">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black text-[#F8FAFC] uppercase">Candidate Site: {site.name}</span>
+                <span className="px-2 py-0.5 bg-[#10B981] text-slate-950 rounded font-bold text-[9px] uppercase tracking-wider">Suitability: High</span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-xs text-[#94A3B8] pt-1">
+                <div>Distance: <strong className="text-[#10B981]">6.8 km</strong></div>
+                <div>Available Land: <strong className="text-[#F8FAFC]">{(site.landAvailabilityHa * 2.47105).toFixed(1)} acres</strong></div>
+                <div>Suitable Area: <strong className="text-[#F8FAFC]">39.2 acres</strong></div>
+                <div>Capacity: <strong className="text-[#F8FAFC]">{site.estimatedCapacity} people</strong></div>
+              </div>
+
+              {/* Key Advantages List */}
+              <div className="space-y-1.5 pt-2 border-t border-[#1E293B] text-xs">
+                <div className="font-black text-[#F8FAFC] uppercase text-[10px] tracking-wider mb-1">Key Advantages</div>
+                {[
+                  'Outside hazard-prone zone',
+                  'Good road connectivity (NH-66)',
+                  'Near school and healthcare facilities',
+                  'Adequate land for planned settlement',
+                  'Access to water source (1.8 km)',
+                  'Suitable terrain with lower landslide risk'
+                ].map((adv, idx) => (
+                  <div key={idx} className="flex items-center space-x-2 text-[#94A3B8]">
+                    <Check className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
+                    <span>{adv}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -232,96 +243,176 @@ export const RehabilitationSimulatorView: React.FC<RehabilitationSimulatorViewPr
               else if (stage === 'relocation') setStage('after');
               else setStage('before');
             }}
-            className="w-full py-3.5 bg-[#087F5B] hover:bg-[#07543F] text-white font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all flex items-center justify-center space-x-2 mt-4"
+            className="w-full py-3.5 bg-[#10B981] hover:bg-[#047857] text-slate-950 font-black text-xs uppercase tracking-wider rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 mt-4"
           >
-            <span>{stage === 'before' ? 'Continue to Relocation →' : stage === 'relocation' ? 'View After Rehabilitation →' : 'Restart Simulation'}</span>
+            <span>{stage === 'before' ? 'Continue to Relocation ➔' : stage === 'relocation' ? 'View After Rehabilitation ➔' : 'Restart Simulation'}</span>
             <ArrowUpRight className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* 6 AI-Generated Visual Context Cards (Matching Second Reference Image) */}
-      <div className="space-y-4 pt-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-black text-[#17221D]">AI-Generated Visual Context Gallery</h2>
-            <p className="text-xs text-slate-500">Visual storytelling assets for the DisasterGuard scenario — Conceptual visualization, not geographic evidence.</p>
+      {/* Map Insight & Disclaimer Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#111827] border border-[#1E293B] p-6 rounded-3xl shadow-xl text-xs">
+        <div className="space-y-2">
+          <div className="font-black text-[#F8FAFC] uppercase tracking-wider">Map Spatial Insight</div>
+          <p className="text-[#94A3B8] leading-relaxed">
+            The selected village ({habitation.name}) heavily overlaps high-risk monsoon landslide and flood zones along river embankments. The proposed relocation corridor connects via state highway to Khed Plateau (Site A), ensuring immediate access to healthcare, education, and perennial water sources.
+          </p>
+        </div>
+        <div className="p-4 bg-amber-950/40 border border-amber-800/50 rounded-2xl space-y-1">
+          <div className="font-bold text-amber-300 flex items-center space-x-1.5">
+            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+            <span>Prototype Statutory Disclaimer</span>
+          </div>
+          <p className="text-amber-200/80 leading-relaxed">
+            Modelled analysis — not an official statutory designation. This is a prototype decision-support visualization based on available open geospatial data and multi-hazard indices.
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom Section Grid (Split View) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Left Grid: Map Layers Control Panel */}
+        <div className="lg:col-span-6 bg-[#111827] border border-[#1E293B] p-6 rounded-3xl shadow-xl space-y-4">
+          <div className="flex items-center justify-between border-b border-[#1E293B] pb-2">
+            <h3 className="text-sm font-black text-[#F8FAFC] uppercase tracking-wider">Map Layers Control Panel</h3>
+            <Layers className="w-4 h-4 text-[#10B981]" />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+            <div className="space-y-2">
+              <div className="font-extrabold text-[#F8FAFC]">Risk & Hazards</div>
+              {['Modelled Red Zone', 'Hazard Zones', 'Landslide Risk', 'Flood Risk'].map((item, i) => (
+                <label key={i} className="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" defaultChecked className="rounded border-[#1E293B] bg-[#16202B] text-[#10B981] focus:ring-[#10B981]" />
+                  <span className="text-[#94A3B8]">{item}</span>
+                </label>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <div className="font-extrabold text-[#F8FAFC]">Relocation</div>
+              {['Current Village', 'Candidate Site', 'Relocation Route', 'Planning Boundary'].map((item, i) => (
+                <label key={i} className="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" defaultChecked className="rounded border-[#1E293B] bg-[#16202B] text-[#10B981] focus:ring-[#10B981]" />
+                  <span className="text-[#94A3B8]">{item}</span>
+                </label>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <div className="font-extrabold text-[#F8FAFC]">Infrastructure</div>
+              {['Major Roads (NH-66)', 'Road Network', 'Hospital / PHC', 'School', 'Water Source'].map((item, i) => (
+                <label key={i} className="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" defaultChecked className="rounded border-[#1E293B] bg-[#16202B] text-[#10B981] focus:ring-[#10B981]" />
+                  <span className="text-[#94A3B8]">{item}</span>
+                </label>
+              ))}
+            </div>
+            <div className="space-y-2">
+              <div className="font-extrabold text-[#F8FAFC]">Terrain</div>
+              {['Contours (Elevation)', 'River / Water', 'Village Boundary', 'Satellite Imagery'].map((item, i) => (
+                <label key={i} className="flex items-center space-x-2 cursor-pointer">
+                  <input type="checkbox" defaultChecked className="rounded border-[#1E293B] bg-[#16202B] text-[#10B981] focus:ring-[#10B981]" />
+                  <span className="text-[#94A3B8]">{item}</span>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Right Grid: Decision Support Summary (AI-Generated) */}
+        <div className="lg:col-span-6 bg-[#111827] border border-[#1E293B] p-6 rounded-3xl shadow-xl space-y-4">
+          <div className="flex items-center justify-between border-b border-[#1E293B] pb-2">
+            <h3 className="text-sm font-black text-[#F8FAFC] uppercase tracking-wider flex items-center space-x-1.5">
+              <Sparkles className="w-4 h-4 text-[#10B981]" />
+              <span>AI Decision Support Summary</span>
+            </h3>
+            <span className="text-[10px] bg-[#10B981]/20 text-[#10B981] px-2 py-0.5 rounded font-bold border border-[#10B981]/30">Model v2.4</span>
+          </div>
+          <div className="space-y-3 text-xs text-[#94A3B8] leading-relaxed">
+            <div>
+              <strong className="text-[#F8FAFC]">Why Relocate?</strong> High cumulative exposure to recurring monsoon landslides and flash floods, isolating village access.
+            </div>
+            <div>
+              <strong className="text-[#F8FAFC]">Why This Site?</strong> Lower natural hazard index, proximity to NH-66 highway, and adequate flat terrain for planned expansion.
+            </div>
+            <div>
+              <strong className="text-[#F8FAFC]">What Changes After Relocation?</strong> Safer residential zoning, dedicated school & healthcare facilities, and climate-resilient stormwater drainage.
+            </div>
+            <div>
+              <strong className="text-[#F8FAFC]">Limitations:</strong> Prototype decision support; requires detailed engineering geotechnical survey prior to statutory land acquisition.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Gallery: AI Visual Context (6 Conceptual Visualizations) */}
+      <div className="space-y-4 pt-4">
+        <div>
+          <h2 className="text-base font-black text-[#F8FAFC]">AI Visual Context (Conceptual visualization — not geographic evidence)</h2>
+          <p className="text-xs text-[#94A3B8]">Visual storytelling assets for the DisasterGuard rehabilitation scenario.</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
           {[
-            {
-              num: '1',
-              title: 'AFFECTED VILLAGE (CURRENT SITUATION)',
-              subtitle: 'Village located within modelled red zone (high flood and landslide risk)',
-              img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=800',
-              badgeColor: 'bg-red-600',
-              desc: 'Current vulnerable village with landslide and flood exposure.'
-            },
-            {
-              num: '2',
-              title: 'PROPOSED RELOCATION SITE',
-              subtitle: 'Safer location with suitable land for planned settlement',
-              img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=800',
-              badgeColor: 'bg-emerald-600',
-              desc: 'Candidate site planning boundary with access road and carrying capacity.'
-            },
-            {
-              num: '3',
-              title: 'RELOCATION ROUTE',
-              subtitle: 'Approximate route from existing village to proposed site',
-              img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800',
-              badgeColor: 'bg-sky-600',
-              desc: 'Visual movement and transit corridor connecting old settlement to new site.'
-            },
-            {
-              num: '4',
-              title: 'NEARBY HOSPITAL',
-              subtitle: 'Access to healthcare facility near the candidate site',
-              img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800',
-              badgeColor: 'bg-blue-600',
-              desc: 'Rural hospital and emergency medical access near relocation zone.'
-            },
-            {
-              num: '5',
-              title: 'NEARBY SCHOOL',
-              subtitle: 'Access to education facility near the proposed settlement',
-              img: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=800',
-              badgeColor: 'bg-indigo-600',
-              desc: 'Government Zilla Parishad school ensuring educational continuity.'
-            },
-            {
-              num: '6',
-              title: 'PROPOSED REHABILITATION SETTLEMENT (AFTER)',
-              subtitle: 'Planned settlement with essential services and safer infrastructure',
-              img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800',
-              badgeColor: 'bg-[#087F5B]',
-              desc: 'Resilient community layout featuring residential clusters, roads, school, healthcare, and open spaces.'
-            },
-          ].map((card, idx) => (
-            <div key={idx} className="bg-white border border-[#DCE7E1] rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
-              <div>
-                <div className={`px-4 py-2 text-white text-xs font-black uppercase tracking-wider flex items-center space-x-2 ${card.badgeColor}`}>
-                  <span>{card.num}. {card.title}</span>
-                </div>
-                <div className="p-3 bg-slate-50 text-[11px] text-slate-600 font-medium border-b border-[#DCE7E1]">
-                  {card.subtitle}
-                </div>
-                <div className="relative h-48 overflow-hidden bg-slate-100">
-                  <img src={card.img} alt={card.title} className="w-full h-full object-cover" />
-                  <div className="absolute bottom-2 left-2 right-2 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-xl text-[10px] space-y-0.5">
-                    <div className="font-bold">AI-generated visual context</div>
-                    <div className="text-[9px] text-slate-300">Conceptual visualization — not geographic evidence</div>
-                  </div>
+            { num: '01', title: 'Affected Village', img: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=400' },
+            { num: '02', title: 'Proposed Relocation Site', img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=400' },
+            { num: '03', title: 'Relocation Route', img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=400' },
+            { num: '04', title: 'Nearby Hospital', img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=400' },
+            { num: '05', title: 'Nearby School', img: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=400' },
+            { num: '06', title: 'After Rehabilitation', img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400' },
+          ].map((item, idx) => (
+            <div key={idx} className="bg-[#111827] border border-[#1E293B] rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between group hover:border-[#10B981] transition-colors">
+              <div className="relative h-28 bg-[#16202B] overflow-hidden">
+                <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                <div className="absolute top-2 left-2 bg-slate-950/80 text-[#10B981] px-2 py-0.5 rounded text-[10px] font-bold font-mono border border-[#1E293B]">
+                  {item.num}
                 </div>
               </div>
-              <div className="p-4 text-xs text-slate-600">
-                {card.desc}
+              <div className="p-3 space-y-1">
+                <div className="text-xs font-black text-[#F8FAFC] truncate">{item.title}</div>
+                <div className="text-[9px] text-[#64748B]">AI-generated visual context</div>
               </div>
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Chat Bot Widget (Floating in bottom-right) */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {!chatOpen ? (
+          <button
+            onClick={() => setChatOpen(true)}
+            className="bg-[#10B981] hover:bg-[#047857] text-slate-950 px-5 py-3.5 rounded-full shadow-2xl flex items-center space-x-2 font-black text-xs transition-all hover:scale-105 border border-emerald-400/40"
+          >
+            <Sparkles className="w-4 h-4 text-slate-950 animate-spin" />
+            <span>DisasterGuard AI Assistant</span>
+          </button>
+        ) : (
+          <div className="bg-[#111827] border border-[#1E293B] w-80 sm:w-96 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-fadeIn text-[#F8FAFC]">
+            <div className="bg-[#10B981] text-slate-950 p-4 flex items-center justify-between font-black">
+              <div className="flex items-center space-x-2">
+                <Sparkles className="w-4 h-4 text-slate-950" />
+                <span className="text-xs uppercase tracking-wider">DisasterGuard AI</span>
+              </div>
+              <button onClick={() => setChatOpen(false)} className="text-slate-950 hover:text-white">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="p-4 h-72 overflow-y-auto space-y-3 bg-[#0B0F17] text-xs">
+              <div className="p-3 bg-[#16202B] rounded-2xl shadow-md border border-[#1E293B] space-y-1">
+                <div className="font-bold text-[#10B981]">DisasterGuard AI</div>
+                <p className="text-[#94A3B8]">Hello! I am your GIS AI assistant for {habitation.name} and {site.name}. Ask me about multi-hazard risk, relocation options, or rehabilitation plans!</p>
+              </div>
+            </div>
+            <div className="p-3 bg-[#111827] border-t border-[#1E293B] flex items-center space-x-2">
+              <input
+                type="text"
+                placeholder="Ask about risk, relocation or rehabilitation..."
+                className="flex-1 bg-[#16202B] border border-[#1E293B] rounded-xl px-3 py-2 text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#10B981]"
+              />
+              <button className="bg-[#10B981] text-slate-950 px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#047857]">Send</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
