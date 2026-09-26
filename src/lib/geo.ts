@@ -38,10 +38,93 @@ function generatePolygonRing(centerLng: number, centerLat: number, radiusKm: num
 
 // Generate Modelled Red Zone GeoJSON
 export function generateModelledRedZoneGeoJson(village: Habitation) {
-  // Radius derived deterministically from riskScore and households
-  const radiusKm = 0.5 + (village.riskScore / 100) * 0.7; // 0.85km to 1.2km
+  const radiusKm = 0.5 + (village.riskScore / 100) * 0.7; // ~0.85km to 1.2km localized to hazard zone
+  const calculatedAreaSqKm = Math.round(Math.PI * radiusKm * radiusKm * 10) / 10;
+  const calculatedAreaHa = Math.round(calculatedAreaSqKm * 100);
+
+  // 1. If village already has boundaryGeoJson directly from Supabase, return it with enriched properties
+  if (village.boundaryGeoJson) {
+    if (village.boundaryGeoJson.type === 'FeatureCollection') {
+      return village.boundaryGeoJson;
+    }
+    if (village.boundaryGeoJson.type === 'Feature') {
+      return {
+        type: 'FeatureCollection' as const,
+        features: [village.boundaryGeoJson]
+      };
+    }
+    if (village.boundaryGeoJson.type === 'Polygon' || village.boundaryGeoJson.type === 'MultiPolygon') {
+      return {
+        type: 'FeatureCollection' as const,
+        features: [{
+          type: 'Feature' as const,
+          id: `redzone-${village.id}`,
+          properties: {
+            type: 'modelled_red_zone',
+            id: village.id,
+            village: village.name,
+            villageName: village.name,
+            district: village.district,
+            taluka: village.taluka,
+            riskScore: village.riskScore,
+            riskLevel: village.riskScore >= 80 ? 'Very High' : 'High',
+            primaryHazard: village.primaryHazard,
+            population: village.population,
+            households: village.households,
+            roadsExposedKm: village.infrastructureExposure?.roadsKm || 3.2,
+            schools: village.infrastructureExposure?.schools || 0,
+            hospitals: village.infrastructureExposure?.hospitals || 0,
+            areaSqKm: calculatedAreaSqKm,
+            areaHectares: calculatedAreaHa,
+            disclaimer: 'Prototype decision-support analysis — not an official statutory designation.'
+          },
+          geometry: village.boundaryGeoJson
+        }]
+      };
+    }
+  }
+
+  // 2. If village has polygonCoordinates provided
+  if (village.polygonCoordinates && village.polygonCoordinates.length >= 3) {
+    const coords = [...village.polygonCoordinates];
+    if (coords[0][0] !== coords[coords.length - 1][0] || coords[0][1] !== coords[coords.length - 1][1]) {
+      coords.push(coords[0]);
+    }
+    return {
+      type: 'FeatureCollection' as const,
+      features: [{
+        type: 'Feature' as const,
+        id: `redzone-${village.id}`,
+        properties: {
+          type: 'modelled_red_zone',
+          id: village.id,
+          village: village.name,
+          villageName: village.name,
+          district: village.district,
+          taluka: village.taluka,
+          riskScore: village.riskScore,
+          riskLevel: village.riskScore >= 80 ? 'Very High' : 'High',
+          primaryHazard: village.primaryHazard,
+          population: village.population,
+          households: village.households,
+          roadsExposedKm: village.infrastructureExposure?.roadsKm || 3.2,
+          schools: village.infrastructureExposure?.schools || 0,
+          hospitals: village.infrastructureExposure?.hospitals || 0,
+          areaSqKm: calculatedAreaSqKm,
+          areaHectares: calculatedAreaHa,
+          disclaimer: 'Prototype decision-support analysis — not an official statutory designation.'
+        },
+        geometry: {
+          type: 'Polygon' as const,
+          coordinates: [coords]
+        }
+      }]
+    };
+  }
+
+  // 3. Otherwise, generate deterministic prototype polygon localized to affected habitation/hazard area
   const seed = (village.name.charCodeAt(0) * 7 + village.riskScore) % 10;
-  const ring = generatePolygonRing(village.lng, village.lat, radiusKm, 20, seed);
+  const ring = generatePolygonRing(village.lng, village.lat, radiusKm, 24, seed);
 
   return {
     type: 'FeatureCollection' as const,
@@ -50,12 +133,23 @@ export function generateModelledRedZoneGeoJson(village: Habitation) {
         type: 'Feature' as const,
         id: `redzone-${village.id}`,
         properties: {
+          type: 'modelled_red_zone',
           id: village.id,
-          name: `Modelled Red Zone (${village.name})`,
-          disclaimer: 'Modelled analysis — not an official statutory designation.',
+          village: village.name,
+          villageName: village.name,
+          district: village.district,
+          taluka: village.taluka,
           riskScore: village.riskScore,
+          riskLevel: village.riskScore >= 80 ? 'Very High' : 'High',
           primaryHazard: village.primaryHazard,
-          areaSqKm: Math.round(Math.PI * radiusKm * radiusKm * 10) / 10
+          population: village.population,
+          households: village.households,
+          roadsExposedKm: village.infrastructureExposure?.roadsKm || 3.2,
+          schools: village.infrastructureExposure?.schools || 0,
+          hospitals: village.infrastructureExposure?.hospitals || 0,
+          areaSqKm: calculatedAreaSqKm,
+          areaHectares: calculatedAreaHa,
+          disclaimer: 'Prototype decision-support analysis — not an official statutory designation.'
         },
         geometry: {
           type: 'Polygon' as const,
@@ -64,6 +158,73 @@ export function generateModelledRedZoneGeoJson(village: Habitation) {
       }
     ]
   };
+}
+
+// Generate 200m Hazard Danger Buffer GeoJSON
+export function generateRedZoneBufferGeoJson(village: Habitation) {
+  const radiusKm = 0.5 + (village.riskScore / 100) * 0.7 + 0.2; // 200m buffer envelope beyond red zone
+  const seed = (village.name.charCodeAt(0) * 7 + village.riskScore) % 10;
+  const ring = generatePolygonRing(village.lng, village.lat, radiusKm, 24, seed);
+
+  return {
+    type: 'FeatureCollection' as const,
+    features: [
+      {
+        type: 'Feature' as const,
+        id: `redzone-buffer-${village.id}`,
+        properties: {
+          type: 'danger_buffer',
+          id: `buffer-${village.id}`,
+          village: village.name,
+          bufferDistance: '200m Hazard Danger Envelope',
+          riskScore: village.riskScore
+        },
+        geometry: {
+          type: 'Polygon' as const,
+          coordinates: [ring]
+        }
+      }
+    ]
+  };
+}
+
+// Calculate bounding box for any GeoJSON FeatureCollection
+export function calculateGeoJsonBounds(geoJson: any): [[number, number], [number, number]] {
+  let minLng = Infinity;
+  let minLat = Infinity;
+  let maxLng = -Infinity;
+  let maxLat = -Infinity;
+
+  function traverse(coords: any) {
+    if (!Array.isArray(coords)) return;
+    if (typeof coords[0] === 'number' && typeof coords[1] === 'number') {
+      const [lng, lat] = coords;
+      if (lng < minLng) minLng = lng;
+      if (lat < minLat) minLat = lat;
+      if (lng > maxLng) maxLng = lng;
+      if (lat > maxLat) maxLat = lat;
+      return;
+    }
+    coords.forEach(traverse);
+  }
+
+  if (geoJson.features) {
+    geoJson.features.forEach((f: any) => {
+      if (f.geometry && f.geometry.coordinates) {
+        traverse(f.geometry.coordinates);
+      }
+    });
+  } else if (geoJson.geometry && geoJson.geometry.coordinates) {
+    traverse(geoJson.geometry.coordinates);
+  } else if (geoJson.coordinates) {
+    traverse(geoJson.coordinates);
+  }
+
+  if (minLng === Infinity) {
+    return [[73.0, 18.0], [74.0, 19.0]];
+  }
+
+  return [[minLng, minLat], [maxLng, maxLat]];
 }
 
 // Generate Candidate Site Planning Boundary GeoJSON
