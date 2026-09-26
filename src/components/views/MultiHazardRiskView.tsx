@@ -16,18 +16,18 @@ export const MultiHazardRiskView: React.FC<MultiHazardRiskViewProps> = ({
   return (
     <div className="space-y-6 pb-12 animate-fadeIn">
       {/* Header */}
-      <div className="bg-white border border-[#DCE7E1] p-6 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 w-full box-border">
         <div>
-          <div className="flex items-center space-x-2 mb-1">
+          <div className="flex items-center space-x-2 mb-1 flex-wrap gap-y-1">
             <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] px-2.5 py-0.5 rounded font-bold uppercase tracking-wider">
               {selectedVillage.district} District • Multi-Hazard Model
             </span>
             <span className="text-[10px] text-slate-500">Telemetry Assessment</span>
           </div>
-          <h1 className="text-xl font-extrabold text-[#17221D]">Multi-Hazard Risk Analysis: {selectedVillage.name}</h1>
+          <h1 className="text-lg sm:text-xl font-extrabold text-[#17221D]">Multi-Hazard Risk Analysis: {selectedVillage.name}</h1>
           <p className="text-xs text-slate-600">Taluka: {selectedVillage.taluka} | Slope: {selectedVillage.terrainSlope} | Soil: {selectedVillage.soilType}</p>
         </div>
-        <div className="bg-[#F6F9F7] border border-[#DCE7E1] px-4 py-2.5 rounded-xl text-center">
+        <div className="bg-[#F6F9F7] border border-[#DCE7E1] px-4 py-2.5 rounded-xl text-center self-start md:self-auto">
           <div className="text-2xl font-black text-red-600 font-mono">{selectedVillage.riskScore} / 100</div>
           <div className="text-[10px] text-slate-500 uppercase font-bold">Composite Risk Index</div>
         </div>
@@ -79,17 +79,17 @@ export const MultiHazardRiskView: React.FC<MultiHazardRiskViewProps> = ({
             </div>
           </div>
 
-          <div className="space-y-2 pt-4 border-t border-[#DCE7E1]">
+          <div className="space-y-2.5 pt-4 border-t border-[#DCE7E1]">
             <button
               onClick={onNavigateToRedZone}
-              className="w-full py-2.5 bg-[#087F5B] hover:bg-[#07543F] text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center space-x-1 shadow-sm"
+              className="w-full py-3 bg-[#087F5B] hover:bg-[#07543F] text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center space-x-1 shadow-sm min-h-[44px] cursor-pointer"
             >
               <span>Inspect Red Zone Boundary</span>
               <ChevronRight className="w-4 h-4" />
             </button>
             <button
               onClick={onNavigateToPlanner}
-              className="w-full py-2.5 bg-[#E7F6EF] hover:bg-[#087F5B] hover:text-white text-[#087F5B] font-semibold text-xs rounded-xl transition-colors flex items-center justify-center space-x-1"
+              className="w-full py-3 bg-[#E7F6EF] hover:bg-[#087F5B] hover:text-white text-[#087F5B] font-semibold text-xs rounded-xl transition-colors flex items-center justify-center space-x-1 min-h-[44px] cursor-pointer"
             >
               <span>Proceed to Relocation Planner</span>
               <ChevronRight className="w-4 h-4" />

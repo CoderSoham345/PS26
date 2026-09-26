@@ -47,24 +47,24 @@ export const AuthorityReportView: React.FC<AuthorityReportViewProps> = ({ habita
   ];
 
   return (
-    <div className="space-y-6 pb-12 animate-fadeIn">
-      <div className="bg-white border border-[#DCE7E1] p-6 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-4 sm:space-y-6 pb-12 animate-fadeIn w-full max-w-full">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 w-full box-border">
         <div>
-          <div className="flex items-center space-x-2 mb-1">
+          <div className="flex items-center space-x-2 mb-1 flex-wrap gap-y-1">
             <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] px-2.5 py-0.5 rounded font-bold uppercase tracking-wider">
               State Authority Document • {habitation.district}
             </span>
           </div>
-          <h1 className="text-xl font-extrabold text-[#17221D]">Authority Relocation Assessment Report</h1>
+          <h1 className="text-lg sm:text-xl font-extrabold text-[#17221D]">Authority Relocation Assessment Report</h1>
           <p className="text-xs text-slate-600">Comprehensive 12-section compliance report for district collectorate review</p>
         </div>
 
         <button
           onClick={handleGenerateReport}
           disabled={generating}
-          className="px-5 py-2.5 bg-[#087F5B] hover:bg-[#07543F] disabled:opacity-50 text-white font-semibold text-xs rounded-xl shadow-sm transition-colors flex items-center space-x-2"
+          className="w-full md:w-auto px-5 py-3 bg-[#087F5B] hover:bg-[#07543F] disabled:opacity-50 text-white font-semibold text-xs rounded-xl shadow-sm transition-colors flex items-center justify-center space-x-2 min-h-[44px] cursor-pointer shrink-0"
         >
-          {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+          {generating ? <Loader2 className="w-4 h-4 animate-spin shrink-0" /> : <Sparkles className="w-4 h-4 shrink-0" />}
           <span>{reportGenerated ? 'Regenerate AI Report' : 'Generate Relocation Assessment Report'}</span>
         </button>
       </div>

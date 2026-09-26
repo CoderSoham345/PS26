@@ -25,27 +25,27 @@ export const CarryingCapacityView: React.FC<CarryingCapacityViewProps> = ({
   const isSufficient = estimatedPopulationCapacity >= targetHab.population;
 
   return (
-    <div className="space-y-6 pb-12 animate-fadeIn">
-      <div className="bg-white border border-[#DCE7E1] p-6 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="space-y-4 sm:space-y-6 pb-12 animate-fadeIn w-full max-w-full">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 w-full box-border">
         <div>
           <div className="flex items-center space-x-2 mb-1">
             <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] px-2.5 py-0.5 rounded font-bold uppercase tracking-wider">
               Carrying Capacity Audit
             </span>
           </div>
-          <h1 className="text-xl font-extrabold text-[#17221D]">Carrying Capacity Assessment: {site.name}</h1>
+          <h1 className="text-lg sm:text-xl font-extrabold text-[#17221D]">Carrying Capacity Assessment: {site.name}</h1>
           <p className="text-xs text-slate-600">Evaluate land usability, housing units, water, and infrastructure capacity for incoming resettled populations</p>
         </div>
-        <div className={`px-4 py-2.5 rounded-xl border flex items-center space-x-2 ${
+        <div className={`px-4 py-2.5 rounded-xl border flex items-center space-x-2 self-start md:self-auto shrink-0 ${
           isSufficient ? 'bg-[#E7F6EF] border-[#087F5B]/40 text-[#087F5B]' : 'bg-red-50 border-red-200 text-red-700'
         }`}>
-          {isSufficient ? <CheckCircle2 className="w-5 h-5" /> : <AlertTriangle className="w-5 h-5" />}
+          {isSufficient ? <CheckCircle2 className="w-5 h-5 shrink-0" /> : <AlertTriangle className="w-5 h-5 shrink-0" />}
           <span className="text-xs font-bold uppercase tracking-wider">{isSufficient ? 'CAPACITY SUFFICIENT' : 'CAPACITY INSUFFICIENT'}</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white border border-[#DCE7E1] p-6 rounded-2xl shadow-sm space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 w-full">
+        <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl shadow-sm space-y-4 w-full box-border">
           <h2 className="text-sm font-bold text-[#17221D] mb-2">Capacity Planning Parameters</h2>
 
           <div>
@@ -56,7 +56,7 @@ export const CarryingCapacityView: React.FC<CarryingCapacityViewProps> = ({
                 const h = habitations.find(v => v.id === e.target.value);
                 if (h) setTargetHab(h);
               }}
-              className="w-full bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl px-3 py-2 text-xs text-[#17221D] focus:outline-none focus:border-[#087F5B]"
+              className="w-full bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl px-3 py-2.5 text-xs text-[#17221D] focus:outline-none focus:border-[#087F5B] min-h-[44px] cursor-pointer"
             >
               {habitations.map(h => (
                 <option key={h.id} value={h.id}>{h.name} ({h.population} residents)</option>
@@ -101,24 +101,24 @@ export const CarryingCapacityView: React.FC<CarryingCapacityViewProps> = ({
           </div>
         </div>
 
-        <div className="lg:col-span-2 bg-white border border-[#DCE7E1] p-6 rounded-2xl shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-2 bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl shadow-sm flex flex-col justify-between w-full box-border">
           <div>
             <h2 className="text-sm font-bold text-[#17221D] mb-4">Carrying Capacity Audit Summary</h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-4 rounded-xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-3.5 sm:p-4 rounded-xl">
                 <div className="text-[11px] text-slate-500 mb-1">Suitable Area</div>
-                <div className="text-xl font-bold font-mono text-[#087F5B]">{suitableAreaHa.toFixed(1)} ha</div>
+                <div className="text-xl font-bold font-mono text-[#087F5B]">{suitableAreaHa.toFixed(1)} ha ({(suitableAreaHa * 2.471).toFixed(1)} ac)</div>
               </div>
-              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-4 rounded-xl">
+              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-3.5 sm:p-4 rounded-xl">
                 <div className="text-[11px] text-slate-500 mb-1">Housing Units</div>
                 <div className="text-xl font-bold font-mono text-[#17221D]">{estimatedHousingUnits} units</div>
               </div>
-              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-4 rounded-xl">
+              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-3.5 sm:p-4 rounded-xl">
                 <div className="text-[11px] text-slate-500 mb-1">Population Capacity</div>
                 <div className="text-xl font-bold font-mono text-[#087F5B]">{estimatedPopulationCapacity} people</div>
               </div>
-              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-4 rounded-xl">
+              <div className="bg-[#F6F9F7] border border-[#DCE7E1] p-3.5 sm:p-4 rounded-xl">
                 <div className="text-[11px] text-slate-500 mb-1">Incoming Population</div>
                 <div className="text-xl font-bold font-mono text-orange-600">{targetHab.population} people</div>
               </div>
@@ -132,9 +132,9 @@ export const CarryingCapacityView: React.FC<CarryingCapacityViewProps> = ({
                 { item: 'Healthcare Capacity (PHC / Sub-Centre)', status: 'Requires Sub-Centre Upgrade', ok: false },
                 { item: 'Education Capacity (Primary School)', status: 'Sufficient (Capacity for 350 children)', ok: true },
               ].map((c, i) => (
-                <div key={i} className="p-3 bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl flex items-center justify-between text-xs">
+                <div key={i} className="p-3 bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-1.5 sm:gap-2">
                   <span className="text-slate-700">{c.item}</span>
-                  <span className={`font-bold ${c.ok ? 'text-[#087F5B]' : 'text-orange-600'}`}>{c.status}</span>
+                  <span className={`font-bold shrink-0 ${c.ok ? 'text-[#087F5B]' : 'text-orange-600'}`}>{c.status}</span>
                 </div>
               ))}
             </div>
@@ -143,7 +143,7 @@ export const CarryingCapacityView: React.FC<CarryingCapacityViewProps> = ({
           <div className="pt-4 border-t border-[#DCE7E1] flex justify-end">
             <button
               onClick={onNavigateToSimulator}
-              className="px-6 py-3 bg-[#087F5B] hover:bg-[#07543F] text-white font-semibold text-xs rounded-xl transition-colors flex items-center space-x-2 shadow-sm"
+              className="w-full sm:w-auto px-6 py-3 bg-[#087F5B] hover:bg-[#07543F] text-white font-semibold text-xs rounded-xl transition-colors flex items-center justify-center space-x-2 shadow-sm min-h-[44px] cursor-pointer"
             >
               <span>Run Rehabilitation Simulator (Before / After)</span>
               <ChevronRight className="w-4 h-4" />

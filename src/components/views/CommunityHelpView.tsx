@@ -123,29 +123,29 @@ export const CommunityHelpView: React.FC<CommunityHelpViewProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#F6F9F7] text-[#17221D] font-sans -m-4 lg:-m-6 p-4 sm:p-6 lg:p-8 animate-fadeIn">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <div className="w-full max-w-full text-[#17221D] font-sans animate-fadeIn box-border">
+      <div className="w-full max-w-6xl mx-auto space-y-6 sm:space-y-8">
         
         {/* Navigation & Header */}
         <div className="space-y-3">
           {onNavigate && (
             <button
               onClick={() => onNavigate('simulator')}
-              className="inline-flex items-center space-x-2 text-xs font-bold text-[#087F5B] hover:text-[#07543F] bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] px-3 py-1.5 rounded-xl shadow-xs transition-colors min-h-[44px]"
+              className="inline-flex items-center space-x-2 text-xs font-bold text-[#087F5B] hover:text-[#07543F] bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] px-3 py-1.5 rounded-xl shadow-xs transition-colors min-h-[44px] cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Command Center</span>
             </button>
           )}
 
-          <div className="bg-gradient-to-r from-[#087F5B] via-[#07543F] to-[#043d2e] text-white p-6 sm:p-8 rounded-3xl shadow-lg relative overflow-hidden">
+          <div className="bg-gradient-to-r from-[#087F5B] via-[#07543F] to-[#043d2e] text-white p-4 sm:p-6 lg:p-8 rounded-2xl sm:rounded-3xl shadow-lg relative overflow-hidden">
             <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-white/10 to-transparent pointer-events-none" />
             <div className="relative z-10 space-y-2">
               <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-xl text-[11px] font-bold tracking-wider uppercase">
                 <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
                 <span>OFFICIAL PUBLIC SERVICE DIRECTORY</span>
               </div>
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight">
+              <h1 className="text-xl sm:text-3xl lg:text-4xl font-black tracking-tight leading-tight">
                 {t('helpHeaderTitle', currentLang)}
               </h1>
               <p className="text-xs sm:text-sm text-emerald-100 max-w-2xl leading-relaxed">

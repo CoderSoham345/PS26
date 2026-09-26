@@ -27,38 +27,39 @@ export const RedZoneReportModal: React.FC<RedZoneReportModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-white border border-[#DCE7E1] rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+      <div className="bg-white border border-[#DCE7E1] rounded-2xl sm:rounded-3xl shadow-2xl max-w-4xl w-full max-h-[92vh] sm:max-h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
         {/* Modal Header */}
-        <div className="p-6 border-b border-[#DCE7E1] bg-[#F6F9F7] flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-[#087F5B] text-white flex items-center justify-center">
+        <div className="p-3.5 sm:p-6 border-b border-[#DCE7E1] bg-[#F6F9F7] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center space-x-2.5 sm:space-x-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#087F5B] text-white flex items-center justify-center shrink-0">
               <FileText className="w-5 h-5" />
             </div>
-            <div>
-              <h2 className="text-base font-black text-[#17221D]">Red Zone Decision-Support Report</h2>
-              <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Maharashtra Disaster Management Authority (SDMA)</p>
+            <div className="min-w-0">
+              <h2 className="text-sm sm:text-base font-black text-[#17221D] truncate">Red Zone Decision-Support Report</h2>
+              <p className="text-[9px] sm:text-[10px] text-slate-500 font-bold uppercase tracking-wider truncate">Maharashtra Disaster Management Authority (SDMA)</p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-end space-x-2 shrink-0">
             <button
               onClick={handlePrint}
-              className="px-3 py-1.5 bg-white border border-[#DCE7E1] rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center space-x-1"
+              className="px-2.5 sm:px-3 py-1.5 bg-white border border-[#DCE7E1] rounded-xl text-xs font-bold text-slate-700 hover:bg-slate-50 flex items-center space-x-1 min-h-[38px] cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" />
               <span>Print</span>
             </button>
             <button
               onClick={handleDownloadPdf}
-              className="px-3 py-1.5 bg-[#087F5B] text-white rounded-xl text-xs font-bold hover:bg-[#07543F] flex items-center space-x-1 shadow-sm"
+              className="px-2.5 sm:px-3 py-1.5 bg-[#087F5B] text-white rounded-xl text-xs font-bold hover:bg-[#07543F] flex items-center space-x-1 shadow-sm min-h-[38px] cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Export PDF</span>
             </button>
             <button
               onClick={onClose}
-              className="p-2 rounded-xl hover:bg-slate-200 text-slate-500"
+              className="p-1.5 sm:p-2 rounded-xl hover:bg-slate-200 text-slate-500 min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer"
+              aria-label="Close report"
             >
               <X className="w-5 h-5" />
             </button>
@@ -66,7 +67,7 @@ export const RedZoneReportModal: React.FC<RedZoneReportModalProps> = ({
         </div>
 
         {/* Report Content Body */}
-        <div className="flex-1 overflow-y-auto p-8 space-y-8 text-xs text-slate-700 leading-relaxed font-sans">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6 sm:space-y-8 text-xs text-slate-700 leading-relaxed font-sans">
           {/* Title Banner */}
           <div className="text-center space-y-2 pb-6 border-b border-slate-200">
             <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full font-bold uppercase tracking-widest text-[10px]">

@@ -191,7 +191,18 @@ export const SafeSiteFinderView: React.FC<SafeSiteFinderViewProps> = ({
       console.warn('Map initialization warning:', e);
     }
 
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.resize();
+      }
+    });
+
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
+    }
+
     return () => {
+      resizeObserver.disconnect();
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -238,7 +249,7 @@ export const SafeSiteFinderView: React.FC<SafeSiteFinderViewProps> = ({
       </div>
 
       {/* Search Control Bar */}
-      <div className="bg-white border border-[#DCE7E1] p-6 rounded-3xl shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm grid grid-cols-1 md:grid-cols-4 gap-4 items-end w-full box-border">
         <div>
           <label className="block text-xs font-bold text-slate-700 mb-2">Original Vulnerable Habitation</label>
           <select
@@ -247,7 +258,7 @@ export const SafeSiteFinderView: React.FC<SafeSiteFinderViewProps> = ({
               const h = habitations.find(v => v.id === e.target.value);
               if (h) setCurrentHab(h);
             }}
-            className="w-full bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl px-4 py-3 text-xs font-bold text-[#17221D] focus:outline-none focus:border-[#087F5B]"
+            className="w-full bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl px-4 py-3 text-xs font-bold text-[#17221D] focus:outline-none focus:border-[#087F5B] min-h-[44px] cursor-pointer"
           >
             {habitations.map(h => (
               <option key={h.id} value={h.id}>{h.name} ({h.district}) - {h.population} pop</option>
@@ -262,7 +273,7 @@ export const SafeSiteFinderView: React.FC<SafeSiteFinderViewProps> = ({
               <button
                 key={r}
                 onClick={() => setRadiusKm(r)}
-                className={`flex-1 py-2.5 rounded-xl text-xs font-bold border transition-colors ${
+                className={`flex-1 py-2.5 rounded-xl text-xs font-bold border transition-colors min-h-[44px] flex items-center justify-center cursor-pointer ${
                   radiusKm === r ? 'bg-[#087F5B] text-white border-[#087F5B]' : 'bg-[#F6F9F7] border-[#DCE7E1] text-slate-600 hover:bg-slate-100'
                 }`}
               >
@@ -280,7 +291,7 @@ export const SafeSiteFinderView: React.FC<SafeSiteFinderViewProps> = ({
         <div>
           <button
             onClick={() => setSearched(true)}
-            className="w-full py-3 bg-[#087F5B] hover:bg-[#07543F] text-white font-black text-xs uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center space-x-2 shadow-md"
+            className="w-full py-3 bg-[#087F5B] hover:bg-[#07543F] text-white font-black text-xs uppercase tracking-wider rounded-xl transition-colors flex items-center justify-center space-x-2 shadow-md min-h-[44px] cursor-pointer"
           >
             <Search className="w-4 h-4" />
             <span>Find Suitable Sites ({filteredSites.length})</span>
@@ -290,64 +301,64 @@ export const SafeSiteFinderView: React.FC<SafeSiteFinderViewProps> = ({
 
       {/* Main Map (65-70%) + Right-Side Site Analysis Panel (30-35%) */}
       {searched && activeSite && (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 w-full">
           {/* Map Container */}
-          <div className="lg:col-span-8 bg-white border border-[#DCE7E1] rounded-3xl shadow-sm overflow-hidden flex flex-col h-[640px] relative">
+          <div className="lg:col-span-8 bg-white border border-[#DCE7E1] rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden flex flex-col h-[45vh] min-h-[320px] max-h-[500px] lg:h-[640px] relative w-full">
             <div ref={mapContainerRef} className="flex-1 w-full h-full" />
 
             {/* Floating Distance Tooltip Badge at Midpoint */}
-            <div className="absolute top-4 right-4 bg-sky-500 text-white px-3 py-1.5 rounded-2xl shadow-xl text-xs font-bold z-10 flex items-center space-x-1.5">
-              <span>↔ Relocation Distance: {siteDist} km ({travelTimeMins} mins)</span>
+            <div className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-sky-500 text-white px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl sm:rounded-2xl shadow-xl text-[10px] sm:text-xs font-bold z-10 flex items-center space-x-1 sm:space-x-1.5">
+              <span>↔ Dist: {siteDist} km ({travelTimeMins} mins)</span>
             </div>
 
             {/* Layer Control on Map */}
-            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-[#DCE7E1] p-3 rounded-2xl shadow-lg text-[11px] space-y-1.5 z-10 max-w-xs">
+            <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/95 backdrop-blur-sm border border-[#DCE7E1] p-2.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-lg text-[10px] sm:text-[11px] space-y-1 sm:space-y-1.5 z-10 max-w-[170px] sm:max-w-xs">
               <div className="font-extrabold text-[#17221D] flex items-center justify-between mb-1">
-                <span>Map Layers Control</span>
+                <span>Layers</span>
                 <Layers className="w-3.5 h-3.5 text-[#087F5B]" />
               </div>
               {[
-                { key: 'candidateSite', label: 'Candidate Site Polygon' },
-                { key: 'currentVillage', label: 'Current Village Marker' },
-                { key: 'redZone', label: 'Modelled Red Zone' },
-                { key: 'relocationRoute', label: 'Relocation Route Line' },
+                { key: 'candidateSite', label: 'Candidate Site' },
+                { key: 'currentVillage', label: 'Current Village' },
+                { key: 'redZone', label: 'Red Zone' },
+                { key: 'relocationRoute', label: 'Route Line' },
               ].map((layer) => (
-                <label key={layer.key} className="flex items-center space-x-2 cursor-pointer hover:bg-slate-50 p-1 rounded">
+                <label key={layer.key} className="flex items-center space-x-1.5 cursor-pointer hover:bg-slate-50 p-0.5 rounded">
                   <input
                     type="checkbox"
                     checked={(layersVisibility as any)[layer.key]}
                     onChange={(e) => setLayersVisibility({ ...layersVisibility, [layer.key]: e.target.checked })}
                     className="rounded border-[#DCE7E1] text-[#087F5B] focus:ring-[#087F5B]"
                   />
-                  <span className="font-semibold text-slate-700">{layer.label}</span>
+                  <span className="font-semibold text-slate-700 truncate">{layer.label}</span>
                 </label>
               ))}
             </div>
 
             {/* Bottom Proximity Strip on Map */}
-            <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm border border-[#DCE7E1] p-3 rounded-2xl shadow-lg grid grid-cols-2 sm:grid-cols-6 gap-2 text-center text-[11px] z-10">
-              <div>
-                <span className="text-slate-400 uppercase block font-bold text-[9px]">Total Area</span>
-                <strong className="text-[#17221D]">{totalAreaAcres} acres</strong>
+            <div className="absolute bottom-2 sm:bottom-4 left-2 sm:left-4 right-2 sm:right-4 bg-white/95 backdrop-blur-sm border border-[#DCE7E1] p-2 sm:p-3 rounded-xl sm:rounded-2xl shadow-lg overflow-x-auto flex sm:grid sm:grid-cols-6 gap-3 sm:gap-2 text-center text-[10px] sm:text-[11px] z-10 scrollbar-none">
+              <div className="shrink-0 min-w-[70px] sm:min-w-0">
+                <span className="text-slate-400 uppercase block font-bold text-[8px] sm:text-[9px]">Total Area</span>
+                <strong className="text-[#17221D]">{totalAreaAcres} ac</strong>
               </div>
-              <div>
-                <span className="text-slate-400 uppercase block font-bold text-[9px]">Village Dist.</span>
+              <div className="shrink-0 min-w-[70px] sm:min-w-0">
+                <span className="text-slate-400 uppercase block font-bold text-[8px] sm:text-[9px]">Village Dist.</span>
                 <strong className="text-[#087F5B]">{siteDist} km</strong>
               </div>
-              <div>
-                <span className="text-slate-400 uppercase block font-bold text-[9px]">Hospital / PHC</span>
+              <div className="shrink-0 min-w-[70px] sm:min-w-0">
+                <span className="text-slate-400 uppercase block font-bold text-[8px] sm:text-[9px]">Hospital</span>
                 <strong className="text-slate-900">{hospitalDist} km</strong>
               </div>
-              <div>
-                <span className="text-slate-400 uppercase block font-bold text-[9px]">Main Highway</span>
+              <div className="shrink-0 min-w-[70px] sm:min-w-0">
+                <span className="text-slate-400 uppercase block font-bold text-[8px] sm:text-[9px]">Highway</span>
                 <strong className="text-slate-900">{highwayDist} km</strong>
               </div>
-              <div>
-                <span className="text-slate-400 uppercase block font-bold text-[9px]">School</span>
+              <div className="shrink-0 min-w-[70px] sm:min-w-0">
+                <span className="text-slate-400 uppercase block font-bold text-[8px] sm:text-[9px]">School</span>
                 <strong className="text-slate-900">{schoolDist} km</strong>
               </div>
-              <div>
-                <span className="text-slate-400 uppercase block font-bold text-[9px]">Water Source</span>
+              <div className="shrink-0 min-w-[70px] sm:min-w-0">
+                <span className="text-slate-400 uppercase block font-bold text-[8px] sm:text-[9px]">Water</span>
                 <strong className="text-slate-900">{waterDist} km</strong>
               </div>
             </div>

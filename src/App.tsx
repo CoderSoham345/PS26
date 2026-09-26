@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TopHeader } from './components/TopHeader';
 import { Sidebar } from './components/Sidebar';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import { LoginPortalView } from './components/LoginPortalView';
 import { DisasterGuardChatbot } from './components/chat/DisasterGuardChatbot';
 
@@ -76,6 +77,8 @@ export default function App() {
 
   // Chatbot Drawer State
   const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
+  // Mobile Navigation Drawer State
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
   // When selected district changes: fetch from Supabase (or fallback), reset village & site
   const handleDistrictChange = async (newDistrict: string) => {
@@ -138,21 +141,24 @@ export default function App() {
         userRole={userRole}
         onSwitchRole={() => setUserRole(null)}
         onOpenAiChat={() => setIsChatOpen(true)}
+        onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
       />
 
       {/* 2. BODY COMPOSITION: LEFT SIDEBAR + MAIN WORKSPACE */}
       <div className="flex-1 flex min-w-0">
-        {/* Left Sidebar (220-240px compact dark vertical navigation) */}
+        {/* Left Sidebar (Desktop permanent / Mobile drawer) */}
         <Sidebar
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           isAuthorityView={isAuthorityView}
           currentLang={currentLang}
           onSwitchRole={() => setUserRole(null)}
+          isMobileOpen={isMobileMenuOpen}
+          onCloseMobile={() => setIsMobileMenuOpen(false)}
         />
 
         {/* Main GIS Command Workspace */}
-        <main className="flex-1 p-4 lg:p-6 overflow-y-auto min-w-0 max-w-full">
+        <main className="flex-1 p-3 sm:p-4 lg:p-6 overflow-y-auto min-w-0 max-w-full pb-24 md:pb-6">
           {/* Default Hero: Rehabilitation Simulator */}
           {activeTab === 'simulator' && (
             <RehabilitationSimulatorView
@@ -277,14 +283,14 @@ export default function App() {
         </main>
       </div>
 
-      {/* Floating Bottom-Right Chatbot Trigger Button */}
+      {/* Floating Bottom-Right Chatbot Trigger Button: Sitting safely at bottom-20 (80px) on mobile, bottom-6 on desktop */}
       <button
         onClick={() => setIsChatOpen(true)}
         aria-label="Open सुरक्षित धरा AI"
-        className="fixed bottom-6 right-6 z-40 bg-white hover:bg-[#F6F9F7] border-2 border-[#087F5B] text-[#17221D] px-4 py-2.5 rounded-full shadow-[0_6px_22px_rgba(7,84,63,0.18)] flex items-center space-x-2.5 transition-all hover:scale-105 group cursor-pointer"
+        className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 w-14 h-14 sm:w-auto sm:h-auto bg-white hover:bg-[#F6F9F7] border-2 border-[#087F5B] text-[#17221D] sm:px-4 sm:py-2.5 rounded-full shadow-[0_6px_22px_rgba(7,84,63,0.18)] flex items-center justify-center sm:justify-start space-x-0 sm:space-x-2.5 transition-all hover:scale-105 group cursor-pointer"
       >
-        <div className="w-6 h-6 rounded-full bg-[#087F5B] flex items-center justify-center text-white shadow-2xs">
-          <Sparkles className="w-3.5 h-3.5" />
+        <div className="w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-[#087F5B] flex items-center justify-center text-white shadow-2xs shrink-0">
+          <Sparkles className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
         </div>
         <div className="text-left hidden sm:block">
           <span className="text-xs font-black tracking-wide block leading-none text-[#07543F]">
@@ -293,6 +299,13 @@ export default function App() {
           <span className="text-[9px] text-[#087F5B] font-bold block">SURAKSHIT DHARA AI</span>
         </div>
       </button>
+
+      {/* Mobile Bottom Navigation Bar (Home, Map, Risk, Relocation, Help) */}
+      <MobileBottomNav
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        currentLang={currentLang}
+      />
 
       {/* DisasterGuard Grounded AI Chatbot Drawer */}
       <DisasterGuardChatbot

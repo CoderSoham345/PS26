@@ -22,9 +22,9 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
   return (
     <div className="space-y-6 pb-12 animate-fadeIn text-[#17221D]">
       {/* Top Banner / Hero */}
-      <div className="bg-white border border-[#DCE7E1] p-6 sm:p-8 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 lg:p-8 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col md:flex-row md:items-center justify-between gap-4 sm:gap-6 w-full box-border">
         <div>
-          <div className="flex items-center space-x-2 mb-2">
+          <div className="flex items-center space-x-2 mb-2 flex-wrap gap-y-1">
             <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] px-3 py-1 rounded-full font-bold uppercase tracking-wider border border-[#B8E5D2]">
               Maharashtra • 5 District Pilot
             </span>
@@ -42,20 +42,20 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center space-x-3 shrink-0">
+        <div className="flex items-center w-full md:w-auto shrink-0">
           <button
             onClick={() => onNavigate('simulator')}
-            className="px-5 py-3 bg-[#087F5B] hover:bg-[#07543F] text-white font-black text-xs rounded-xl shadow-sm transition-all flex items-center space-x-2"
+            className="w-full md:w-auto h-12 px-5 bg-[#087F5B] hover:bg-[#07543F] text-white font-black text-xs rounded-xl shadow-sm transition-all flex items-center justify-center space-x-2 min-h-[48px] cursor-pointer"
           >
-            <Activity className="w-4 h-4" />
+            <Activity className="w-4 h-4 shrink-0" />
             <span>Open AI Simulator</span>
           </button>
         </div>
       </div>
 
       {/* KPI Cards (White + Green Theme) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
+        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-4 sm:p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold text-[#66736D] uppercase tracking-wider">Pilot Districts</span>
             <div className="p-2 bg-[#E7F6EF] text-[#087F5B] rounded-xl border border-[#B8E5D2]">
@@ -66,7 +66,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="text-[11px] text-[#087F5B] font-semibold mt-1">Raigad, Ratnagiri, Pune, Satara, Sindhudurg</div>
         </div>
 
-        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
+        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-4 sm:p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold text-[#66736D] uppercase tracking-wider">Vulnerable Habitations</span>
             <div className="p-2 bg-red-50 text-[#DC3545] rounded-xl border border-red-200">
@@ -77,7 +77,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="text-[11px] text-[#66736D] mt-1">{currentDistrictData.name}: {districtVillages.length} priority habitations</div>
         </div>
 
-        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
+        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-4 sm:p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold text-[#66736D] uppercase tracking-wider">Population Exposed</span>
             <div className="p-2 bg-[#E7F6EF] text-[#087F5B] rounded-xl border border-[#B8E5D2]">
@@ -88,7 +88,7 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           <div className="text-[11px] text-[#087F5B] font-semibold mt-1">High slope & flood exposure</div>
         </div>
 
-        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
+        <div className="bg-white border border-[#DCE7E1] hover:border-[#B8E5D2] p-4 sm:p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col justify-between">
           <div className="flex items-center justify-between mb-3">
             <span className="text-xs font-bold text-[#66736D] uppercase tracking-wider">Candidate Safe Sites</span>
             <div className="p-2 bg-[#E7F6EF] text-[#087F5B] rounded-xl border border-[#B8E5D2]">
@@ -101,8 +101,8 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
       </div>
 
       {/* Target Villages List in Selected District */}
-      <div className="bg-white border border-[#DCE7E1] p-6 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)]">
-        <div className="flex items-center justify-between mb-4 border-b border-[#E8EFEB] pb-3">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] w-full box-border">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 border-b border-[#E8EFEB] pb-3 gap-2">
           <div>
             <h3 className="text-base font-black text-[#17221D]">
               {currentDistrictData.name} Target Habitations (4)
@@ -111,35 +111,35 @@ export const OverviewView: React.FC<OverviewViewProps> = ({
           </div>
           <button
             onClick={() => onNavigate('simulator')}
-            className="text-xs font-bold text-[#087F5B] hover:underline flex items-center space-x-1"
+            className="text-xs font-bold text-[#087F5B] hover:underline flex items-center space-x-1 shrink-0 self-start sm:self-auto py-1"
           >
             <span>Simulate Relocation</span>
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 w-full">
           {districtVillages.map((v) => (
             <div
               key={v.id}
               onClick={() => onNavigate('simulator')}
-              className="bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] hover:border-[#B8E5D2] p-4 rounded-xl cursor-pointer transition-all flex items-center justify-between group"
+              className="bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] hover:border-[#B8E5D2] p-3.5 sm:p-4 rounded-xl cursor-pointer transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
             >
               <div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 flex-wrap">
                   <h4 className="text-sm font-black text-[#17221D] group-hover:text-[#087F5B] transition-colors">{v.name}</h4>
                   <span className="text-[10px] text-[#66736D]">({v.taluka} Taluka)</span>
                 </div>
-                <div className="flex items-center space-x-3 text-xs text-[#66736D] mt-1">
+                <div className="flex items-center space-x-2 sm:space-x-3 text-xs text-[#66736D] mt-1 flex-wrap gap-y-1">
                   <span>Hazard: <strong className="text-[#DC3545]">{v.primaryHazard}</strong></span>
-                  <span>•</span>
+                  <span className="hidden sm:inline">•</span>
                   <span>Pop: <strong className="text-[#17221D]">{v.population}</strong></span>
-                  <span>•</span>
+                  <span className="hidden sm:inline">•</span>
                   <span>Slope: <strong className="text-[#17221D]">{v.terrainSlope}</strong></span>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center justify-between sm:justify-end space-x-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#DCE7E1]">
                 <span className="text-xs font-mono font-black text-[#DC3545] bg-red-50 px-2.5 py-1 rounded-lg border border-red-200">
                   {v.riskScore}/100
                 </span>

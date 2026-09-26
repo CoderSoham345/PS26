@@ -178,33 +178,40 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[450px] bg-white border-l border-[#DCE7E1] shadow-2xl flex flex-col justify-between animate-fadeIn text-[#17221D]">
-      {/* Header */}
-      <div className="px-5 py-4 border-b border-[#DCE7E1] bg-[#F6F9F7] flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-xl bg-[#087F5B] flex items-center justify-center text-white shadow-sm">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <div>
-            <h3 className="text-sm font-black text-[#17221D] flex items-center space-x-2">
-              <span>{t('chatbotTitle', currentLang)}</span>
-              <span className="text-[9px] bg-[#E7F6EF] text-[#087F5B] border border-[#B8E5D2] px-2 py-0.5 rounded font-mono font-bold">
-                GIS Grounded
-              </span>
-            </h3>
-            <p className="text-[10px] text-[#66736D]">
-              {t('chatbotPromptHint', currentLang)}
-            </p>
-          </div>
-        </div>
+    <>
+      {/* Mobile Backdrop */}
+      <div 
+        onClick={onClose}
+        className="fixed inset-0 bg-black/40 z-40 md:hidden animate-fadeIn"
+      />
 
-        <button
-          onClick={onClose}
-          className="p-1.5 rounded-xl hover:bg-[#E7F6EF] text-[#66736D] hover:text-[#087F5B] transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
-      </div>
+      <div className="fixed z-50 bg-white border border-[#DCE7E1] shadow-2xl flex flex-col justify-between animate-fadeIn text-[#17221D] rounded-2xl md:rounded-none overflow-hidden bottom-[76px] right-3 w-[calc(100vw-24px)] max-w-[390px] h-[min(70vh,650px)] md:inset-y-0 md:right-0 md:bottom-auto md:w-[450px] md:h-full md:border-l md:border-t-0 md:border-r-0 md:border-b-0">
+        {/* Header */}
+        <div className="px-4 py-3 sm:px-5 sm:py-4 border-b border-[#DCE7E1] bg-[#F6F9F7] flex items-center justify-between">
+          <div className="flex items-center space-x-2.5 sm:space-x-3">
+            <div className="w-8 h-8 rounded-xl bg-[#087F5B] flex items-center justify-center text-white shadow-sm shrink-0">
+              <Sparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <h3 className="text-xs sm:text-sm font-black text-[#17221D] flex items-center space-x-1.5 sm:space-x-2">
+                <span>{t('chatbotTitle', currentLang)}</span>
+                <span className="text-[9px] bg-[#E7F6EF] text-[#087F5B] border border-[#B8E5D2] px-1.5 py-0.5 rounded font-mono font-bold">
+                  GIS Grounded
+                </span>
+              </h3>
+              <p className="text-[10px] text-[#66736D] truncate max-w-[200px] sm:max-w-none">
+                {t('chatbotPromptHint', currentLang)}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-xl hover:bg-[#E7F6EF] text-[#66736D] hover:text-[#087F5B] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
 
       {/* Current Context Strip */}
       <div className="px-5 py-2 bg-[#E7F6EF] border-b border-[#B8E5D2] text-[10px] text-[#07543F] flex items-center justify-between">
@@ -289,23 +296,25 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
       </div>
 
       {/* Input Form */}
-      <div className="p-3.5 bg-[#F6F9F7] border-t border-[#DCE7E1] flex items-center space-x-2">
+      <div className="p-3 sm:p-3.5 bg-[#F6F9F7] border-t border-[#DCE7E1] flex items-center space-x-2">
         <input
           type="text"
           placeholder={t('askChatbotPlaceholder', currentLang)}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-          className="flex-1 bg-white border border-[#DCE7E1] focus:border-[#087F5B] rounded-xl px-3.5 py-2 text-xs text-[#17221D] placeholder-[#66736D] focus:outline-none transition-colors"
+          className="flex-1 bg-white border border-[#DCE7E1] focus:border-[#087F5B] rounded-xl px-3.5 py-2.5 text-xs text-[#17221D] placeholder-[#66736D] focus:outline-none transition-colors min-h-[44px]"
         />
         <button
           onClick={() => handleSendMessage()}
           disabled={isLoading || !inputText.trim()}
-          className="p-2.5 bg-[#087F5B] hover:bg-[#07543F] disabled:opacity-40 text-white font-bold rounded-xl transition-all shadow-xs cursor-pointer"
+          className="p-2.5 bg-[#087F5B] hover:bg-[#07543F] disabled:opacity-40 text-white font-bold rounded-xl transition-all shadow-xs cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center shrink-0"
+          aria-label="Send message"
         >
           <Send className="w-4 h-4" />
         </button>
       </div>
     </div>
-  );
+  </>
+);
 };

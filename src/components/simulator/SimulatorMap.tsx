@@ -663,7 +663,19 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
       }
     }
 
+    // Auto resize map when container or viewport width changes
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.resize();
+      }
+    });
+
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
+    }
+
     return () => {
+      resizeObserver.disconnect();
       // Retain persistent map instance to prevent flickering
     };
   }, []);
@@ -733,15 +745,15 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
   };
 
   return (
-    <div className="relative w-full h-[540px] lg:h-[600px] bg-[#0B0F17] border border-[#1E293B] rounded-2xl overflow-hidden shadow-2xl">
+    <div className="relative w-full h-[48vh] min-h-[320px] max-h-[550px] md:h-[540px] md:max-h-none lg:h-[600px] bg-[#0B0F17] border border-[#1E293B] rounded-2xl overflow-hidden shadow-2xl">
       {/* Map Container */}
       <div ref={mapContainerRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
 
       {/* Top Left: Simulation Stage & Target Indicator Badge */}
-      <div className="absolute top-4 left-4 z-20 pointer-events-none flex flex-col space-y-1.5">
-        <div className="bg-[#0B0F17]/95 backdrop-blur-md border border-[#1E293B] px-3 py-1.5 rounded-xl shadow-xl flex items-center space-x-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-[#10B981] animate-pulse shrink-0" />
-          <div className="text-[11px] font-black text-[#F8FAFC] tracking-wider uppercase flex items-center space-x-1.5">
+      <div className="absolute top-3 left-3 sm:top-4 sm:left-4 z-20 pointer-events-none flex flex-col space-y-1 max-w-[calc(100%-80px)]">
+        <div className="bg-[#0B0F17]/95 backdrop-blur-md border border-[#1E293B] px-2.5 py-1.5 rounded-xl shadow-xl flex items-center space-x-1.5 flex-wrap">
+          <div className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shrink-0" />
+          <div className="text-[10px] sm:text-[11px] font-black text-[#F8FAFC] tracking-wider uppercase flex items-center space-x-1">
             <span>{t('stage', currentLang)}:</span>
             <span className={
               stage === 'after' 
@@ -753,27 +765,27 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
               {stage.toUpperCase()}
             </span>
           </div>
-          <span className="text-[#64748B] text-[10px]">|</span>
-          <span className="text-[10px] text-[#94A3B8]">
+          <span className="text-[#64748B] text-[10px] hidden sm:inline">|</span>
+          <span className="text-[9px] sm:text-[10px] text-[#94A3B8] truncate max-w-[140px] sm:max-w-none">
             {habitation.name} → {site.name}
           </span>
         </div>
 
         {stage === 'after' && (
-          <div className="bg-[#10B981]/20 backdrop-blur border border-[#10B981]/60 px-2.5 py-1 rounded-lg text-[10px] font-bold text-[#34D399] flex items-center space-x-1.5 shadow-lg">
-            <CheckCircle2 className="w-3.5 h-3.5 text-[#34D399]" />
-            <span>REHABILITATED RESILIENT SETTLEMENT ACTIVE</span>
+          <div className="bg-[#10B981]/20 backdrop-blur border border-[#10B981]/60 px-2 py-0.5 rounded-lg text-[9px] sm:text-[10px] font-bold text-[#34D399] flex items-center space-x-1 shadow-lg max-w-fit">
+            <CheckCircle2 className="w-3 h-3 text-[#34D399] shrink-0" />
+            <span className="truncate">RESILIENT SETTLEMENT ACTIVE</span>
           </div>
         )}
       </div>
 
       {/* Top Right: Tactical Map Controls */}
-      <div className="absolute top-4 right-4 z-20 flex flex-col space-y-1.5 bg-[#0B0F17]/95 border border-[#1E293B] p-1.5 rounded-xl shadow-xl">
+      <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex flex-col space-y-1.5 bg-[#0B0F17]/95 border border-[#1E293B] p-1 rounded-xl shadow-xl">
         <button
           onClick={handleZoomIn}
           title="Zoom In"
           aria-label="Zoom In"
-          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] flex items-center justify-center transition-colors min-h-[32px] min-w-[32px]"
         >
           <Plus className="w-4 h-4" />
         </button>
@@ -781,7 +793,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
           onClick={handleZoomOut}
           title="Zoom Out"
           aria-label="Zoom Out"
-          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#F8FAFC] flex items-center justify-center transition-colors min-h-[32px] min-w-[32px]"
         >
           <Minus className="w-4 h-4" />
         </button>
@@ -789,7 +801,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
           onClick={handleLocateVillage}
           title="Locate Current Vulnerable Village"
           aria-label="Locate Village"
-          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#EF4444] flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#EF4444] flex items-center justify-center transition-colors min-h-[32px] min-w-[32px]"
         >
           <Crosshair className="w-4 h-4" />
         </button>
@@ -797,7 +809,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
           onClick={handleLocateSite}
           title="Locate Candidate Relocation Site"
           aria-label="Locate Site"
-          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#10B981] flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#10B981] flex items-center justify-center transition-colors min-h-[32px] min-w-[32px]"
         >
           <MapPin className="w-4 h-4" />
         </button>
@@ -805,7 +817,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
           onClick={handleResetView}
           title="Reset View (Fit Both Village & Site)"
           aria-label="Reset View"
-          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#0EA5E9] flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#0EA5E9] flex items-center justify-center transition-colors min-h-[32px] min-w-[32px]"
         >
           <RotateCcw className="w-4 h-4" />
         </button>
@@ -813,7 +825,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
           onClick={handleFullscreen}
           title="Fullscreen Map"
           aria-label="Fullscreen Map"
-          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-lg bg-[#16202B] hover:bg-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] flex items-center justify-center transition-colors min-h-[32px] min-w-[32px]"
         >
           <Maximize2 className="w-4 h-4" />
         </button>
@@ -866,7 +878,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
 
       {/* POPUP MODAL: CURRENT VILLAGE PROFILE */}
       {activePopupVillage && (
-        <div className="absolute top-20 left-6 z-30 w-80 bg-[#111827] border border-[#EF4444] rounded-2xl p-4 shadow-2xl animate-fadeIn">
+        <div className="absolute top-14 sm:top-20 left-3 right-3 sm:right-auto sm:left-6 z-30 w-auto sm:w-80 max-w-sm bg-[#111827] border border-[#EF4444] rounded-2xl p-3.5 sm:p-4 shadow-2xl animate-fadeIn">
           <div className="flex items-center justify-between pb-2 border-b border-[#1E293B] mb-2">
             <span className="text-[10px] uppercase font-bold text-[#EF4444] flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-[#EF4444]" />
@@ -874,7 +886,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
             </span>
             <button
               onClick={() => setActivePopupVillage(null)}
-              className="text-[#64748B] hover:text-[#F8FAFC] text-xs font-bold w-5 h-5 flex items-center justify-center rounded bg-[#16202B]"
+              className="text-[#64748B] hover:text-[#F8FAFC] text-xs font-bold w-6 h-6 flex items-center justify-center rounded bg-[#16202B] cursor-pointer"
             >
               ✕
             </button>
@@ -906,7 +918,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
 
       {/* POPUP MODAL: CANDIDATE SITE PROFILE */}
       {activePopupSite && (
-        <div className="absolute top-20 right-16 z-30 w-80 bg-[#111827] border border-[#10B981] rounded-2xl p-4 shadow-2xl animate-fadeIn">
+        <div className="absolute top-14 sm:top-20 left-3 right-3 sm:left-auto sm:right-6 z-30 w-auto sm:w-80 max-w-sm bg-[#111827] border border-[#10B981] rounded-2xl p-3.5 sm:p-4 shadow-2xl animate-fadeIn">
           <div className="flex items-center justify-between pb-2 border-b border-[#1E293B] mb-2">
             <span className="text-[10px] uppercase font-bold text-[#10B981] flex items-center space-x-1">
               <span className="w-2 h-2 rounded-full bg-[#10B981]" />
@@ -914,7 +926,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
             </span>
             <button
               onClick={() => setActivePopupSite(null)}
-              className="text-[#64748B] hover:text-[#F8FAFC] text-xs font-bold w-5 h-5 flex items-center justify-center rounded bg-[#16202B]"
+              className="text-[#64748B] hover:text-[#F8FAFC] text-xs font-bold w-6 h-6 flex items-center justify-center rounded bg-[#16202B] cursor-pointer"
             >
               ✕
             </button>
@@ -954,7 +966,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
 
       {/* POPUP MODAL: REHABILITATION FACILITY DETAILS */}
       {activePopupFacility && (
-        <div className="absolute bottom-20 left-6 z-30 w-72 bg-[#111827] border border-[#34D399] rounded-2xl p-3.5 shadow-2xl animate-fadeIn">
+        <div className="absolute bottom-16 left-3 right-3 sm:right-auto sm:left-6 z-30 w-auto sm:w-72 max-w-sm bg-[#111827] border border-[#34D399] rounded-2xl p-3 sm:p-3.5 shadow-2xl animate-fadeIn">
           <div className="flex items-center justify-between pb-1.5 border-b border-[#1E293B] mb-2">
             <span className="text-[10px] uppercase font-bold text-[#34D399] flex items-center space-x-1">
               <span>{activePopupFacility.icon}</span>
@@ -962,7 +974,7 @@ export const SimulatorMap: React.FC<SimulatorMapProps> = ({
             </span>
             <button
               onClick={() => setActivePopupFacility(null)}
-              className="text-[#64748B] hover:text-[#F8FAFC] text-xs font-bold w-5 h-5 flex items-center justify-center rounded bg-[#16202B]"
+              className="text-[#64748B] hover:text-[#F8FAFC] text-xs font-bold w-6 h-6 flex items-center justify-center rounded bg-[#16202B] cursor-pointer"
             >
               ✕
             </button>

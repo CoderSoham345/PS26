@@ -48,7 +48,18 @@ export const RedZoneView: React.FC<RedZoneViewProps> = ({
       console.warn('Map initialization warning:', e);
     }
 
+    const resizeObserver = new ResizeObserver(() => {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.resize();
+      }
+    });
+
+    if (mapContainerRef.current) {
+      resizeObserver.observe(mapContainerRef.current);
+    }
+
     return () => {
+      resizeObserver.disconnect();
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove();
         mapInstanceRef.current = null;
@@ -57,11 +68,11 @@ export const RedZoneView: React.FC<RedZoneViewProps> = ({
   }, [selectedVillage]);
 
   return (
-    <div className="space-y-6 pb-12 animate-fadeIn font-sans">
+    <div className="space-y-4 sm:space-y-6 pb-12 animate-fadeIn font-sans w-full max-w-full">
       {/* Header & Disclaimer */}
-      <div className="bg-white border border-[#DCE7E1] p-6 rounded-3xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 w-full">
         <div>
-          <div className="flex items-center space-x-2 mb-1">
+          <div className="flex items-center space-x-2 flex-wrap gap-y-1 mb-1">
             <span className="text-[10px] bg-red-100 text-red-700 px-2.5 py-0.5 rounded font-bold uppercase tracking-wider">
               AI-ASSESSED HIGH-RISK AREA (MODELLED RED ZONE) • {selectedVillage.district}
             </span>
@@ -69,25 +80,25 @@ export const RedZoneView: React.FC<RedZoneViewProps> = ({
               Prototype decision-support layer — not an official statutory order.
             </span>
           </div>
-          <h1 className="text-xl font-extrabold text-[#17221D]">
+          <h1 className="text-xl sm:text-2xl font-extrabold text-[#17221D]">
             Red Zone Analysis: {selectedVillage.name} ({selectedVillage.taluka} Taluka)
           </h1>
-          <p className="text-xs text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-600">
             High-density GIS spatial hazard exposure and dynamic risk inspector.
           </p>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
           <button
             onClick={() => setReportModalOpen(true)}
-            className="px-4 py-2.5 bg-[#087F5B] hover:bg-[#07543F] text-white font-bold text-xs rounded-xl transition-colors flex items-center space-x-2 shadow-sm"
+            className="w-full sm:w-auto px-4 py-3 sm:py-2.5 bg-[#087F5B] hover:bg-[#07543F] text-white font-bold text-xs rounded-xl transition-colors flex items-center justify-center space-x-2 shadow-sm min-h-[44px] cursor-pointer"
           >
             <FileText className="w-4 h-4" />
             <span>Generate Analysis Report</span>
           </button>
           <button
             onClick={onNavigateToPlanner}
-            className="px-4 py-2.5 bg-[#E7F6EF] hover:bg-[#087F5B] hover:text-white border border-[#087F5B]/30 text-[#087F5B] font-bold text-xs rounded-xl transition-colors flex items-center space-x-2 shadow-sm"
+            className="w-full sm:w-auto px-4 py-3 sm:py-2.5 bg-[#E7F6EF] hover:bg-[#087F5B] hover:text-white border border-[#087F5B]/30 text-[#087F5B] font-bold text-xs rounded-xl transition-colors flex items-center justify-center space-x-2 shadow-sm min-h-[44px] cursor-pointer"
           >
             <ArrowUpRight className="w-4 h-4" />
             <span>Proceed to Relocation Priority →</span>
@@ -96,27 +107,27 @@ export const RedZoneView: React.FC<RedZoneViewProps> = ({
       </div>
 
       {/* Dual-Pane Workspace Layout (70% Map / 30% Analytical Inspector) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left Panel (70% Canvas: Interactive MapTiler GIS Map) */}
-        <div className="lg:col-span-8 bg-white border border-[#DCE7E1] rounded-3xl shadow-sm overflow-hidden flex flex-col h-[600px] relative">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 w-full">
+        {/* Left Panel (Interactive MapTiler GIS Map) */}
+        <div className="lg:col-span-8 bg-white border border-[#DCE7E1] rounded-2xl sm:rounded-3xl shadow-sm overflow-hidden flex flex-col h-[45vh] min-h-[320px] max-h-[500px] lg:h-[600px] relative w-full">
           <div ref={mapContainerRef} className="flex-1 w-full h-full" />
 
           {/* Map Overlay Badge & Layer Toggle */}
-          <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm border border-[#DCE7E1] p-3 rounded-2xl shadow-lg text-[11px] space-y-2 z-10">
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 bg-white/95 backdrop-blur-sm border border-[#DCE7E1] p-2.5 sm:p-3 rounded-xl sm:rounded-2xl shadow-lg text-[10px] sm:text-[11px] space-y-1.5 sm:space-y-2 z-10 max-w-[calc(100%-80px)]">
             <div className="font-bold text-[#17221D]">Active GIS Overlays</div>
             <div className="flex items-center space-x-2">
-              <span className="w-3 h-3 rounded-full bg-red-600 animate-pulse inline-block" />
-              <span>High-Risk Red Zone Polygon</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse inline-block shrink-0" />
+              <span className="truncate">High-Risk Red Zone Polygon</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
-              <span>200m Hazard Danger Buffer</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block shrink-0" />
+              <span className="truncate">200m Hazard Danger Buffer</span>
             </div>
           </div>
         </div>
 
-        {/* Right Panel (30% Sidebar: Red Zone Evidence & Dynamic Risk Inspector) */}
-        <div className="lg:col-span-4 bg-white border border-[#DCE7E1] p-6 rounded-3xl shadow-sm flex flex-col justify-between space-y-6 overflow-y-auto max-h-[600px]">
+        {/* Right Panel (Red Zone Evidence & Dynamic Risk Inspector) */}
+        <div className="lg:col-span-4 bg-white border border-[#DCE7E1] p-4 sm:p-6 rounded-2xl sm:rounded-3xl shadow-sm flex flex-col justify-between space-y-4 sm:space-y-6 w-full overflow-y-auto max-h-none lg:max-h-[600px]">
           <div className="space-y-6">
             {/* Red Zone Summary Banner */}
             <div className="p-4 bg-red-50 border border-red-200 rounded-2xl space-y-2">

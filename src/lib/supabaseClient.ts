@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || 'https://ncsarlqvlgecvwxbplrt.supabase.co';
-const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_BbHNIEncnwqfKxhQ3RZD9g_5FGAzqJq';
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
 
 let client: ReturnType<typeof createClient> | null = null;
 

@@ -151,7 +151,8 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
               />
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-3 right-3 p-2 rounded-xl bg-black/60 hover:bg-black/80 text-white border border-white/20 transition-colors"
+                className="absolute top-3 right-3 p-2 rounded-xl bg-black/60 hover:bg-black/80 text-white border border-white/20 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center cursor-pointer"
+                aria-label="Close image preview"
               >
                 <X className="w-5 h-5" />
               </button>

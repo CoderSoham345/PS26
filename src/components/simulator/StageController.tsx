@@ -93,32 +93,32 @@ export const StageController: React.FC<StageControllerProps> = ({
       </div>
 
       {/* Right Controls: 3-step Stage Controller + Play Simulation */}
-      <div className="flex flex-wrap items-center gap-3 shrink-0">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 shrink-0 w-full xl:w-auto">
         {/* Connected 3-Step Stage Controller */}
-        <div className="flex items-center bg-[#F6F9F7] border border-[#DCE7E1] p-1 rounded-xl">
+        <div className="grid grid-cols-3 sm:flex sm:items-center bg-[#F6F9F7] border border-[#DCE7E1] p-1 rounded-xl w-full sm:w-auto">
           {/* 1. BEFORE */}
           <button
             onClick={() => {
               setIsPlaying(false);
               setStage('before');
             }}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 ${
+            className={`px-2 sm:px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center sm:justify-start space-x-1 sm:space-x-1.5 min-h-[44px] sm:min-h-[38px] cursor-pointer ${
               stage === 'before'
                 ? 'bg-[#DC3545] text-white shadow-sm'
                 : 'text-[#66736D] hover:text-[#17221D] hover:bg-white'
             }`}
           >
-            <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px]">
+            <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px] shrink-0">
               1
             </span>
             <div className="text-left">
-              <div className="leading-tight">{t('beforeStage', currentLang)}</div>
-              <div className="text-[9px] font-normal opacity-80 hidden sm:block">Vulnerable Settlement</div>
+              <div className="leading-tight text-[11px] sm:text-xs truncate">{t('beforeStage', currentLang)}</div>
+              <div className="text-[9px] font-normal opacity-80 hidden md:block">Vulnerable Settlement</div>
             </div>
           </button>
 
-          {/* Divider */}
-          <div className="w-3 text-center text-[#66736D]">→</div>
+          {/* Divider (Desktop Only) */}
+          <div className="hidden sm:block w-3 text-center text-[#66736D]">→</div>
 
           {/* 2. RELOCATION */}
           <button
@@ -126,23 +126,23 @@ export const StageController: React.FC<StageControllerProps> = ({
               setIsPlaying(false);
               setStage('relocation');
             }}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 ${
+            className={`px-2 sm:px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center sm:justify-start space-x-1 sm:space-x-1.5 min-h-[44px] sm:min-h-[38px] cursor-pointer ${
               stage === 'relocation'
                 ? 'bg-[#0284C7] text-white shadow-sm'
                 : 'text-[#66736D] hover:text-[#17221D] hover:bg-white'
             }`}
           >
-            <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px]">
+            <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px] shrink-0">
               2
             </span>
             <div className="text-left">
-              <div className="leading-tight">{t('relocationStage', currentLang)}</div>
-              <div className="text-[9px] font-normal opacity-80 hidden sm:block">Movement to Site</div>
+              <div className="leading-tight text-[11px] sm:text-xs truncate">{t('relocationStage', currentLang)}</div>
+              <div className="text-[9px] font-normal opacity-80 hidden md:block">Movement to Site</div>
             </div>
           </button>
 
-          {/* Divider */}
-          <div className="w-3 text-center text-[#66736D]">→</div>
+          {/* Divider (Desktop Only) */}
+          <div className="hidden sm:block w-3 text-center text-[#66736D]">→</div>
 
           {/* 3. AFTER */}
           <button
@@ -150,27 +150,27 @@ export const StageController: React.FC<StageControllerProps> = ({
               setIsPlaying(false);
               setStage('after');
             }}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 ${
+            className={`px-2 sm:px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center sm:justify-start space-x-1 sm:space-x-1.5 min-h-[44px] sm:min-h-[38px] cursor-pointer ${
               stage === 'after'
                 ? 'bg-[#087F5B] text-white shadow-sm'
                 : 'text-[#66736D] hover:text-[#17221D] hover:bg-white'
             }`}
           >
-            <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px]">
+            <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px] shrink-0">
               3
             </span>
             <div className="text-left">
-              <div className="leading-tight">{t('afterStage', currentLang)}</div>
-              <div className="text-[9px] font-normal opacity-80 hidden sm:block">Planned Settlement</div>
+              <div className="leading-tight text-[11px] sm:text-xs truncate">{t('afterStage', currentLang)}</div>
+              <div className="text-[9px] font-normal opacity-80 hidden md:block">Planned Settlement</div>
             </div>
           </button>
         </div>
 
         {/* Play / Reset Controls */}
-        <div className="flex items-center space-x-1.5">
+        <div className="flex items-center space-x-2 w-full sm:w-auto">
           <button
             onClick={handleTogglePlay}
-            className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center space-x-2 shadow-sm min-h-[38px] ${
+            className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-black transition-all flex items-center justify-center space-x-2 shadow-sm min-h-[44px] sm:min-h-[38px] cursor-pointer ${
               isPlaying
                 ? 'bg-[#F59E0B] text-white hover:bg-[#D97706]'
                 : 'bg-[#087F5B] text-white hover:bg-[#07543F]'
@@ -192,7 +192,7 @@ export const StageController: React.FC<StageControllerProps> = ({
           <button
             onClick={handleReset}
             title={t('resetSimulation', currentLang)}
-            className="p-2 bg-white hover:bg-[#E7F6EF] border border-[#DCE7E1] hover:border-[#B8E5D2] rounded-xl text-[#66736D] hover:text-[#087F5B] transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center shadow-2xs"
+            className="p-2 bg-white hover:bg-[#E7F6EF] border border-[#DCE7E1] hover:border-[#B8E5D2] rounded-xl text-[#66736D] hover:text-[#087F5B] transition-colors min-h-[44px] min-w-[44px] sm:min-h-[38px] sm:min-w-[38px] flex items-center justify-center shadow-2xs cursor-pointer"
           >
             <RotateCcw className="w-4 h-4" />
           </button>
