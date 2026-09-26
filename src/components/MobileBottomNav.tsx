@@ -1,12 +1,7 @@
 import React from 'react';
-import { 
-  LayoutDashboard, 
-  Map, 
-  AlertTriangle, 
-  Activity, 
-  HelpCircle 
-} from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 import { Language, t } from '../lib/i18n';
+import { NAVIGATION_ITEMS_CONFIG } from '../data/navigationConfig';
 
 interface MobileBottomNavProps {
   activeTab: string;
@@ -19,33 +14,17 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   setActiveTab,
   currentLang
 }) => {
-  const navItems = [
-    {
-      id: 'overview',
-      label: currentLang === 'mr' ? 'गृह' : currentLang === 'hi' ? 'होम' : 'Home',
-      icon: LayoutDashboard
-    },
-    {
-      id: 'gis-map',
-      label: currentLang === 'mr' ? 'नकाशा' : currentLang === 'hi' ? 'मानचित्र' : 'Map',
-      icon: Map
-    },
-    {
-      id: 'habitations',
-      label: currentLang === 'mr' ? 'धोका' : currentLang === 'hi' ? 'जोखिम' : 'Risk',
-      icon: AlertTriangle
-    },
-    {
-      id: 'simulator',
-      label: currentLang === 'mr' ? 'पुनर्वसन' : currentLang === 'hi' ? 'पुनर्वास' : 'Relocation',
-      icon: Activity
-    },
-    {
-      id: 'help',
-      label: currentLang === 'mr' ? 'मदत' : currentLang === 'hi' ? 'सहायता' : 'Help',
-      icon: HelpCircle
-    }
-  ];
+  const bottomNavIds = ['overview', 'gis-map', 'habitations', 'simulator', 'help'];
+  
+  const navItems = bottomNavIds.map(id => {
+    const config = NAVIGATION_ITEMS_CONFIG.find(item => item.id === id);
+    if (!config) return null;
+    return {
+      id,
+      label: t(config.translationKey, currentLang) || config.fallbackLabel,
+      icon: config.icon
+    };
+  }).filter((item): item is { id: string; label: string; icon: LucideIcon } => item !== null);
 
   return (
     <nav 

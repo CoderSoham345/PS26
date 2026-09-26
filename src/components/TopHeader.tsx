@@ -19,6 +19,8 @@ interface TopHeaderProps {
   onSwitchRole: () => void;
   onOpenAiChat: () => void;
   onToggleMobileMenu?: () => void;
+  onToggleSidebar?: () => void;
+  isSidebarCollapsed?: boolean;
 }
 
 export const TopHeader: React.FC<TopHeaderProps> = ({
@@ -36,7 +38,9 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   userRole,
   onSwitchRole,
   onOpenAiChat,
-  onToggleMobileMenu
+  onToggleMobileMenu,
+  onToggleSidebar,
+  isSidebarCollapsed
 }) => {
   const [showDesktopLangMenu, setShowDesktopLangMenu] = useState(false);
   const desktopLangRef = useRef<HTMLDivElement>(null);
@@ -61,7 +65,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   const currentLangObj = languages.find(l => l.code === currentLang) || languages[0];
 
   return (
-    <div className="sticky top-0 z-30 w-full max-w-full bg-white shadow-[0_2px_10px_rgba(7,84,63,0.06)] border-b border-[#DCE7E1]">
+    <div className="sticky top-0 z-40 w-full max-w-full bg-white shadow-[0_2px_10px_rgba(7,84,63,0.06)] border-b border-[#DCE7E1]">
       {/* ========================================================
           ROW 1: TOP MAIN APP BAR (~56px - 64px)
           Desktop (xl+): Displays Logo, Selectors, Lang, Role, AI
@@ -70,14 +74,27 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
       <header className="h-14 sm:h-16 px-3 sm:px-4 lg:px-6 flex items-center justify-between text-[#17221D] w-full max-w-full">
         {/* Left: Mobile Menu Button + App Branding */}
         <div className="flex items-center space-x-2 sm:space-x-2.5 shrink-0 min-w-0">
-          {/* Mobile Hamburger Drawer Toggle (Mobile only < md) */}
+          {/* Mobile Hamburger Drawer Toggle (Mobile only <= 768px -> md:hidden) */}
           {onToggleMobileMenu && (
             <button
               onClick={onToggleMobileMenu}
-              aria-label="Toggle Navigation Drawer"
+              aria-label="Open navigation"
+              title="Open navigation"
               className="md:hidden p-2 rounded-xl text-[#07543F] hover:bg-[#E7F6EF] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center -ml-1 cursor-pointer"
             >
               <Menu className="w-6 h-6 text-[#087F5B]" />
+            </button>
+          )}
+
+          {/* Desktop/Tablet Collapse & Expand Toggle Button (screens > 768px) */}
+          {onToggleSidebar && (
+            <button
+              onClick={onToggleSidebar}
+              aria-label={isSidebarCollapsed ? 'Open navigation' : 'Collapse navigation'}
+              title={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              className="hidden md:flex p-2 rounded-xl text-[#07543F] hover:bg-[#E7F6EF] transition-colors min-h-[44px] min-w-[44px] items-center justify-center -ml-1 cursor-pointer"
+            >
+              <Menu className="w-5 h-5 text-[#087F5B]" />
             </button>
           )}
 
@@ -203,14 +220,14 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
             )}
           </div>
 
-          {/* User Role Switcher Button (Desktop & Tablet) */}
+          {/* User Role Switcher Button (Desktop & Large Screens > 768px) */}
           <button
             onClick={onSwitchRole}
             title="Switch User Role Portal"
-            className="hidden sm:flex items-center space-x-1.5 bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-[#07543F] transition-colors min-h-[44px] sm:min-h-[38px] cursor-pointer"
+            className="hidden md:flex items-center space-x-1.5 bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold text-[#07543F] transition-colors min-h-[44px] sm:min-h-[38px] cursor-pointer"
           >
             <UserCheck className="w-3.5 h-3.5 text-[#087F5B]" />
-            <span className="hidden md:inline">
+            <span>
               {userRole === 'admin'
                 ? t('adminMode', currentLang)
                 : userRole === 'authority'

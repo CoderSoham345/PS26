@@ -80,6 +80,30 @@ export default function App() {
   // Mobile Navigation Drawer State
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
 
+  // Desktop & Tablet Sidebar Collapse State:
+  // - Tablet (769px - 1023px): Collapsed by default
+  // - Desktop (>= 1024px): Expanded by default
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth >= 769 && window.innerWidth < 1024;
+    }
+    return false;
+  });
+
+  // Toggle sidebar collapse with smooth resize events dispatched to avoid map distortion
+  const handleToggleSidebar = () => {
+    setIsSidebarCollapsed(prev => !prev);
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new Event('resize'));
+    });
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 150);
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 320);
+  };
+
   // When selected district changes: fetch from Supabase (or fallback), reset village & site
   const handleDistrictChange = async (newDistrict: string) => {
     setSelectedDistrict(newDistrict);
@@ -142,17 +166,21 @@ export default function App() {
         onSwitchRole={() => setUserRole(null)}
         onOpenAiChat={() => setIsChatOpen(true)}
         onToggleMobileMenu={() => setIsMobileMenuOpen(prev => !prev)}
+        onToggleSidebar={handleToggleSidebar}
+        isSidebarCollapsed={isSidebarCollapsed}
       />
 
       {/* 2. BODY COMPOSITION: LEFT SIDEBAR + MAIN WORKSPACE */}
       <div className="flex-1 flex min-w-0">
-        {/* Left Sidebar (Desktop permanent / Mobile drawer) */}
+        {/* Left Sidebar (Desktop permanent / Tablet collapsed / Mobile drawer) */}
         <Sidebar
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           isAuthorityView={isAuthorityView}
           currentLang={currentLang}
           onSwitchRole={() => setUserRole(null)}
+          isCollapsed={isSidebarCollapsed}
+          onToggleCollapse={handleToggleSidebar}
           isMobileOpen={isMobileMenuOpen}
           onCloseMobile={() => setIsMobileMenuOpen(false)}
         />
@@ -283,11 +311,16 @@ export default function App() {
         </main>
       </div>
 
-      {/* Floating Bottom-Right Chatbot Trigger Button: Sitting safely at bottom-20 (80px) on mobile, bottom-6 on desktop */}
+      {/* Floating Bottom-Right Chatbot Trigger Button (z-index 50)
+          - Mobile: fixed right-4 (16px), bottom-20 (80px), size 56x56px (w-14 h-14)
+          - Desktop: bottom-6, right-6
+          - Automatically hidden when mobile navigation drawer is open */}
       <button
         onClick={() => setIsChatOpen(true)}
         aria-label="Open सुरक्षित धरा AI"
-        className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 w-14 h-14 sm:w-auto sm:h-auto bg-white hover:bg-[#F6F9F7] border-2 border-[#087F5B] text-[#17221D] sm:px-4 sm:py-2.5 rounded-full shadow-[0_6px_22px_rgba(7,84,63,0.18)] flex items-center justify-center sm:justify-start space-x-0 sm:space-x-2.5 transition-all hover:scale-105 group cursor-pointer"
+        className={`fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50 w-14 h-14 sm:w-auto sm:h-auto bg-white hover:bg-[#F6F9F7] border-2 border-[#087F5B] text-[#17221D] sm:px-4 sm:py-2.5 rounded-full shadow-[0_6px_22px_rgba(7,84,63,0.18)] flex items-center justify-center sm:justify-start space-x-0 sm:space-x-2.5 transition-all hover:scale-105 group cursor-pointer ${
+          isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
+        }`}
       >
         <div className="w-7 h-7 sm:w-6 sm:h-6 rounded-full bg-[#087F5B] flex items-center justify-center text-white shadow-2xs shrink-0">
           <Sparkles className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
