@@ -61,33 +61,33 @@ export const StageController: React.FC<StageControllerProps> = ({
   };
 
   return (
-    <div className="bg-[#111827] border border-[#1E293B] p-4 lg:p-5 rounded-2xl shadow-xl flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+    <div className="bg-white border border-[#DCE7E1] p-4 lg:p-5 rounded-2xl shadow-[0_4px_18px_rgba(7,84,63,0.06)] flex flex-col xl:flex-row xl:items-center justify-between gap-4">
       {/* Title & Subtitle */}
       <div>
         <div className="flex items-center space-x-2 mb-1">
-          <span className="text-[10px] bg-[#10B981]/20 text-[#10B981] px-2.5 py-0.5 rounded-md font-bold uppercase tracking-wider border border-[#10B981]/30">
+          <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] px-2.5 py-0.5 rounded-md font-bold uppercase tracking-wider border border-[#B8E5D2]">
             {t('simulatorTag', currentLang)}
           </span>
           {isPlaying && (
-            <span className="flex items-center space-x-1 text-[10px] text-[#0EA5E9] font-mono animate-pulse">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0EA5E9]" />
+            <span className="flex items-center space-x-1 text-[10px] text-[#087F5B] font-mono font-bold animate-pulse">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B]" />
               <span>Simulating Sequence Step {simStep + 1}/7</span>
             </span>
           )}
         </div>
 
-        <h1 className="text-lg lg:text-xl font-black text-[#F8FAFC] tracking-tight flex items-center flex-wrap gap-1.5">
+        <h1 className="text-lg lg:text-xl font-black text-[#17221D] tracking-tight flex items-center flex-wrap gap-1.5">
           <span>{t('visualizingTransition', currentLang)}</span>
-          <span className="text-[#EF4444] bg-[#EF4444]/15 px-2 py-0.5 rounded-lg border border-[#EF4444]/30">
+          <span className="text-[#DC3545] bg-red-50 px-2 py-0.5 rounded-lg border border-red-200">
             {habitation.name}
           </span>
-          <span className="text-[#94A3B8] font-normal">{t('to', currentLang)}</span>
-          <span className="text-[#10B981] bg-[#10B981]/15 px-2 py-0.5 rounded-lg border border-[#10B981]/30">
+          <span className="text-[#66736D] font-normal">{t('to', currentLang)}</span>
+          <span className="text-[#087F5B] bg-[#E7F6EF] px-2 py-0.5 rounded-lg border border-[#B8E5D2]">
             {site.name}
           </span>
         </h1>
 
-        <p className="text-xs text-[#94A3B8] mt-0.5">
+        <p className="text-xs text-[#66736D] mt-0.5">
           {t('simulatorSubtitle', currentLang)}
         </p>
       </div>
@@ -95,7 +95,7 @@ export const StageController: React.FC<StageControllerProps> = ({
       {/* Right Controls: 3-step Stage Controller + Play Simulation */}
       <div className="flex flex-wrap items-center gap-3 shrink-0">
         {/* Connected 3-Step Stage Controller */}
-        <div className="flex items-center bg-[#0B0F17] border border-[#1E293B] p-1 rounded-xl">
+        <div className="flex items-center bg-[#F6F9F7] border border-[#DCE7E1] p-1 rounded-xl">
           {/* 1. BEFORE */}
           <button
             onClick={() => {
@@ -104,8 +104,8 @@ export const StageController: React.FC<StageControllerProps> = ({
             }}
             className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 ${
               stage === 'before'
-                ? 'bg-[#EF4444] text-white shadow-lg shadow-red-950/60'
-                : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#16202B]'
+                ? 'bg-[#DC3545] text-white shadow-sm'
+                : 'text-[#66736D] hover:text-[#17221D] hover:bg-white'
             }`}
           >
             <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px]">
@@ -118,7 +118,7 @@ export const StageController: React.FC<StageControllerProps> = ({
           </button>
 
           {/* Divider */}
-          <div className="w-3 text-center text-[#64748B]">→</div>
+          <div className="w-3 text-center text-[#66736D]">→</div>
 
           {/* 2. RELOCATION */}
           <button
@@ -128,8 +128,8 @@ export const StageController: React.FC<StageControllerProps> = ({
             }}
             className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 ${
               stage === 'relocation'
-                ? 'bg-[#0EA5E9] text-white shadow-lg shadow-sky-950/60'
-                : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#16202B]'
+                ? 'bg-[#0284C7] text-white shadow-sm'
+                : 'text-[#66736D] hover:text-[#17221D] hover:bg-white'
             }`}
           >
             <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px]">
@@ -142,7 +142,7 @@ export const StageController: React.FC<StageControllerProps> = ({
           </button>
 
           {/* Divider */}
-          <div className="w-3 text-center text-[#64748B]">→</div>
+          <div className="w-3 text-center text-[#66736D]">→</div>
 
           {/* 3. AFTER */}
           <button
@@ -152,8 +152,8 @@ export const StageController: React.FC<StageControllerProps> = ({
             }}
             className={`px-3 py-2 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 ${
               stage === 'after'
-                ? 'bg-[#10B981] text-slate-950 shadow-lg shadow-emerald-950/60'
-                : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#16202B]'
+                ? 'bg-[#087F5B] text-white shadow-sm'
+                : 'text-[#66736D] hover:text-[#17221D] hover:bg-white'
             }`}
           >
             <span className="w-4 h-4 rounded-full border border-current flex items-center justify-center text-[10px]">
@@ -170,10 +170,10 @@ export const StageController: React.FC<StageControllerProps> = ({
         <div className="flex items-center space-x-1.5">
           <button
             onClick={handleTogglePlay}
-            className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center space-x-2 shadow-lg ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-black transition-all flex items-center space-x-2 shadow-sm min-h-[38px] ${
               isPlaying
-                ? 'bg-[#F59E0B] text-slate-950 hover:bg-[#D97706]'
-                : 'bg-gradient-to-r from-[#10B981] to-[#047857] text-slate-950 hover:from-[#34D399] hover:to-[#10B981]'
+                ? 'bg-[#F59E0B] text-white hover:bg-[#D97706]'
+                : 'bg-[#087F5B] text-white hover:bg-[#07543F]'
             }`}
           >
             {isPlaying ? (
@@ -192,7 +192,7 @@ export const StageController: React.FC<StageControllerProps> = ({
           <button
             onClick={handleReset}
             title={t('resetSimulation', currentLang)}
-            className="p-2 bg-[#16202B] hover:bg-[#1E293B] border border-[#1E293B] rounded-xl text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
+            className="p-2 bg-white hover:bg-[#E7F6EF] border border-[#DCE7E1] hover:border-[#B8E5D2] rounded-xl text-[#66736D] hover:text-[#087F5B] transition-colors min-h-[38px] min-w-[38px] flex items-center justify-center shadow-2xs"
           >
             <RotateCcw className="w-4 h-4" />
           </button>

@@ -72,7 +72,11 @@ export const RedZoneReportModal: React.FC<RedZoneReportModalProps> = ({
             <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full font-bold uppercase tracking-widest text-[10px]">
               Prototype Decision-Support Report
             </span>
-            <h1 className="text-2xl font-black text-[#17221D]">DISASTERGUARD RED ZONE ANALYSIS</h1>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
+              <h1 className="text-2xl font-black text-[#07543F]">सुरक्षित धरा</h1>
+              <span className="text-lg font-black text-[#087F5B] uppercase tracking-wider">SURAKSHIT DHARA</span>
+              <span className="text-lg font-bold text-[#17221D]">• RED ZONE ANALYSIS</span>
+            </div>
             <div className="text-slate-500 font-medium">
               District: <strong className="text-slate-900">{selectedVillage.district}</strong> | Habitation: <strong className="text-slate-900">{selectedVillage.name}</strong> ({selectedVillage.taluka} Taluka) | Date: {new Date().toLocaleDateString()}
             </div>

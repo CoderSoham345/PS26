@@ -121,7 +121,7 @@ export default function App() {
   const isAuthorityView = userRole === 'authority' || userRole === 'admin';
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0B0F17] text-[#F8FAFC] font-sans antialiased selection:bg-[#10B981] selection:text-slate-950">
+    <div className="flex flex-col min-h-screen bg-[#F6F9F7] text-[#17221D] font-sans antialiased selection:bg-[#087F5B] selection:text-white">
       {/* 1. TOP GLOBAL HEADER */}
       <TopHeader
         currentLang={currentLang}
@@ -264,6 +264,8 @@ export default function App() {
           {activeTab === 'help' && (
             <CommunityHelpView
               selectedVillage={selectedVillage}
+              selectedDistrict={selectedDistrict}
+              onDistrictChange={handleDistrictChange}
               onNavigate={setActiveTab}
               currentLang={currentLang}
             />
@@ -278,17 +280,17 @@ export default function App() {
       {/* Floating Bottom-Right Chatbot Trigger Button */}
       <button
         onClick={() => setIsChatOpen(true)}
-        aria-label="Open DisasterGuard AI"
-        className="fixed bottom-6 right-6 z-40 bg-[#0F1720] hover:bg-[#16202B] border-2 border-[#10B981] text-[#F8FAFC] px-4 py-2.5 rounded-full shadow-2xl shadow-emerald-950/80 flex items-center space-x-2.5 transition-all hover:scale-105 group cursor-pointer"
+        aria-label="Open सुरक्षित धरा AI"
+        className="fixed bottom-6 right-6 z-40 bg-white hover:bg-[#F6F9F7] border-2 border-[#087F5B] text-[#17221D] px-4 py-2.5 rounded-full shadow-[0_6px_22px_rgba(7,84,63,0.18)] flex items-center space-x-2.5 transition-all hover:scale-105 group cursor-pointer"
       >
-        <div className="w-6 h-6 rounded-full bg-gradient-to-br from-[#10B981] to-[#047857] flex items-center justify-center text-slate-950 shadow">
-          <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+        <div className="w-6 h-6 rounded-full bg-[#087F5B] flex items-center justify-center text-white shadow-2xs">
+          <Sparkles className="w-3.5 h-3.5" />
         </div>
         <div className="text-left hidden sm:block">
-          <span className="text-xs font-black tracking-wide block leading-none text-[#10B981]">
-            DISASTERGUARD AI
+          <span className="text-xs font-black tracking-wide block leading-none text-[#07543F]">
+            सुरक्षित धरा AI
           </span>
-          <span className="text-[9px] text-[#94A3B8] block">GIS Decision Support</span>
+          <span className="text-[9px] text-[#087F5B] font-bold block">SURAKSHIT DHARA AI</span>
         </div>
       </button>
 

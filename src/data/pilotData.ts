@@ -948,7 +948,7 @@ export const MOCK_DATA_SOURCES: DataSource[] = [
   },
   {
     id: 'src-5',
-    source: 'DisasterGuard Spatial ML Engine',
+    source: 'सुरक्षित धरा (SURAKSHIT DHARA) Spatial ML Engine',
     dataset: 'Composite Multi-Hazard Relocation Suitability Matrix',
     lastUpdated: '2026-09-24',
     coverage: '20 Target Villages & Candidate Relocation Zones',

@@ -25,7 +25,7 @@ export const AuthorityReportView: React.FC<AuthorityReportViewProps> = ({ habita
       setReportGenerated(true);
     } catch (err) {
       setReportGenerated(true);
-      setAiReportText(`OFFICIAL RELOCATION ASSESSMENT REPORT: ${habitation.name} (${habitation.district})\nGenerated via DisasterGuard SDMA AI Engine.`);
+      setAiReportText(`OFFICIAL RELOCATION ASSESSMENT REPORT: ${habitation.name} (${habitation.district})\nGenerated via सुरक्षित धरा (SURAKSHIT DHARA) SDMA AI Engine.`);
     } finally {
       setGenerating(false);
     }

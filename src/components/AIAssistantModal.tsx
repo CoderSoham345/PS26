@@ -17,7 +17,7 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hello, I am DisasterGuard Gemini AI Assistant. I can analyze multi-hazard risks, explain relocation priorities, evaluate candidate safe sites, or run climate scenario simulations for Maharashtra. How can I assist your disaster management review today?'
+      content: 'Hello, I am सुरक्षित धरा AI (SURAKSHIT DHARA AI Assistant). I can analyze multi-hazard risks, explain relocation priorities, evaluate candidate safe sites, or run climate scenario simulations for Maharashtra. How can I assist your disaster management review today?'
     }
   ]);
   const [input, setInput] = useState('');
@@ -57,43 +57,43 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#0B1519] border border-slate-700 w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col h-[650px] overflow-hidden">
-        {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-[#071216]">
+    <div className="fixed inset-0 z-50 bg-[#17221D]/50 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-white border border-[#DCE7E1] w-full max-w-2xl rounded-2xl shadow-2xl flex flex-col h-[650px] overflow-hidden text-[#17221D]">
+        {/* Header (Light green background) */}
+        <div className="px-6 py-4 border-b border-[#DCE7E1] flex items-center justify-between bg-[#E7F6EF]">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-lg bg-emerald-500/20 text-emerald-400">
-              <Sparkles className="w-5 h-5 animate-pulse" />
+            <div className="p-2 rounded-xl bg-white text-[#087F5B] border border-[#B8E5D2] shadow-2xs">
+              <Sparkles className="w-5 h-5 text-[#087F5B]" />
             </div>
             <div>
-              <h2 className="text-sm font-bold text-slate-100 flex items-center space-x-2">
-                <span>DisasterGuard Gemini AI Intelligence</span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-medium">Model 2.5 Flash</span>
+              <h2 className="text-sm font-bold text-[#07543F] flex items-center space-x-2">
+                <span>सुरक्षित धरा AI • SURAKSHIT DHARA AI</span>
+                <span className="text-[10px] bg-[#087F5B] text-white px-2 py-0.5 rounded-full font-bold">Model 3.8 Flash</span>
               </h2>
-              <p className="text-xs text-slate-400">Natural-language GIS query & decision-support reasoning</p>
+              <p className="text-xs text-[#66736D]">Natural-language GIS query & decision-support reasoning</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-slate-200 transition-colors"
+            className="p-2 hover:bg-white/80 rounded-lg text-[#66736D] hover:text-[#17221D] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Chat Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-[#F6F9F7]">
           {messages.map((m, idx) => (
             <div key={idx} className={`flex items-start space-x-3 ${m.role === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                m.role === 'user' ? 'bg-teal-600 text-white' : 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-400'
+                m.role === 'user' ? 'bg-[#087F5B] text-white' : 'bg-white border border-[#B8E5D2] text-[#087F5B]'
               }`}>
                 {m.role === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
               </div>
               <div className={`max-w-[80%] rounded-2xl px-4 py-3 text-xs leading-relaxed ${
                 m.role === 'user'
-                  ? 'bg-emerald-600 text-white rounded-tr-none'
-                  : 'bg-[#071216] border border-slate-800 text-slate-200 rounded-tl-none shadow-sm'
+                  ? 'bg-white border border-[#DCE7E1] text-[#17221D] rounded-tr-none shadow-2xs'
+                  : 'bg-[#E7F6EF] border border-[#B8E5D2] text-[#07543F] rounded-tl-none shadow-2xs'
               }`}>
                 {m.content}
               </div>
@@ -102,11 +102,11 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
 
           {loading && (
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+              <div className="w-8 h-8 rounded-full bg-white border border-[#B8E5D2] flex items-center justify-center text-[#087F5B]">
                 <Bot className="w-4 h-4" />
               </div>
-              <div className="bg-[#071216] border border-slate-800 rounded-2xl px-4 py-3 text-xs text-slate-400 flex items-center space-x-2">
-                <Loader2 className="w-4 h-4 animate-spin text-emerald-400" />
+              <div className="bg-[#E7F6EF] border border-[#B8E5D2] rounded-2xl px-4 py-3 text-xs text-[#07543F] flex items-center space-x-2">
+                <Loader2 className="w-4 h-4 animate-spin text-[#087F5B]" />
                 <span>Analyzing GIS models and hazard telemetry...</span>
               </div>
             </div>
@@ -114,33 +114,33 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
         </div>
 
         {/* Suggested Prompts */}
-        <div className="px-6 py-2 bg-[#071216]/55 border-t border-slate-800/80 flex gap-2 overflow-x-auto scrollbar-none">
+        <div className="px-6 py-2 bg-white border-t border-[#DCE7E1] flex gap-2 overflow-x-auto scrollbar-none">
           {samplePrompts.map((prompt, pIdx) => (
             <button
               key={pIdx}
               onClick={() => handleSend(prompt)}
-              className="whitespace-nowrap bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 text-slate-300 px-3 py-1.5 rounded-lg text-[11px] transition-colors flex items-center space-x-1 shrink-0"
+              className="whitespace-nowrap bg-[#F6F9F7] hover:bg-[#E7F6EF] border border-[#DCE7E1] text-[#17221D] hover:text-[#07543F] px-3 py-1.5 rounded-lg text-[11px] transition-colors flex items-center space-x-1 shrink-0 font-medium"
             >
               <span>{prompt}</span>
-              <ArrowRight className="w-3 h-3 text-emerald-400" />
+              <ArrowRight className="w-3 h-3 text-[#087F5B]" />
             </button>
           ))}
         </div>
 
         {/* Input Bar */}
-        <div className="p-4 bg-[#071216] border-t border-slate-800 flex items-center space-x-3">
+        <div className="p-4 bg-white border-t border-[#DCE7E1] flex items-center space-x-3">
           <input
             type="text"
             placeholder="Ask about habitation risk, safe sites, or simulation scenarios..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            className="flex-1 bg-[#0B1519] border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500 transition-colors"
+            className="flex-1 bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl px-4 py-2.5 text-xs text-[#17221D] placeholder-[#66736D] focus:outline-none focus:border-[#087F5B] transition-colors"
           />
           <button
             onClick={() => handleSend()}
             disabled={loading || !input.trim()}
-            className="p-2.5 bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-slate-950 font-semibold rounded-xl transition-colors"
+            className="p-2.5 bg-[#087F5B] hover:bg-[#07543F] disabled:opacity-50 text-white font-semibold rounded-xl transition-colors shadow-2xs"
           >
             <Send className="w-4 h-4" />
           </button>

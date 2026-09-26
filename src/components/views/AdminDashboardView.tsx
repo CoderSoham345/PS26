@@ -38,7 +38,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
             </span>
           </div>
           <h1 className="text-xl font-extrabold text-[#17221D]">
-            DisasterGuard System Administration
+            सुरक्षित धरा (SURAKSHIT DHARA) System Administration
           </h1>
           <p className="text-xs text-slate-600">
             Global configuration, district/village metadata, hazard models, and user access management.

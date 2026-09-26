@@ -20,31 +20,31 @@ export const DatabaseSchemaModal: React.FC<DatabaseSchemaModalProps> = ({ isOpen
   ];
 
   return (
-    <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#0B1519] border border-slate-700 w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 bg-[#17221D]/50 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-white border border-[#DCE7E1] w-full max-w-4xl rounded-2xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden text-[#17221D]">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-[#071216]">
+        <div className="px-6 py-4 border-b border-[#DCE7E1] flex items-center justify-between bg-[#E7F6EF]">
           <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
-              <Database className="w-5 h-5" />
+            <div className="p-2 rounded-xl bg-white text-[#087F5B] border border-[#B8E5D2] shadow-2xs">
+              <Database className="w-5 h-5 text-[#087F5B]" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-100">Supabase & PostgreSQL Schema Architecture</h2>
-              <p className="text-xs text-slate-400">Production-ready relational database specifications for DisasterGuard</p>
+              <h2 className="text-base font-bold text-[#07543F]">Supabase & PostgreSQL Schema Architecture</h2>
+              <p className="text-xs text-[#66736D]">Production-ready relational database specifications for सुरक्षित धरा (SURAKSHIT DHARA)</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-slate-200 transition-colors"
+            className="p-2 hover:bg-white/80 rounded-lg text-[#66736D] hover:text-[#17221D] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-          <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 text-xs text-emerald-300 flex items-start space-x-3">
-            <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-[#F6F9F7]">
+          <div className="bg-white border border-[#B8E5D2] rounded-xl p-4 text-xs text-[#07543F] flex items-start space-x-3 shadow-2xs">
+            <ShieldCheck className="w-5 h-5 text-[#087F5B] shrink-0 mt-0.5" />
             <div>
               <span className="font-semibold block mb-1">Production Database Readiness</span>
               The platform is architected for seamless Supabase PostgreSQL integration with spatial extensions (PostGIS). Foreign key constraints link habitations to multi-hazard models, candidate relocation sites, and authority reports.
@@ -53,23 +53,23 @@ export const DatabaseSchemaModal: React.FC<DatabaseSchemaModalProps> = ({ isOpen
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {tables.map((t, idx) => (
-              <div key={idx} className="bg-[#071216] border border-slate-800 rounded-xl p-4 flex flex-col justify-between">
+              <div key={idx} className="bg-white border border-[#DCE7E1] rounded-xl p-4 flex flex-col justify-between shadow-2xs">
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center space-x-2">
-                      <Table className="w-4 h-4 text-emerald-400" />
-                      <span className="text-xs font-bold font-mono text-slate-200">{t.name}</span>
+                      <Table className="w-4 h-4 text-[#087F5B]" />
+                      <span className="text-xs font-bold font-mono text-[#07543F]">{t.name}</span>
                     </div>
-                    <span className="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">Table</span>
+                    <span className="text-[10px] bg-[#E7F6EF] text-[#087F5B] border border-[#B8E5D2] px-2 py-0.5 rounded-full font-bold">Table</span>
                   </div>
-                  <p className="text-xs text-slate-400 mb-3">{t.desc}</p>
+                  <p className="text-xs text-[#66736D] mb-3">{t.desc}</p>
                 </div>
-                <div className="bg-slate-900/80 rounded-lg p-2.5 border border-slate-800/80">
-                  <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1 flex items-center space-x-1">
-                    <Key className="w-3 h-3 text-emerald-400" />
+                <div className="bg-[#F6F9F7] rounded-lg p-2.5 border border-[#DCE7E1]">
+                  <div className="text-[10px] font-semibold text-[#66736D] uppercase tracking-wider mb-1 flex items-center space-x-1">
+                    <Key className="w-3 h-3 text-[#087F5B]" />
                     <span>Schema Columns</span>
                   </div>
-                  <p className="text-[11px] font-mono text-emerald-300/90 break-all">{t.columns}</p>
+                  <p className="text-[11px] font-mono text-[#07543F] break-all">{t.columns}</p>
                 </div>
               </div>
             ))}
@@ -77,10 +77,10 @@ export const DatabaseSchemaModal: React.FC<DatabaseSchemaModalProps> = ({ isOpen
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-3 border-t border-slate-800 bg-[#071216] flex justify-end">
+        <div className="px-6 py-3 border-t border-[#DCE7E1] bg-white flex justify-end">
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold text-xs rounded-lg transition-colors"
+            className="px-4 py-2 bg-[#087F5B] hover:bg-[#07543F] text-white font-semibold text-xs rounded-xl transition-colors shadow-2xs"
           >
             Close Schema Inspector
           </button>

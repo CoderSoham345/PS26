@@ -49,22 +49,22 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
   return (
     <aside className="w-full lg:w-[320px] xl:w-[350px] shrink-0 space-y-4 select-none">
       {/* CARD 1: STAGE-SPECIFIC ADAPTIVE CARD */}
-      <div className="bg-[#111827] border border-[#1E293B] rounded-2xl p-4 shadow-xl space-y-3">
+      <div className="bg-white border border-[#DCE7E1] rounded-2xl p-4 shadow-[0_4px_18px_rgba(7,84,63,0.06)] space-y-3">
         {/* Stage Header */}
-        <div className="flex items-center justify-between pb-2.5 border-b border-[#1E293B]">
-          <span className="text-[10px] font-black uppercase tracking-wider text-[#64748B]">
+        <div className="flex items-center justify-between pb-2.5 border-b border-[#E8EFEB]">
+          <span className="text-[10px] font-black uppercase tracking-wider text-[#66736D]">
             {stage === 'before'
               ? t('stage1Before', currentLang)
               : stage === 'relocation'
               ? t('stage2Relocation', currentLang)
               : t('stage3After', currentLang)}
           </span>
-          <span className={`text-[9px] font-bold px-2 py-0.5 rounded ${
+          <span className={`text-[9px] font-bold px-2 py-0.5 rounded border ${
             stage === 'before'
-              ? 'bg-[#EF4444]/20 text-[#EF4444] border border-[#EF4444]/30'
+              ? 'bg-red-50 text-[#DC3545] border-red-200'
               : stage === 'relocation'
-              ? 'bg-[#0EA5E9]/20 text-[#0EA5E9] border border-[#0EA5E9]/30'
-              : 'bg-[#10B981]/20 text-[#34D399] border border-[#10B981]/30'
+              ? 'bg-sky-50 text-[#0284C7] border-sky-200'
+              : 'bg-[#E7F6EF] text-[#087F5B] border-[#B8E5D2]'
           }`}>
             {stage.toUpperCase()}
           </span>
@@ -74,57 +74,57 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
         {stage === 'before' && (
           <div className="space-y-2.5 text-xs">
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">Current Village:</span>
-              <strong className="text-[#F8FAFC] font-black">{habitation.name}</strong>
+              <span className="text-[#66736D]">Current Village:</span>
+              <strong className="text-[#17221D] font-black">{habitation.name}</strong>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">{t('riskLevel', currentLang)}:</span>
-              <span className="font-mono font-bold text-[#EF4444] bg-[#EF4444]/15 px-2 py-0.5 rounded border border-[#EF4444]/30">
+              <span className="text-[#66736D]">{t('riskLevel', currentLang)}:</span>
+              <span className="font-mono font-bold text-[#DC3545] bg-red-50 px-2 py-0.5 rounded border border-red-200">
                 {habitation.riskScore} / 100 ({translateRiskLevel(habitation.relocationPriority, currentLang)})
               </span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">{t('population', currentLang)}:</span>
-              <span className="font-mono text-[#F8FAFC]">{habitation.population} residents</span>
+              <span className="text-[#66736D]">{t('population', currentLang)}:</span>
+              <span className="font-mono text-[#17221D] font-bold">{habitation.population} residents</span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">{t('households', currentLang)}:</span>
-              <span className="font-mono text-[#F8FAFC]">{habitation.households} households</span>
+              <span className="text-[#66736D]">{t('households', currentLang)}:</span>
+              <span className="font-mono text-[#17221D] font-bold">{habitation.households} households</span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">{t('primaryHazards', currentLang)}:</span>
-              <span className="text-[#EF4444] font-bold">{translateHazardType(habitation.primaryHazard, currentLang)}</span>
+              <span className="text-[#66736D]">{t('primaryHazards', currentLang)}:</span>
+              <span className="text-[#DC3545] font-bold">{translateHazardType(habitation.primaryHazard, currentLang)}</span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">{t('redZoneArea', currentLang)}:</span>
-              <span className="font-mono text-[#F8FAFC]">1.85 sq.km (Slope {habitation.terrainSlope})</span>
+              <span className="text-[#66736D]">{t('redZoneArea', currentLang)}:</span>
+              <span className="font-mono text-[#17221D] font-semibold">1.85 sq.km (Slope {habitation.terrainSlope})</span>
             </div>
 
-            <div className="pt-2 border-t border-[#1E293B]">
-              <span className="text-[#64748B] block text-[10px] uppercase font-bold mb-1">
+            <div className="pt-2 border-t border-[#E8EFEB]">
+              <span className="text-[#66736D] block text-[10px] uppercase font-bold mb-1">
                 {t('infrastructureAtRisk', currentLang)}:
               </span>
-              <div className="grid grid-cols-2 gap-1.5 text-[11px] bg-[#0B0F17] p-2 rounded-xl border border-[#1E293B]">
-                <div className="flex items-center space-x-1.5 text-[#94A3B8]">
-                  <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Schools: <strong className="text-[#F8FAFC]">{habitation.infrastructureExposure.schools}</strong></span>
+              <div className="grid grid-cols-2 gap-1.5 text-[11px] bg-[#F6F9F7] p-2 rounded-xl border border-[#DCE7E1]">
+                <div className="flex items-center space-x-1.5 text-[#66736D]">
+                  <GraduationCap className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Schools: <strong className="text-[#17221D]">{habitation.infrastructureExposure.schools}</strong></span>
                 </div>
-                <div className="flex items-center space-x-1.5 text-[#94A3B8]">
-                  <Heart className="w-3.5 h-3.5 text-[#EF4444]" />
-                  <span>PHCs: <strong className="text-[#F8FAFC]">{habitation.infrastructureExposure.hospitals}</strong></span>
+                <div className="flex items-center space-x-1.5 text-[#66736D]">
+                  <Heart className="w-3.5 h-3.5 text-[#DC3545]" />
+                  <span>PHCs: <strong className="text-[#17221D]">{habitation.infrastructureExposure.hospitals}</strong></span>
                 </div>
-                <div className="flex items-center space-x-1.5 text-[#94A3B8]">
-                  <Truck className="w-3.5 h-3.5 text-[#F59E0B]" />
-                  <span>Roads: <strong className="text-[#F8FAFC]">{habitation.infrastructureExposure.roadsKm} km</strong></span>
+                <div className="flex items-center space-x-1.5 text-[#66736D]">
+                  <Truck className="w-3.5 h-3.5 text-[#D97706]" />
+                  <span>Roads: <strong className="text-[#17221D]">{habitation.infrastructureExposure.roadsKm} km</strong></span>
                 </div>
-                <div className="flex items-center space-x-1.5 text-[#94A3B8]">
-                  <AlertTriangle className="w-3.5 h-3.5 text-[#EF4444]" />
-                  <span>History: <strong className="text-[#F8FAFC]">{habitation.historicalEventsCount} events</strong></span>
+                <div className="flex items-center space-x-1.5 text-[#66736D]">
+                  <AlertTriangle className="w-3.5 h-3.5 text-[#DC3545]" />
+                  <span>History: <strong className="text-[#17221D]">{habitation.historicalEventsCount} events</strong></span>
                 </div>
               </div>
             </div>
@@ -134,38 +134,38 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
         {/* RELOCATION STAGE VIEW: FROM -> TO LOGISTICS */}
         {stage === 'relocation' && (
           <div className="space-y-2.5 text-xs">
-            <div className="bg-[#0B0F17] p-2.5 rounded-xl border border-[#1E293B] space-y-1">
+            <div className="bg-[#F6F9F7] p-2.5 rounded-xl border border-[#DCE7E1] space-y-1">
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-[#64748B] uppercase font-bold">FROM:</span>
-                <span className="text-[#EF4444] font-bold">{habitation.name} (Vulnerable)</span>
+                <span className="text-[#66736D] uppercase font-bold">FROM:</span>
+                <span className="text-[#DC3545] font-bold">{habitation.name} (Vulnerable)</span>
               </div>
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-[#64748B] uppercase font-bold">TO:</span>
-                <span className="text-[#10B981] font-bold">{site.name} (Safe Site)</span>
+                <span className="text-[#66736D] uppercase font-bold">TO:</span>
+                <span className="text-[#087F5B] font-bold">{site.name} (Safe Site)</span>
               </div>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">Direct Distance:</span>
-              <span className="font-mono text-[#0EA5E9] font-bold">{distanceKm} km (approx. straight-line)</span>
+              <span className="text-[#66736D]">Direct Distance:</span>
+              <span className="font-mono text-[#0284C7] font-bold">{distanceKm} km (straight-line)</span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">Route Connectivity:</span>
-              <span className="text-[#34D399] font-bold">{site.roadAccess} All-Weather Access</span>
+              <span className="text-[#66736D]">Route Connectivity:</span>
+              <span className="text-[#087F5B] font-bold">{site.roadAccess} All-Weather Access</span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">Estimated Transit Time:</span>
-              <span className="font-mono text-[#F8FAFC]">18 - 25 minutes</span>
+              <span className="text-[#66736D]">Estimated Transit Time:</span>
+              <span className="font-mono text-[#17221D] font-bold">18 - 25 minutes</span>
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-[#94A3B8]">Site Readiness:</span>
-              <span className="text-[#10B981] font-bold">{site.status}</span>
+              <span className="text-[#66736D]">Site Readiness:</span>
+              <span className="text-[#087F5B] font-bold">{site.status}</span>
             </div>
 
-            <div className="p-2 bg-[#0EA5E9]/10 border border-[#0EA5E9]/30 rounded-xl text-[10px] text-[#94A3B8] leading-tight">
+            <div className="p-2 bg-[#E7F6EF] border border-[#B8E5D2] rounded-xl text-[10px] text-[#07543F] leading-tight">
               Transit corridor uses arterial State Highway bypass, avoiding active ghat landslide scars.
             </div>
           </div>
@@ -174,49 +174,49 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
         {/* AFTER STAGE VIEW: PROPOSED REHABILITATION SETTLEMENT BREAKDOWN */}
         {stage === 'after' && (
           <div className="space-y-2 text-xs">
-            <h5 className="text-[10px] font-black uppercase tracking-wider text-[#10B981]">
+            <h5 className="text-[10px] font-black uppercase tracking-wider text-[#087F5B]">
               {t('proposedRehabilitation', currentLang)}
             </h5>
 
             <div className="space-y-1.5 text-[11px]">
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('residentialArea', currentLang)}</span>
-                <strong className="text-[#10B981]">Clusters A & B (11.2 ha)</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('residentialArea', currentLang)}</span>
+                <strong className="text-[#087F5B]">Clusters A & B (11.2 ha)</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('roads', currentLang)}</span>
-                <strong className="text-[#F8FAFC]">4-Lane Spine + Rings (14m)</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('roads', currentLang)}</span>
+                <strong className="text-[#17221D]">4-Lane Spine + Rings (14m)</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('openSpace', currentLang)}</span>
-                <strong className="text-[#34D399]">Central Safe Park (4.8 ac)</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('openSpace', currentLang)}</span>
+                <strong className="text-[#087F5B]">Central Safe Park (4.8 ac)</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('school', currentLang)}</span>
-                <strong className="text-blue-400">ZP Model School (280 cap)</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('school', currentLang)}</span>
+                <strong className="text-blue-600">ZP Model School (280 cap)</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('healthcare', currentLang)}</span>
-                <strong className="text-[#EF4444]">Primary Health Centre (12 bed)</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('healthcare', currentLang)}</span>
+                <strong className="text-[#DC3545]">Primary Health Centre (12 bed)</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('communityFacility', currentLang)}</span>
-                <strong className="text-purple-400">Panchayat & Satellite Node</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('communityFacility', currentLang)}</span>
+                <strong className="text-purple-700">Panchayat & Satellite Node</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('waterUtilities', currentLang)}</span>
-                <strong className="text-cyan-400">250k L Reservoir & Solar Grid</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('waterUtilities', currentLang)}</span>
+                <strong className="text-cyan-700">250k L Reservoir & Solar Grid</strong>
               </div>
 
-              <div className="flex items-center justify-between bg-[#0B0F17] p-1.5 rounded-lg border border-[#1E293B]">
-                <span className="text-[#94A3B8]">{t('emergencyFacility', currentLang)}</span>
-                <strong className="text-amber-400">Disaster Response Outpost</strong>
+              <div className="flex items-center justify-between bg-[#F6F9F7] p-1.5 rounded-lg border border-[#DCE7E1]">
+                <span className="text-[#66736D]">{t('emergencyFacility', currentLang)}</span>
+                <strong className="text-amber-700">Disaster Response Outpost</strong>
               </div>
             </div>
           </div>
@@ -224,21 +224,21 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
       </div>
 
       {/* CARD 2: CANDIDATE SITE EVALUATION & ADVANTAGES */}
-      <div className="bg-[#111827] border border-[#1E293B] rounded-2xl p-4 shadow-xl space-y-3">
-        <div className="flex items-center justify-between pb-2.5 border-b border-[#1E293B]">
+      <div className="bg-white border border-[#DCE7E1] rounded-2xl p-4 shadow-[0_4px_18px_rgba(7,84,63,0.06)] space-y-3">
+        <div className="flex items-center justify-between pb-2.5 border-b border-[#E8EFEB]">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-wider text-[#64748B] block">
+            <span className="text-[10px] font-black uppercase tracking-wider text-[#66736D] block">
               {t('candidateSite', currentLang)}
             </span>
-            <h4 className="text-sm font-black text-[#10B981] truncate max-w-[190px]">
+            <h4 className="text-sm font-black text-[#087F5B] truncate max-w-[190px]">
               {site.name}
             </h4>
           </div>
           <div className="text-right">
-            <span className="text-[9px] uppercase font-bold text-[#64748B] block">
+            <span className="text-[9px] uppercase font-bold text-[#66736D] block">
               Suitability
             </span>
-            <span className="text-sm font-mono font-black text-[#34D399]">
+            <span className="text-sm font-mono font-black text-[#07543F]">
               {site.suitabilityScore} / 100
             </span>
           </div>
@@ -246,27 +246,27 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
 
         {/* Metrics Grid */}
         <div className="grid grid-cols-2 gap-2 text-xs">
-          <div className="bg-[#0B0F17] p-2 rounded-xl border border-[#1E293B]">
-            <span className="text-[9px] text-[#64748B] uppercase block">{t('distance', currentLang)}</span>
-            <strong className="text-[#F8FAFC] font-mono">{site.distanceFromSourceKm} km</strong>
+          <div className="bg-[#F6F9F7] p-2 rounded-xl border border-[#DCE7E1]">
+            <span className="text-[9px] text-[#66736D] uppercase block">{t('distance', currentLang)}</span>
+            <strong className="text-[#17221D] font-mono">{site.distanceFromSourceKm} km</strong>
           </div>
-          <div className="bg-[#0B0F17] p-2 rounded-xl border border-[#1E293B]">
-            <span className="text-[9px] text-[#64748B] uppercase block">{t('availableLand', currentLang)}</span>
-            <strong className="text-[#F8FAFC] font-mono">{site.landAvailabilityHa} ha</strong>
+          <div className="bg-[#F6F9F7] p-2 rounded-xl border border-[#DCE7E1]">
+            <span className="text-[9px] text-[#66736D] uppercase block">{t('availableLand', currentLang)}</span>
+            <strong className="text-[#17221D] font-mono">{site.landAvailabilityHa} ha</strong>
           </div>
-          <div className="bg-[#0B0F17] p-2 rounded-xl border border-[#1E293B]">
-            <span className="text-[9px] text-[#64748B] uppercase block">{t('suitableArea', currentLang)}</span>
-            <strong className="text-[#34D399] font-mono">{Math.round(site.landAvailabilityHa * 0.88)} ha</strong>
+          <div className="bg-[#F6F9F7] p-2 rounded-xl border border-[#DCE7E1]">
+            <span className="text-[9px] text-[#66736D] uppercase block">{t('suitableArea', currentLang)}</span>
+            <strong className="text-[#087F5B] font-mono">{Math.round(site.landAvailabilityHa * 0.88)} ha</strong>
           </div>
-          <div className="bg-[#0B0F17] p-2 rounded-xl border border-[#1E293B]">
-            <span className="text-[9px] text-[#64748B] uppercase block">{t('estimatedCapacity', currentLang)}</span>
-            <strong className="text-[#10B981] font-mono">{site.estimatedCapacity} persons</strong>
+          <div className="bg-[#F6F9F7] p-2 rounded-xl border border-[#DCE7E1]">
+            <span className="text-[9px] text-[#66736D] uppercase block">{t('estimatedCapacity', currentLang)}</span>
+            <strong className="text-[#07543F] font-mono font-black">{site.estimatedCapacity} persons</strong>
           </div>
         </div>
 
         {/* KEY SITE ADVANTAGES (Dynamically evaluated) */}
-        <div className="pt-2 border-t border-[#1E293B] space-y-1.5">
-          <h5 className="text-[10px] font-black uppercase tracking-wider text-[#F8FAFC]">
+        <div className="pt-2 border-t border-[#E8EFEB] space-y-1.5">
+          <h5 className="text-[10px] font-black uppercase tracking-wider text-[#17221D]">
             {t('keySiteAdvantages', currentLang)}
           </h5>
 
@@ -277,11 +277,11 @@ export const AnalyticsPanel: React.FC<AnalyticsPanelProps> = ({
                 className="flex items-center space-x-2 text-[11px]"
               >
                 <div className={`w-3.5 h-3.5 rounded flex items-center justify-center shrink-0 ${
-                  adv.active ? 'bg-[#10B981]/20 text-[#34D399]' : 'bg-[#EF4444]/15 text-[#EF4444]'
+                  adv.active ? 'bg-[#E7F6EF] text-[#087F5B]' : 'bg-red-50 text-[#DC3545]'
                 }`}>
                   <Check className="w-2.5 h-2.5 stroke-[3]" />
                 </div>
-                <span className={adv.active ? 'text-[#94A3B8]' : 'text-[#64748B] line-through'}>
+                <span className={adv.active ? 'text-[#17221D]' : 'text-[#66736D] line-through'}>
                   {adv.label}
                 </span>
               </div>

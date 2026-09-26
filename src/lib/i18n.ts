@@ -2,8 +2,11 @@ export type Language = 'en' | 'mr' | 'hi';
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
-    appName: 'DISASTERGUARD',
-    subtitle: 'MAHARASHTRA DISASTER MANAGEMENT PLATFORM',
+    appName: 'SURAKSHIT DHARA',
+    brandHindi: 'सुरक्षित धरा',
+    subtitle: 'AI + GIS Disaster Risk & Safe Settlement Intelligence',
+    tagline: 'Identify Risk. Build a Safer Future.',
+    taglineHi: 'जोखिम पहचानें। सुरक्षित भविष्य बनाएँ।',
     disclaimer: 'Prototype decision-support analysis — not an official statutory designation.',
     communityView: 'Community View',
     authorityView: 'Authority View',
@@ -143,7 +146,7 @@ export const translations: Record<Language, Record<string, string>> = {
     img06Desc: 'Planned disaster-resilient settlement with organized solar homesteads.',
 
     // Chatbot
-    chatbotTitle: 'DisasterGuard AI',
+    chatbotTitle: 'सुरक्षित धरा AI',
     chatbotPromptHint: 'Ask about this village, risk, relocation or rehabilitation.',
     askChatbotPlaceholder: 'Ask about risk, safe sites, capacity, or simulation...',
     quickWhyRisk: 'Why is this village at risk?',
@@ -173,6 +176,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Portal Login
     aiDecisionSupport: 'AI-Powered Decision Support',
+    welcomeTitle: 'Welcome to SURAKSHIT DHARA',
     selectPortal: 'Select Your Portal',
     selectPortalDesc: 'Choose your authorized portal to access role-specific Maharashtra disaster-management decision support.',
     communityResident: 'Community / Resident',
@@ -181,12 +185,45 @@ export const translations: Record<Language, Record<string, string>> = {
     authorityMgmtDesc: 'For government and disaster-management decision support, red zones, relocation planning, and carrying capacity.',
     adminSystem: 'Admin / System Admin',
     adminSystemDesc: 'For system and data administration, user management, district configuration, and model parameters.',
-    accessPortal: 'Access Portal'
+    accessPortal: 'Access Portal',
+
+    // Help & Helpline
+    helpHeaderTitle: 'सुरक्षित धरा Emergency & Government Resources',
+    helpHeaderSubtitle: 'Get emergency assistance and access verified government disaster-management resources.',
+    emergencyNowTitle: 'EMERGENCY NOW?',
+    emergencyNowSubtitle: 'If you are facing an immediate emergency, contact the appropriate official emergency service.',
+    mhGovTitle: 'MAHARASHTRA GOVERNMENT',
+    mhGovSubtitle: 'Official Disaster Management & Emergency Services',
+    officialGovBadge: 'OFFICIAL GOVERNMENT RESOURCES',
+    districtContactsTitle: 'DISTRICT EMERGENCY CONTACTS',
+    districtContactsSubtitle: 'Find official Collector, District Disaster Management Officer and District Emergency Operations Centre contacts for Maharashtra districts.',
+    viewDistrictContacts: 'VIEW DISTRICT CONTACTS',
+    viewOfficialDistrictContacts: 'View Official District Contacts',
+    selectedDistrictLabel: 'Selected District',
+    collectorLabel: 'Collector Office',
+    deocLabel: 'District Emergency Operations Centre (DEOC)',
+    directoryAuthoritativeNotice: 'The official Maharashtra SDMA directory is the authoritative source for live district emergency contact updates.',
+    nationalMgmtTitle: 'NATIONAL DISASTER MANAGEMENT',
+    hazardEarlyWarningTitle: 'HAZARD & EARLY WARNING',
+    hazardEarlyWarningSubtitle: 'Use official government agencies for current warnings and advisories.',
+    citizenServicesTitle: 'MAHARASHTRA CITIZEN SERVICES',
+    officialSourcesTitle: 'OFFICIAL INFORMATION SOURCES',
+    officialSourcesDesc: 'सुरक्षित धरा (SURAKSHIT DHARA) provides links to official government resources for emergency information, disaster preparedness and hazard warnings. During an active emergency, follow instructions from local authorities and official warning agencies.',
+    verifiedGovNotice: 'Government links verified from official government portals.',
+    prototypePlatformDisclaimer: 'सुरक्षित धरा is a prototype decision-support platform and is not an official government emergency service.',
+    callButton: 'CALL',
+    visitButton: 'VISIT',
+    viewWarningsButton: 'View official warnings',
+    localGuidanceTitle: 'LOCAL DISASTER GUIDANCE & SAFETY',
+    safetyNoticeTitle: 'SAFETY & EMERGENCY NOTICE'
   },
 
   mr: {
-    appName: 'डिझास्टरगार्ड (DISASTERGUARD)',
-    subtitle: 'महाराष्ट्र आपत्ती व्यवस्थापन व्यासपीठ',
+    appName: 'सुरक्षित धरा (SURAKSHIT DHARA)',
+    brandHindi: 'सुरक्षित धरा',
+    subtitle: 'AI + GIS आपत्ती जोखीम व सुरक्षित वसाहत बुद्धिमत्ता',
+    tagline: 'जोखीम ओळखा. सुरक्षित भविष्य घडवा.',
+    taglineHi: 'जोखिम पहचानें। सुरक्षित भविष्य बनाएँ।',
     disclaimer: 'प्रोटोटाइप निर्णय-समर्थन विश्लेषण — अधिकृत वैधानिक पदनाम नाही.',
     communityView: 'समुदाय दृश्य',
     authorityView: 'प्रशासन दृश्य',
@@ -326,7 +363,7 @@ export const translations: Record<Language, Record<string, string>> = {
     img06Desc: 'सौरऊर्जा, रुंद रस्ते आणि सुरक्षित घरांसह सुनियोजित आधुनिक वसाहत.',
 
     // Chatbot
-    chatbotTitle: 'डिझास्टरगार्ड एआय',
+    chatbotTitle: 'सुरक्षित धरा AI',
     chatbotPromptHint: 'या गावाच्या धोक्याबद्दल, स्थलांतराबद्दल किंवा पुनर्वसनाबद्दल विचारा.',
     askChatbotPlaceholder: 'जोखीम, सुरक्षित जागा किंवा सिम्युलेशनबद्दल विचारा...',
     quickWhyRisk: 'हे गाव धोक्यात का आहे?',
@@ -356,6 +393,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Portal Login
     aiDecisionSupport: 'एआय-आधारित निर्णय सहाय्य',
+    welcomeTitle: 'सुरक्षित धरा मध्ये आपले स्वागत आहे',
     selectPortal: 'आपले पोर्टल निवडा',
     selectPortalDesc: 'महाराष्ट्र आपत्ती व्यवस्थापनासाठी आपल्या भूमिकेनुसार योग्य पोर्टल निवडा.',
     communityResident: 'समुदाय / नागरिक',
@@ -364,12 +402,45 @@ export const translations: Record<Language, Record<string, string>> = {
     authorityMgmtDesc: 'शासन आणि आपत्ती व्यवस्थापनासाठी निर्णय सहाय्य, रेड झोन विश्लेषण, स्थलांतर नियोजन आणि वहन क्षमता.',
     adminSystem: 'प्रशासक / प्रणाली प्रशासक',
     adminSystemDesc: 'प्रणाली आणि डेटा व्यवस्थापन, वापरकर्ता व्यवस्थापन, जिल्हा कॉन्फिगरेशन आणि मॉडेल पॅरामीटर्ससाठी.',
-    accessPortal: 'पोर्टलमध्ये प्रवेश करा'
+    accessPortal: 'पोर्टलमध्ये प्रवेश करा',
+
+    // Help & Helpline
+    helpHeaderTitle: 'सुरक्षित धरा आपत्कालीन व शासकीय संसाधने (Emergency & Government Resources)',
+    helpHeaderSubtitle: 'तात्काळ आपत्कालीन मदत मिळवा आणि अधिकृत शासकीय आपत्ती व्यवस्थापन सेवांशी संपर्क साधा.',
+    emergencyNowTitle: 'तातडीची मदत हवी आहे का?',
+    emergencyNowSubtitle: 'जर आपण गंभीर किंवा तात्काळ धोक्यात असाल, तर संबंधित अधिकृत आपत्कालीन सेवेशी थेट संपर्क साधा.',
+    mhGovTitle: 'महाराष्ट्र शासन',
+    mhGovSubtitle: 'अधिकृत आपत्ती व्यवस्थापन व आपत्कालीन सेवा',
+    officialGovBadge: 'अधिकृत शासकीय स्त्रोत',
+    districtContactsTitle: 'जिल्हा आपत्कालीन संपर्क',
+    districtContactsSubtitle: 'महाराष्ट्रातील जिल्ह्यांचे जिल्हाधिकारी, जिल्हा आपत्ती व्यवस्थापन अधिकारी आणि जिल्हा आपत्कालीन कार्य केंद्र (DEOC) संपर्क तपशील.',
+    viewDistrictContacts: 'जिल्हा संपर्क सूची पहा',
+    viewOfficialDistrictContacts: 'अधिकृत जिल्हा संपर्क पहा',
+    selectedDistrictLabel: 'निवडलेला जिल्हा',
+    collectorLabel: 'जिल्हाधिकारी कार्यालय',
+    deocLabel: 'जिल्हा आपत्कालीन कार्य केंद्र (DEOC)',
+    directoryAuthoritativeNotice: 'थेट व अद्ययावत जिल्हा संपर्कांसाठी महाराष्ट्र शासन SDMA ची अधिकृत संपर्क सूची हाच मूळ आधार आहे.',
+    nationalMgmtTitle: 'राष्ट्रीय आपत्ती व्यवस्थापन',
+    hazardEarlyWarningTitle: 'धोका व पूर्वसूचना',
+    hazardEarlyWarningSubtitle: 'हवामान, पूर व नैसर्गिक धोक्यांच्या ताज्या इशाऱ्यांसाठी अधिकृत शासकीय यंत्रणांचा वापर करा.',
+    citizenServicesTitle: 'नागरिक सेवा',
+    officialSourcesTitle: 'अधिकृत माहिती स्त्रोत',
+    officialSourcesDesc: 'सुरक्षित धरा (SURAKSHIT DHARA) आपत्कालीन माहिती, पूर्वतयारी आणि धोक्याच्या इशाऱ्यांसाठी अधिकृत शासकीय पोर्टलच्या लिंक्स प्रदान करते. प्रत्यक्ष आपत्तीच्या वेळी स्थानिक प्रशासन आणि अधिकृत सूचनांचे काटेकोर पालन करा.',
+    verifiedGovNotice: 'अधिकृत शासकीय पोर्टल्सवरून पडताळणी केलेले दुवे.',
+    prototypePlatformDisclaimer: 'सुरक्षित धरा हे प्रोटोटाइप निर्णय-समर्थन व्यासपीठ असून ही अधिकृत शासकीय आपत्कालीन सेवा नाही.',
+    callButton: 'कॉल करा',
+    visitButton: 'भेट द्या',
+    viewWarningsButton: 'अधिकृत इशारे पहा',
+    localGuidanceTitle: 'स्थानिक आपत्ती मार्गदर्शन व सुरक्षा',
+    safetyNoticeTitle: 'सुरक्षा व आपत्कालीन सूचना'
   },
 
   hi: {
-    appName: 'डिज़ास्टरगार्ड (DISASTERGUARD)',
-    subtitle: 'महाराष्ट्र आपदा प्रबंधन मंच',
+    appName: 'सुरक्षित धरा (SURAKSHIT DHARA)',
+    brandHindi: 'सुरक्षित धरा',
+    subtitle: 'AI + GIS आपदा जोखिम एवं सुरक्षित पुनर्वास बुद्धिमत्ता',
+    tagline: 'जोखिम पहचानें। सुरक्षित भविष्य बनाएँ।',
+    taglineHi: 'जोखिम पहचानें। सुरक्षित भविष्य बनाएँ।',
     disclaimer: 'प्रोटोटाइप निर्णय-समर्थन विश्लेषण — कोई आधिकारिक वैधानिक पदनाम नहीं।',
     communityView: 'समुदाय दृश्य',
     authorityView: 'प्रशासन दृश्य',
@@ -509,7 +580,7 @@ export const translations: Record<Language, Record<string, string>> = {
     img06Desc: 'सौर ऊर्जा, चौड़ी सड़कें और सुरक्षित घरों वाली सुनियोजित आधुनिक बस्ती।',
 
     // Chatbot
-    chatbotTitle: 'डिज़ास्टरगार्ड एआई',
+    chatbotTitle: 'सुरक्षित धरा AI',
     chatbotPromptHint: 'इस गाँव, जोखिम, स्थानांतरण या पुनर्वास के बारे में पूछें।',
     askChatbotPlaceholder: 'जोखिम, सुरक्षित स्थल या सिमुलेशन के बारे में पूछें...',
     quickWhyRisk: 'यह गाँव जोखिम में क्यों है?',
@@ -539,6 +610,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
     // Portal Login
     aiDecisionSupport: 'एआई-आधारित निर्णय सहायता',
+    welcomeTitle: 'सुरक्षित धरा में आपका स्वागत है',
     selectPortal: 'अपना पोर्टल चुनें',
     selectPortalDesc: 'महाराष्ट्र आपदा प्रबंधन के लिए अपनी भूमिका के अनुसार पोर्टल चुनें।',
     communityResident: 'समुदाय / नागरिक',
@@ -547,7 +619,37 @@ export const translations: Record<Language, Record<string, string>> = {
     authorityMgmtDesc: 'सरकार और आपदा प्रबंधन के लिए निर्णय सहायता, रेड ज़ोन विश्लेषण, पुनर्वास योजना और वहन क्षमता।',
     adminSystem: 'प्रशासक / सिस्टम एडमिन',
     adminSystemDesc: 'सिस्टम और डेटा प्रबंधन, उपयोगकर्ता प्रबंधन, जिला कॉन्फ़िगरेशन और मॉडल पैरामीटर के लिए।',
-    accessPortal: 'पोर्टल में प्रवेश करें'
+    accessPortal: 'पोर्टल में प्रवेश करें',
+
+    // Help & Helpline
+    helpHeaderTitle: 'सुरक्षित धरा आपातकालीन एवं सरकारी संसाधन (Emergency & Government Resources)',
+    helpHeaderSubtitle: 'आपातकालीन सहायता प्राप्त करें और सत्यापित सरकारी आपदा प्रबंधन संसाधनों तक पहुँचें।',
+    emergencyNowTitle: 'आपातकालीन सहायता चाहिए?',
+    emergencyNowSubtitle: 'यदि आप किसी तात्कालिक आपात स्थिति में हैं, तो कृपया संबंधित आधिकारिक आपातकालीन सेवा से संपर्क करें।',
+    mhGovTitle: 'महाराष्ट्र सरकार',
+    mhGovSubtitle: 'आधिकारिक आपदा प्रबंधन एवं आपातकालीन सेवाएँ',
+    officialGovBadge: 'आधिकारिक सरकारी संसाधन',
+    districtContactsTitle: 'जिला आपातकालीन संपर्क',
+    districtContactsSubtitle: 'महाराष्ट्र के जिलों के कलेक्टर, जिला आपदा प्रबंधन अधिकारी एवं जिला आपातकालीन संचालन केंद्र (DEOC) के संपर्क।',
+    viewDistrictContacts: 'जिला संपर्क सूची देखें',
+    viewOfficialDistrictContacts: 'आधिकारिक जिला संपर्क देखें',
+    selectedDistrictLabel: 'चयनित जिला',
+    collectorLabel: 'जिलाधिकारी कार्यालय',
+    deocLabel: 'जिला आपातकालीन संचालन केंद्र (DEOC)',
+    directoryAuthoritativeNotice: 'अद्यतन जिला आपातकालीन संपर्कों के लिए महाराष्ट्र SDMA की आधिकारिक निर्देशिका ही प्रामाणिक स्रोत है।',
+    nationalMgmtTitle: 'राष्ट्रीय आपदा प्रबंधन',
+    hazardEarlyWarningTitle: 'खतरा एवं पूर्व चेतावनी',
+    hazardEarlyWarningSubtitle: 'वर्तमान चेतावनियों और सलाह के लिए आधिकारिक सरकारी एजेंसियों का उपयोग करें।',
+    citizenServicesTitle: 'नागरिक सेवाएँ',
+    officialSourcesTitle: 'आधिकारिक सूचना स्रोत',
+    officialSourcesDesc: 'सुरक्षित धरा (SURAKSHIT DHARA) आपातकालीन जानकारी, आपदा तैयारी एवं चेतावनियों के लिए आधिकारिक सरकारी संसाधनों के लिंक प्रदान करता है। सक्रिय आपदा के दौरान स्थानीय प्रशासन एवं आधिकारिक एजेंसियों के निर्देशों का पालन करें।',
+    verifiedGovNotice: 'आधिकारिक सरकारी पोर्टलों से सत्यापित लिंक।',
+    prototypePlatformDisclaimer: 'सुरक्षित धरा एक प्रोटोटाइप निर्णय-सहायता मंच है और यह आधिकारिक सरकारी आपातकालीन सेवा नहीं है।',
+    callButton: 'कॉल करें',
+    visitButton: 'वेबसाइट देखें',
+    viewWarningsButton: 'आधिकारिक चेतावनियाँ देखें',
+    localGuidanceTitle: 'स्थानीय आपदा मार्गदर्शन एवं सुरक्षा',
+    safetyNoticeTitle: 'सुरक्षा एवं आपातकालीन सूचना'
   }
 };
 

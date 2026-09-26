@@ -55,7 +55,7 @@ export const RehabilitationSimulatorView: React.FC<RehabilitationSimulatorViewPr
   const [comparisonSplit, setComparisonSplit] = useState<number>(50);
 
   return (
-    <div className="space-y-4 pb-12 animate-fadeIn font-sans text-[#F8FAFC]">
+    <div className="space-y-4 pb-12 animate-fadeIn font-sans text-[#17221D]">
       {/* 1. TOP SIMULATOR WORKFLOW HEADER */}
       <StageController
         habitation={habitation}

@@ -361,11 +361,11 @@ export const SafeSiteWorkspaceView: React.FC<SafeSiteWorkspaceViewProps> = ({
                 </div>
               </div>
 
-              {/* DisasterGuard AI Explanation */}
+              {/* सुरक्षित धरा AI Explanation */}
               <div className="bg-gradient-to-br from-[#087F5B]/10 to-[#07543F]/5 border border-[#087F5B]/30 p-6 rounded-2xl space-y-4">
                 <div className="flex items-center space-x-2">
                   <Sparkles className="w-5 h-5 text-[#087F5B]" />
-                  <h3 className="text-sm font-bold text-[#17221D]">DisasterGuard AI: Why might this site work?</h3>
+                  <h3 className="text-sm font-bold text-[#17221D]">सुरक्षित धरा AI (SURAKSHIT DHARA AI): Why might this site work?</h3>
                 </div>
                 <p className="text-xs text-slate-700 leading-relaxed">
                   "This candidate site is approximately <strong className="text-[#17221D]">{site.distanceFromSourceKm} km</strong> from the current village ({habitation.name}). It has lower modelled hazard exposure and an estimated capacity of <strong className="text-[#17221D]">{site.estimatedCapacity} people</strong>. Road, water, school and healthcare access are also factored into the site assessment."

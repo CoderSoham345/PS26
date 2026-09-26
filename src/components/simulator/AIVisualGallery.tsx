@@ -67,20 +67,20 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
       {/* Gallery Header with Mandatory Non-Evidence Disclaimer */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1">
         <div className="flex items-center space-x-2">
-          <div className="p-1 rounded-md bg-[#10B981]/20 text-[#10B981]">
+          <div className="p-1 rounded-md bg-[#E7F6EF] text-[#087F5B]">
             <Sparkles className="w-3.5 h-3.5" />
           </div>
           <div>
-            <h3 className="text-xs font-black uppercase tracking-wider text-[#F8FAFC]">
+            <h3 className="text-xs font-black uppercase tracking-wider text-[#17221D]">
               {t('aiVisualContext', currentLang)}
             </h3>
-            <p className="text-[10px] text-[#64748B]">
+            <p className="text-[10px] text-[#66736D]">
               {t('aiVisualSubtitle', currentLang)}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center space-x-1.5 text-[9px] text-[#F59E0B] bg-[#F59E0B]/10 border border-[#F59E0B]/30 px-2 py-0.5 rounded-lg max-w-fit">
+        <div className="flex items-center space-x-1.5 text-[9px] text-[#D97706] bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg max-w-fit">
           <AlertCircle className="w-3 h-3 shrink-0" />
           <span>Visual storytelling only — NOT GIS ground evidence</span>
         </div>
@@ -92,26 +92,26 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
           <div
             key={idx}
             onClick={() => setSelectedImage(item)}
-            className="group relative bg-[#111827] border border-[#1E293B] hover:border-[#10B981]/60 rounded-2xl overflow-hidden shadow-md cursor-pointer transition-all hover:scale-[1.02]"
+            className="group relative bg-white border border-[#DCE7E1] hover:border-[#087F5B] rounded-2xl overflow-hidden shadow-[0_4px_18px_rgba(7,84,63,0.06)] cursor-pointer transition-all hover:scale-[1.02]"
           >
             {/* Thumbnail */}
-            <div className="relative aspect-video w-full overflow-hidden bg-[#0B0F17]">
+            <div className="relative aspect-video w-full overflow-hidden bg-[#F6F9F7]">
               <img
                 src={item.src}
                 alt={item.title}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111827] via-transparent to-transparent opacity-70" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-70" />
 
               {/* Number Pill */}
-              <span className="absolute top-2 left-2 px-1.5 py-0.5 rounded-md bg-[#0B0F17]/85 border border-[#1E293B] text-[9px] font-mono font-black text-[#10B981]">
+              <span className="absolute top-2 left-2 px-1.5 py-0.5 rounded-md bg-white/90 backdrop-blur-sm border border-[#DCE7E1] text-[9px] font-mono font-black text-[#087F5B]">
                 {item.num}
               </span>
 
               {/* View Overlay on Hover */}
-              <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                <span className="p-1.5 bg-[#10B981] text-slate-950 rounded-lg shadow-lg">
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                <span className="p-1.5 bg-[#087F5B] text-white rounded-lg shadow-lg">
                   <Eye className="w-4 h-4" />
                 </span>
               </div>
@@ -119,13 +119,13 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
 
             {/* Meta */}
             <div className="p-2.5 space-y-1">
-              <span className="text-[9px] uppercase font-bold text-[#64748B] block truncate">
+              <span className="text-[9px] uppercase font-bold text-[#66736D] block truncate">
                 {item.tag}
               </span>
-              <h4 className="text-[11px] font-black text-[#F8FAFC] leading-tight truncate">
+              <h4 className="text-[11px] font-black text-[#17221D] leading-tight truncate">
                 {item.title}
               </h4>
-              <p className="text-[10px] text-[#94A3B8] leading-tight line-clamp-2">
+              <p className="text-[10px] text-[#66736D] leading-tight line-clamp-2">
                 {item.desc}
               </p>
             </div>
@@ -137,11 +137,11 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
       {selectedImage && (
         <div 
           onClick={() => setSelectedImage(null)}
-          className="fixed inset-0 z-50 bg-[#0B0F17]/90 backdrop-blur-md flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
         >
           <div 
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#111827] border border-[#1E293B] max-w-3xl w-full rounded-2xl overflow-hidden shadow-2xl animate-fadeIn"
+            className="bg-white border border-[#DCE7E1] max-w-3xl w-full rounded-2xl overflow-hidden shadow-2xl animate-fadeIn"
           >
             <div className="relative aspect-video w-full bg-black">
               <img
@@ -151,7 +151,7 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
               />
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute top-3 right-3 p-2 rounded-xl bg-[#0B0F17]/80 hover:bg-[#0B0F17] text-[#F8FAFC] border border-[#1E293B] transition-colors"
+                className="absolute top-3 right-3 p-2 rounded-xl bg-black/60 hover:bg-black/80 text-white border border-white/20 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -159,17 +159,17 @@ export const AIVisualGallery: React.FC<AIVisualGalleryProps> = ({ currentLang })
 
             <div className="p-5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono font-bold text-[#10B981]">
+                <span className="text-xs font-mono font-bold text-[#087F5B]">
                   AI CONCEPTUAL ASSET • {selectedImage.num}
                 </span>
-                <span className="text-[10px] bg-[#F59E0B]/15 text-[#F59E0B] border border-[#F59E0B]/30 px-2 py-0.5 rounded font-bold">
+                <span className="text-[10px] bg-amber-50 text-[#D97706] border border-amber-200 px-2 py-0.5 rounded font-bold">
                   Conceptual Visual Only
                 </span>
               </div>
-              <h3 className="text-base font-black text-[#F8FAFC]">{selectedImage.title}</h3>
-              <p className="text-xs text-[#94A3B8] leading-relaxed">{selectedImage.desc}</p>
+              <h3 className="text-base font-black text-[#17221D]">{selectedImage.title}</h3>
+              <p className="text-xs text-[#66736D] leading-relaxed">{selectedImage.desc}</p>
 
-              <div className="pt-3 border-t border-[#1E293B] text-[10px] text-[#64748B] flex items-center space-x-1.5">
+              <div className="pt-3 border-t border-[#E8EFEB] text-[10px] text-[#66736D] flex items-center space-x-1.5">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>
                   {t('aiStorytellingNotice', currentLang)}

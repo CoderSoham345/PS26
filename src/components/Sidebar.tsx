@@ -53,10 +53,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   ];
 
   return (
-    <aside className="w-[230px] bg-[#0F1720] border-r border-[#1E293B] flex flex-col justify-between shrink-0 select-none z-20 min-h-[calc(100vh-4rem)]">
+    <aside className="w-[230px] bg-[#FFFFFF] border-r border-[#DCE7E1] flex flex-col justify-between shrink-0 select-none z-20 min-h-[calc(100vh-4rem)]">
       {/* Navigation List */}
       <div className="py-4 px-3 space-y-1">
-        <div className="px-3 pb-2 text-[10px] font-black text-[#64748B] uppercase tracking-wider">
+        <div className="px-3 pb-2 text-[10px] font-black text-[#66736D] uppercase tracking-wider">
           GIS Navigation
         </div>
 
@@ -68,27 +68,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all group ${
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all group relative ${
                 isActive
-                  ? 'bg-gradient-to-r from-[#10B981]/25 to-[#047857]/15 text-[#34D399] border border-[#10B981]/40 shadow-sm shadow-emerald-950/40'
-                  : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#16202B] border border-transparent'
+                  ? 'bg-[#E7F6EF] text-[#07543F] font-bold border-l-4 border-[#087F5B] rounded-l-none pl-2.5 shadow-2xs'
+                  : 'text-[#66736D] hover:text-[#17221D] hover:bg-[#F6F9F7] border border-transparent'
               }`}
             >
               <div className="flex items-center space-x-2.5 truncate">
                 <Icon className={`w-4 h-4 shrink-0 transition-transform group-hover:scale-105 ${
-                  isActive ? 'text-[#10B981]' : 'text-[#64748B] group-hover:text-[#94A3B8]'
+                  isActive ? 'text-[#087F5B]' : 'text-[#66736D] group-hover:text-[#17221D]'
                 }`} />
                 <span className="truncate">{item.label}</span>
               </div>
 
               {item.badge && (
-                <span className="text-[10px] px-1.5 py-0.2 rounded-md font-mono font-bold bg-[#EF4444]/20 text-[#EF4444] border border-[#EF4444]/30">
+                <span className="text-[10px] px-1.5 py-0.2 rounded-md font-mono font-bold bg-[#DC3545]/10 text-[#DC3545] border border-[#DC3545]/20">
                   {item.badge}
                 </span>
               )}
 
               {item.isHero && !isActive && (
-                <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B] animate-ping" />
               )}
             </button>
           );
@@ -96,20 +96,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom Switch / Status Card */}
-      <div className="p-3 border-t border-[#1E293B]">
-        <div className="bg-[#111827] border border-[#1E293B] rounded-xl p-2.5">
+      <div className="p-3 border-t border-[#DCE7E1]">
+        <div className="bg-[#F6F9F7] border border-[#DCE7E1] rounded-xl p-2.5">
           <div className="flex items-center justify-between text-[11px] mb-1">
-            <span className="text-[#64748B] font-bold">GIS Mode:</span>
-            <span className="text-[#34D399] font-mono font-bold">ONLINE</span>
+            <span className="text-[#66736D] font-bold">GIS Mode:</span>
+            <span className="text-[#087F5B] font-mono font-bold flex items-center space-x-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B] animate-pulse" />
+              <span>ONLINE</span>
+            </span>
           </div>
-          <div className="text-[10px] text-[#94A3B8] leading-tight truncate">
+          <div className="text-[10px] text-[#66736D] leading-tight truncate">
             SDMA Command Hub
           </div>
           <button
             onClick={onSwitchRole}
-            className="mt-2 w-full flex items-center justify-center space-x-1.5 py-1.5 bg-[#16202B] hover:bg-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] text-[11px] font-bold rounded-lg border border-[#1E293B] transition-colors"
+            className="mt-2 w-full flex items-center justify-center space-x-1.5 py-1.5 bg-white hover:bg-[#E7F6EF] text-[#07543F] text-[11px] font-bold rounded-lg border border-[#DCE7E1] hover:border-[#B8E5D2] transition-colors shadow-2xs"
           >
-            <LogOut className="w-3 h-3" />
+            <LogOut className="w-3 h-3 text-[#087F5B]" />
             <span>Switch Portal</span>
           </button>
         </div>

@@ -59,7 +59,7 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
       {
         id: 'initial-greeting',
         sender: 'assistant',
-        text: `Welcome to DisasterGuard AI Command Support for Maharashtra. I am actively grounded in GIS spatial telemetry for ${habitation.name} (${habitation.district} District) and Candidate Site: ${site.name}. How can I assist your relocation and resilience evaluation today?`,
+        text: `Welcome to सुरक्षित धरा AI (SURAKSHIT DHARA AI Command Support for Maharashtra). I am actively grounded in GIS spatial telemetry for ${habitation.name} (${habitation.district} District) and Candidate Site: ${site.name}. How can I assist your relocation and resilience evaluation today?`,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       }
     ]);
@@ -147,7 +147,7 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
       });
 
       const data = await response.json();
-      const reply = data.response || 'Information processed by DisasterGuard Spatial Engine.';
+      const reply = data.response || 'Information processed by सुरक्षित धरा (SURAKSHIT DHARA) Spatial Engine.';
 
       setMessages((prev) => [
         ...prev,
@@ -165,7 +165,7 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
         {
           id: `bot-err-${Date.now()}`,
           sender: 'assistant',
-          text: `[DisasterGuard Decision Engine]: Model analysis for ${habitation.name} (Risk ${habitation.riskScore}/100) indicates high priority for relocation to ${site.name} (${site.suitabilityScore} pts, ${site.estimatedCapacity} capacity).`,
+          text: `[सुरक्षित धरा / SURAKSHIT DHARA Decision Engine]: Model analysis for ${habitation.name} (Risk ${habitation.riskScore}/100) indicates high priority for relocation to ${site.name} (${site.suitabilityScore} pts, ${site.estimatedCapacity} capacity).`,
           actionTriggered: actionTriggered || undefined,
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
         }
@@ -178,21 +178,21 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[450px] bg-[#0B0F17] border-l border-[#1E293B] shadow-2xl flex flex-col justify-between animate-fadeIn text-[#F8FAFC]">
+    <div className="fixed inset-y-0 right-0 z-50 w-full sm:w-[450px] bg-white border-l border-[#DCE7E1] shadow-2xl flex flex-col justify-between animate-fadeIn text-[#17221D]">
       {/* Header */}
-      <div className="px-5 py-4 border-b border-[#1E293B] bg-[#0F1720] flex items-center justify-between">
+      <div className="px-5 py-4 border-b border-[#DCE7E1] bg-[#F6F9F7] flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10B981] to-[#047857] flex items-center justify-center text-slate-950 shadow-md">
+          <div className="w-8 h-8 rounded-xl bg-[#087F5B] flex items-center justify-center text-white shadow-sm">
             <Sparkles className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-black text-[#F8FAFC] flex items-center space-x-2">
+            <h3 className="text-sm font-black text-[#17221D] flex items-center space-x-2">
               <span>{t('chatbotTitle', currentLang)}</span>
-              <span className="text-[9px] bg-[#10B981]/20 text-[#34D399] px-2 py-0.5 rounded font-mono font-bold">
+              <span className="text-[9px] bg-[#E7F6EF] text-[#087F5B] border border-[#B8E5D2] px-2 py-0.5 rounded font-mono font-bold">
                 GIS Grounded
               </span>
             </h3>
-            <p className="text-[10px] text-[#94A3B8]">
+            <p className="text-[10px] text-[#66736D]">
               {t('chatbotPromptHint', currentLang)}
             </p>
           </div>
@@ -200,24 +200,24 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
 
         <button
           onClick={onClose}
-          className="p-1.5 rounded-xl hover:bg-[#16202B] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
+          className="p-1.5 rounded-xl hover:bg-[#E7F6EF] text-[#66736D] hover:text-[#087F5B] transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
       </div>
 
       {/* Current Context Strip */}
-      <div className="px-5 py-2 bg-[#111827] border-b border-[#1E293B] text-[10px] text-[#94A3B8] flex items-center justify-between">
+      <div className="px-5 py-2 bg-[#E7F6EF] border-b border-[#B8E5D2] text-[10px] text-[#07543F] flex items-center justify-between">
         <div className="truncate">
-          Current Context: <strong className="text-[#EF4444]">{habitation.name}</strong> → <strong className="text-[#10B981]">{site.name}</strong>
+          Current Context: <strong className="text-[#DC3545]">{habitation.name}</strong> → <strong className="text-[#087F5B]">{site.name}</strong>
         </div>
-        <span className="font-mono text-[#34D399] shrink-0 uppercase">
+        <span className="font-mono text-[#087F5B] shrink-0 uppercase font-bold">
           Stage: {stage}
         </span>
       </div>
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3.5 scrollbar-thin">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3.5 scrollbar-thin bg-white">
         {messages.map((m) => (
           <div
             key={m.id}
@@ -228,8 +228,8 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
             <div
               className={`w-7 h-7 rounded-xl flex items-center justify-center shrink-0 ${
                 m.sender === 'user'
-                  ? 'bg-[#16202B] text-[#F8FAFC] border border-[#1E293B]'
-                  : 'bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981]'
+                  ? 'bg-[#E7F6EF] text-[#087F5B] border border-[#B8E5D2]'
+                  : 'bg-[#087F5B] text-white shadow-xs'
               }`}
             >
               {m.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Bot className="w-3.5 h-3.5" />}
@@ -238,21 +238,21 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
             <div
               className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
                 m.sender === 'user'
-                  ? 'bg-[#10B981] text-slate-950 font-medium rounded-tr-none'
-                  : 'bg-[#111827] border border-[#1E293B] text-[#F8FAFC] rounded-tl-none shadow-sm'
+                  ? 'bg-[#087F5B] text-white font-medium rounded-tr-none'
+                  : 'bg-[#F6F9F7] border border-[#DCE7E1] text-[#17221D] rounded-tl-none shadow-xs'
               }`}
             >
               <div>{m.text}</div>
 
               {/* Action Trigger Badge */}
               {m.actionTriggered && (
-                <div className="mt-2 pt-2 border-t border-[#1E293B] flex items-center space-x-1.5 text-[10px] text-[#34D399] font-bold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#10B981]" />
+                <div className="mt-2 pt-2 border-t border-[#DCE7E1] flex items-center space-x-1.5 text-[10px] text-[#087F5B] font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#087F5B]" />
                   <span>Map Action: {m.actionTriggered}</span>
                 </div>
               )}
 
-              <span className="block text-[8px] opacity-60 text-right mt-1 font-mono">
+              <span className={`block text-[8px] mt-1 font-mono text-right ${m.sender === 'user' ? 'text-emerald-100' : 'text-[#66736D]'}`}>
                 {m.timestamp}
               </span>
             </div>
@@ -260,12 +260,12 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
         ))}
 
         {isLoading && (
-          <div className="flex items-center space-x-2.5 text-xs text-[#94A3B8]">
-            <div className="w-7 h-7 rounded-xl bg-[#10B981]/20 border border-[#10B981]/40 flex items-center justify-center text-[#10B981]">
+          <div className="flex items-center space-x-2.5 text-xs text-[#66736D]">
+            <div className="w-7 h-7 rounded-xl bg-[#087F5B] flex items-center justify-center text-white">
               <Bot className="w-3.5 h-3.5" />
             </div>
-            <div className="bg-[#111827] border border-[#1E293B] px-3.5 py-2 rounded-2xl flex items-center space-x-2">
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-[#10B981]" />
+            <div className="bg-[#F6F9F7] border border-[#DCE7E1] px-3.5 py-2 rounded-2xl flex items-center space-x-2 text-[#17221D]">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-[#087F5B]" />
               <span>Analyzing GIS telemetry and model outputs...</span>
             </div>
           </div>
@@ -275,33 +275,33 @@ export const DisasterGuardChatbot: React.FC<DisasterGuardChatbotProps> = ({
       </div>
 
       {/* Suggested Quick Action Chips */}
-      <div className="px-4 py-2 bg-[#0F1720] border-t border-[#1E293B] flex gap-1.5 overflow-x-auto scrollbar-none">
+      <div className="px-4 py-2 bg-[#F6F9F7] border-t border-[#DCE7E1] flex gap-1.5 overflow-x-auto scrollbar-none">
         {quickActions.map((qa, idx) => (
           <button
             key={idx}
             onClick={() => handleSendMessage(qa.query)}
-            className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#16202B] hover:bg-[#1E293B] border border-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] text-[10px] font-semibold transition-colors shrink-0 flex items-center space-x-1"
+            className="whitespace-nowrap px-2.5 py-1 rounded-lg bg-white hover:bg-[#E7F6EF] border border-[#DCE7E1] hover:border-[#B8E5D2] text-[#17221D] text-[10px] font-semibold transition-colors shrink-0 flex items-center space-x-1 shadow-2xs"
           >
             <span>{qa.label}</span>
-            <ArrowRight className="w-2.5 h-2.5 text-[#10B981]" />
+            <ArrowRight className="w-2.5 h-2.5 text-[#087F5B]" />
           </button>
         ))}
       </div>
 
       {/* Input Form */}
-      <div className="p-3.5 bg-[#0F1720] border-t border-[#1E293B] flex items-center space-x-2">
+      <div className="p-3.5 bg-[#F6F9F7] border-t border-[#DCE7E1] flex items-center space-x-2">
         <input
           type="text"
           placeholder={t('askChatbotPlaceholder', currentLang)}
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-          className="flex-1 bg-[#111827] border border-[#1E293B] rounded-xl px-3.5 py-2 text-xs text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#10B981] transition-colors"
+          className="flex-1 bg-white border border-[#DCE7E1] focus:border-[#087F5B] rounded-xl px-3.5 py-2 text-xs text-[#17221D] placeholder-[#66736D] focus:outline-none transition-colors"
         />
         <button
           onClick={() => handleSendMessage()}
           disabled={isLoading || !inputText.trim()}
-          className="p-2 bg-gradient-to-r from-[#10B981] to-[#047857] hover:from-[#34D399] hover:to-[#10B981] disabled:opacity-40 text-slate-950 font-bold rounded-xl transition-all"
+          className="p-2.5 bg-[#087F5B] hover:bg-[#07543F] disabled:opacity-40 text-white font-bold rounded-xl transition-all shadow-xs cursor-pointer"
         >
           <Send className="w-4 h-4" />
         </button>
